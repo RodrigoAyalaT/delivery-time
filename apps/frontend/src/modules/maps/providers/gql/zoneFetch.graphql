@@ -1,0 +1,12 @@
+query zoneFetch{
+    zoneFetch{
+        id
+        name
+        color
+        location{
+            type
+            coordinates
+        }
+    }
+}
+

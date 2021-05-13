@@ -1,0 +1,15 @@
+query productPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orderBy: String, $orderDesc: Boolean){
+    productPaginate( pageNumber: $pageNumber, itemsPerPage: $itemsPerPage, search: $search, orderBy: $orderBy, orderDesc: $orderDesc){
+        totalItems
+        page
+        items{
+          id
+          name
+        description
+        image
+        price
+        stock
+        active
+        }
+    }
+}

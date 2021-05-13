@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "front": "vue-cli-service serve",
     "build": "vue-cli-service build --dest dist --mode production",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
@@ -16,6 +16,7 @@
     "@dracul/customize-frontend": "^1.0.149",
     "@dracul/notification-frontend": "^1.0.147",
     "@dracul/user-frontend": "^1.0.149",
+    "@dracul/media-frontend": "^1.0.149",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
@@ -36,7 +37,8 @@
     "vuetify": "^2.3.4",
     "vuex": "^3.4.0",
     "vuex-persistedstate": "^3.0.1",
-    "dayjs": "^1.10.4"
+    "dayjs": "^1.10.4",
+    "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

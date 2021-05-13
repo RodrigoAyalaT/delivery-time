@@ -1,0 +1,27 @@
+type AddressesSplit {
+    long_name: String
+    short_name: String
+    types: [String]
+}
+
+type Coords {
+    lat: Float
+    lng: Float
+}
+
+type Geometry {
+    location: Coords
+    location_type: String
+}
+
+type AddressResponse{
+    address_components: [AddressesSplit]
+    formatted_address: String
+    geometry: Geometry
+    place_id: String
+    types: [String]
+}
+
+type Query{
+    googleGeocode(address:String):[AddressResponse]
+}

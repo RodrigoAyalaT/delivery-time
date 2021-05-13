@@ -1,0 +1,12 @@
+mutation orderUpdate($id: ID!, $name:String, $phone:String!, $email:String, $address:String, $state:stateEnum, $number:Int){
+    orderUpdate(id: $id, input: {name: $name, phone: $phone, email: $email, address: $address, state: $state, number: $number }){
+        id
+        name
+        phone
+        email
+        address
+        state
+        number
+    }
+}
+

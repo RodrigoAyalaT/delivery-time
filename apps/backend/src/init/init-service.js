@@ -7,6 +7,9 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopolo
 mongoose.set('useCreateIndex', true)
 
 import {InitService} from '@dracul/user-backend'
+import {
+    InitMediaPermissions
+} from '@dracul/media-backend'
 import {initPermissionsCustomization} from '@dracul/customize-backend'
 import {initCustomization} from './custom/initCustomization'
 import operatorRole from './custom/initOperatorRole'
@@ -31,6 +34,9 @@ const initService = async () => {
 
     //Dracul Customization module Permissions
     await initPermissionsCustomization()
+
+    //Dracul Media Permissions
+    await InitMediaPermissions()
 
     //Custom Module permissions
     await InitService.initPermissions(modulesPermissions)

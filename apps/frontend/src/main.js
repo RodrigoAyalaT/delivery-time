@@ -7,12 +7,16 @@ import router from "./router";
 
 import apolloClient from './apollo'
 import {setGraphQlClientToProviders} from '@dracul/user-frontend'
+import {UploadProvider, FileProvider} from '@dracul/media-frontend'
+
 import {customizationProvider} from '@dracul/customize-frontend'
 import {notificationProvider} from '@dracul/notification-frontend'
 setGraphQlClientToProviders(apolloClient)
 customizationProvider.setGqlc(apolloClient)
 notificationProvider.setGqlc(apolloClient)
 notificationProvider.setGqlcWs(apolloClient)
+UploadProvider.setGqlc(apolloClient)
+FileProvider.setGqlc(apolloClient)
 
 Vue.config.productionTip = false
 

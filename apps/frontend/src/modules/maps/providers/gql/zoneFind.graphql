@@ -1,0 +1,11 @@
+query zoneFind($id:ID!){
+    zoneFind(id:$id){
+        id
+        name
+        color
+        location{
+            type
+            coordinates
+        }
+    }
+}

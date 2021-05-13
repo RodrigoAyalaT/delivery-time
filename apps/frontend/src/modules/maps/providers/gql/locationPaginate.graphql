@@ -1,0 +1,18 @@
+query locationPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orderBy: String, $orderDesc: Boolean){
+    locationPaginate( pageNumber: $pageNumber, itemsPerPage: $itemsPerPage, search: $search, orderBy: $orderBy, orderDesc: $orderDesc){
+        totalItems
+        page
+        items{
+          id
+          address
+        floor
+        apartment
+        latitude
+        longitude
+        country
+        province
+        locality
+        postalCode
+        }
+    }
+}

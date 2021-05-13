@@ -1,0 +1,6 @@
+
+export const PRODUCT_SHOW = "PRODUCT_SHOW"
+export const PRODUCT_UPDATE = "PRODUCT_UPDATE"
+export const PRODUCT_CREATE = "PRODUCT_CREATE"
+export const PRODUCT_DELETE = "PRODUCT_DELETE"
+    

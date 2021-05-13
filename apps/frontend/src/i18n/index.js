@@ -3,6 +3,8 @@ import VueI18n from 'vue-i18n'
 import merge from 'deepmerge'
 
 import baseMessages from '../modules/base/i18n/messages'
+import deliveryMessages from '../modules/delivery/i18n/messages'
+import mapsMessages from '../modules/maps/i18n/messages'
 import menuMessages from '../menu-config/menu-i18n'
 import {i18nMessages as i18nMessagesCommon} from '@dracul/common-frontend'
 import {i18nMessages as i18nMessagesUser} from '@dracul/user-frontend'
@@ -11,6 +13,8 @@ import {i18nMessages as i18nMessagesNotification} from '@dracul/notification-fro
 
 const messages = merge.all([
     baseMessages,
+    deliveryMessages,
+    mapsMessages,
     menuMessages,
     i18nMessagesCommon,
     i18nMessagesUser,

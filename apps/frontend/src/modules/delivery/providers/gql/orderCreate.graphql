@@ -1,0 +1,12 @@
+mutation orderCreate($name:String, $phone:String!, $email:String, $address:String, $state:stateEnum, $number:Int){
+    orderCreate(input: {name: $name, phone: $phone, email: $email, address: $address, state: $state, number: $number }){
+        id
+        name
+        phone
+        email
+        address
+        state
+        number
+    }
+}
+

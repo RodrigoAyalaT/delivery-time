@@ -1,0 +1,7 @@
+mutation zoneDelete($id: ID!){
+    zoneDelete(id: $id){
+        id
+        success
+    }
+}
+

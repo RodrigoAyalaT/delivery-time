@@ -1,0 +1,7 @@
+mutation productDelete($id: ID!){
+    productDelete(id: $id){
+        id
+        success
+    }
+}
+

@@ -1,0 +1,15 @@
+query locationFetch{
+    locationFetch{
+        id
+        address
+        floor
+        apartment
+        latitude
+        longitude
+        country
+        province
+        locality
+        postalCode
+    }
+}
+

@@ -1,0 +1,12 @@
+query orderFetch{
+    orderFetch{
+        id
+        name
+        phone
+        email
+        address
+        state
+        number
+    }
+}
+

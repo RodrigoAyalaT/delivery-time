@@ -1,0 +1,15 @@
+mutation locationCreate($address:String!, $floor:String, $apartment:String, $latitude:Float, $longitude:Float, $country:String, $province:String, $locality:String, $postalCode:String){
+    locationCreate(input: {address: $address, floor: $floor, apartment: $apartment, latitude: $latitude, longitude: $longitude, country: $country, province: $province, locality: $locality, postalCode: $postalCode }){
+        id
+        address
+        floor
+        apartment
+        latitude
+        longitude
+        country
+        province
+        locality
+        postalCode
+    }
+}
+

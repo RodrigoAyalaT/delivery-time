@@ -1,0 +1,19 @@
+query googleGeocode($address:String){
+    googleGeocode(address: $address){
+        address_components {
+            long_name
+            short_name
+            types
+        }
+        formatted_address
+        geometry {
+            location {
+                lat
+                lng
+            }
+            location_type
+        }
+        place_id
+        types
+    }
+}

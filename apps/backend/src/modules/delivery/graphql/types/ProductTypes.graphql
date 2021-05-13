@@ -1,0 +1,47 @@
+
+        
+        
+type Product{
+id: ID!
+ name: String!
+ description: String
+ image: String
+ price: Float!
+ stock: Int
+ active: Boolean
+}
+
+type ProductPaginated{
+    totalItems: Int!
+    page: Int!
+    items: [Product!]
+}
+
+type Query {
+    productFind(id:ID!): Product
+    productFetch: [Product]
+    productPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): ProductPaginated  
+    
+    
+}
+
+input ProductInput{
+    name: String!
+ description: String
+ image: String
+ price: Float!
+ stock: Int
+ active: Boolean
+}
+
+type ProductDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    productCreate(input: ProductInput): Product
+    productUpdate(id: ID!, input: ProductInput): Product
+    productDelete(id: ID!): ProductDelete!
+}

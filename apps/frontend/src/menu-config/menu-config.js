@@ -6,7 +6,43 @@ export default [
         link: { name: "home" },
         panel: false
     },
-
+    {
+        icon: 'person',
+        text: 'Gestion',
+        children: [
+            {
+                icon: 'production_quantity_limits',
+                text: 'menu.products',
+                link: {name: "ProductManagementPage"},
+                panel: false,
+                permission: 'PRODUCT_SHOW'
+            },
+            {
+                icon: 'tag',
+                text: 'menu.orders',
+                link: {name: "OrderManagementPage"},
+                permission: 'ORDER_SHOW'
+            },
+        ]
+    },
+    {
+        icon: 'maps',
+        text: 'Maps',
+        children: [
+            {
+                icon: 'satellite',
+                text: 'menu.zone',
+                link: {name: "ZoneManagementPage"},
+                permission: 'ZONE_SHOW'
+            },
+            {
+                icon: 'location_on',
+                text: 'menu.location',
+                link: {name: "LocationManagementPage"},
+                permission: 'LOCATION_SHOW'
+            },
+        ]
+    },
     {
         icon: 'person',
         text: 'menu.administration',

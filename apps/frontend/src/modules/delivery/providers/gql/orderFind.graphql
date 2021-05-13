@@ -1,0 +1,11 @@
+query orderFind($id:ID!){
+    orderFind(id:$id){
+        id
+        name
+        phone
+        email
+        address
+        state
+        number
+    }
+}

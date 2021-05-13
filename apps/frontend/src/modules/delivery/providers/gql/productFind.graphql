@@ -1,0 +1,11 @@
+query productFind($id:ID!){
+    productFind(id:$id){
+        id
+        name
+        description
+        image
+        price
+        stock
+        active
+    }
+}

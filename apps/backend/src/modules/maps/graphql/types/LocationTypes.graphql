@@ -1,0 +1,53 @@
+
+        
+        
+type Location{
+id: ID!
+ address: String!
+ floor: String
+ apartment: String
+ latitude: Float
+ longitude: Float
+ country: String
+ province: String
+ locality: String
+ postalCode: String
+}
+
+type LocationPaginated{
+    totalItems: Int!
+    page: Int!
+    items: [Location!]
+}
+
+type Query {
+    locationFind(id:ID!): Location
+    locationFetch: [Location]
+    locationPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): LocationPaginated  
+    
+    
+}
+
+input LocationInput{
+    address: String!
+ floor: String
+ apartment: String
+ latitude: Float
+ longitude: Float
+ country: String
+ province: String
+ locality: String
+ postalCode: String
+}
+
+type LocationDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    locationCreate(input: LocationInput): Location
+    locationUpdate(id: ID!, input: LocationInput): Location
+    locationDelete(id: ID!): LocationDelete!
+}

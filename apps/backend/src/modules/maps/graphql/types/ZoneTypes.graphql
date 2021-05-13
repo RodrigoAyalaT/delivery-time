@@ -1,0 +1,37 @@
+type Zone{
+    id: ID!
+    name: String!
+    color: String
+    location: Polygon
+}
+type ZonePaginated{
+    totalItems: Int!
+    page: Int!
+    items: [Zone!]
+}
+
+type Query {
+    zoneFind(id:ID!): Zone
+    zoneFetch: [Zone]
+    zonePaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): ZonePaginated
+
+
+}
+
+input ZoneInput{
+    name: String!
+    color: String
+    location: PolygonInput!
+}
+
+type ZoneDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    zoneCreate(input: ZoneInput): Zone
+    zoneUpdate(id: ID!, input: ZoneInput): Zone
+    zoneDelete(id: ID!): ZoneDelete!
+}

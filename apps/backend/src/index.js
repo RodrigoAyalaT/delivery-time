@@ -64,7 +64,7 @@ apolloServer.applyMiddleware({app})
 app.use('/media/avatar', express.static('media/avatar'));
 app.use('/media/logo', express.static('media/logo'));
 app.use('/media/export', express.static('media/export'));
-
+app.use('/media/files', express.static('media/files'));
 
 //Endpoint for monitoring
 app.get('/status', function (req, res) {

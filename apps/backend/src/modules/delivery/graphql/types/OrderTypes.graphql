@@ -1,0 +1,52 @@
+
+enum stateEnum{
+        NUEVO,
+PREPARADO,
+EN_CAMINO,
+ENTREGADO
+    }        
+        
+type Order{
+id: ID!
+ name: String
+ phone: String!
+ email: String
+ address: String
+ state: stateEnum
+ number: Int
+}
+
+type OrderPaginated{
+    totalItems: Int!
+    page: Int!
+    items: [Order!]
+}
+
+type Query {
+    orderFind(id:ID!): Order
+    orderFetch: [Order]
+    orderPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): OrderPaginated  
+    
+    
+}
+
+input OrderInput{
+    name: String
+ phone: String!
+ email: String
+ address: String
+ state: stateEnum
+ number: Int
+}
+
+type OrderDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    orderCreate(input: OrderInput): Order
+    orderUpdate(id: ID!, input: OrderInput): Order
+    orderDelete(id: ID!): OrderDelete!
+}

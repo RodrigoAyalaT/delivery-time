@@ -1,0 +1,9 @@
+type Polygon{
+    type: String
+    coordinates: [[[Float]]]
+}
+
+input PolygonInput{
+    type: String!
+    coordinates: [[[Float]]]!
+}

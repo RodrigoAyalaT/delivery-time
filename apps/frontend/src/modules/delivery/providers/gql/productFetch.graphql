@@ -1,0 +1,12 @@
+query productFetch{
+    productFetch{
+        id
+        name
+        description
+        image
+        price
+        stock
+        active
+    }
+}
+

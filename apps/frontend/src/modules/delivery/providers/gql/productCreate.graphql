@@ -1,0 +1,12 @@
+mutation productCreate($name:String!, $description:String, $image:String, $price:Float!, $stock:Int, $active:Boolean){
+    productCreate(input: {name: $name, description: $description, image: $image, price: $price, stock: $stock, active: $active }){
+        id
+        name
+        description
+        image
+        price
+        stock
+        active
+    }
+}
+
