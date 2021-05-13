@@ -43,7 +43,8 @@
                     image: this.item.image,
                     price: this.item.price,
                     stock: this.item.stock,
-                    active: this.item.active
+                    active: this.item.active,
+                    ingredients: this.item.ingredients.map(i=> i.id?i.id:i)
                 }
             }
         },

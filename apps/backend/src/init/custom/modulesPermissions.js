@@ -1,7 +1,7 @@
 /* ADD YOUR MODULE PERMISSIONS HERE */
 
 import {
- BASE_SHOW
+    BASE_SHOW
 } from '../../modules/base/permissions'
 
 import {
@@ -10,6 +10,13 @@ import {
     PRODUCT_SHOW,
     PRODUCT_UPDATE
 } from '../../modules/delivery/permissions/Product'
+
+import {
+    INGREDIENT_CREATE,
+    INGREDIENT_DELETE,
+    INGREDIENT_SHOW,
+    INGREDIENT_UPDATE
+} from '../../modules/delivery/permissions/Ingredient'
 
 import {
     ORDER_CREATE,
@@ -38,6 +45,12 @@ export default [
     PRODUCT_DELETE,
     PRODUCT_SHOW,
     PRODUCT_UPDATE,
+
+    INGREDIENT_CREATE,
+    INGREDIENT_DELETE,
+    INGREDIENT_SHOW,
+    INGREDIENT_UPDATE,
+
     ORDER_CREATE,
     ORDER_DELETE,
     ORDER_SHOW,

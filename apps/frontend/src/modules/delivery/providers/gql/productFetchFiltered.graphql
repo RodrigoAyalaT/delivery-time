@@ -1,0 +1,15 @@
+query productFetchFiltered($filters:ProductFilterInput){
+    productFetchFiltered(filters:$filters){
+        id
+        name
+        description
+        image
+        price
+        stock
+        active
+        ingredients{
+            id
+            name
+        }
+    }
+}

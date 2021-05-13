@@ -12,7 +12,14 @@ class ProductProvider {
     fetchProducts() {
         return graphqlClient.query({query: require('./gql/productFetch.graphql')})
     }
-    
+
+    fetchProductsFiltered(filters) {
+        return graphqlClient.query({
+            query: require('./gql/productFetchFiltered.graphql'),
+            variables: {filters}
+        })
+    }
+
     paginateProducts(pageNumber, itemsPerPage, search = null,  orderBy = null, orderDesc = false) {
         return graphqlClient.query({
             query: require('./gql/productPaginate.graphql'),
@@ -20,8 +27,8 @@ class ProductProvider {
             fetchPolicy: "network-only"
         })
     }
-    
-    
+
+
 
     createProduct(form) {
         return graphqlClient.mutate({
@@ -29,14 +36,14 @@ class ProductProvider {
             variables: form
         })
     }
-    
+
     updateProduct(form) {
         return graphqlClient.mutate({
             mutation: require('./gql/productUpdate.graphql'),
             variables: form
         })
     }
-    
+
      deleteProduct(id) {
         return graphqlClient.mutate({
             mutation: require('./gql/productDelete.graphql'),

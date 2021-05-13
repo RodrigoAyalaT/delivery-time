@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify';
 import store from './store'
 import i18n from './i18n'
 import router from "./router";
+import 'animate.css/animate.min.css'
 
 import apolloClient from './apollo'
 import {setGraphQlClientToProviders} from '@dracul/user-frontend'

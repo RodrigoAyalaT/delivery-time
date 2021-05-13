@@ -10,6 +10,10 @@ query productPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $or
         price
         stock
         active
+            ingredients{
+                id
+                name
+            }
         }
     }
 }

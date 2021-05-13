@@ -1,0 +1,7 @@
+query ingredientFetch{
+    ingredientFetch{
+        id
+        name
+    }
+}
+

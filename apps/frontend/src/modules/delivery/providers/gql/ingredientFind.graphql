@@ -1,0 +1,6 @@
+query ingredientFind($id:ID!){
+    ingredientFind(id:$id){
+        id
+        name
+    }
+}

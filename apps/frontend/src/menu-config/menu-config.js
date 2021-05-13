@@ -18,6 +18,13 @@ export default [
                 permission: 'PRODUCT_SHOW'
             },
             {
+                icon: 'colorize',
+                text: 'menu.ingredients',
+                link: {name: "IngredientManagementPage"},
+                panel: false,
+                permission: 'INGREDIENT_SHOW'
+            },
+            {
                 icon: 'tag',
                 text: 'menu.orders',
                 link: {name: "OrderManagementPage"},

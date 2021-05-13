@@ -1,0 +1,7 @@
+mutation ingredientCreate($name:String!){
+    ingredientCreate(input: {name: $name }){
+        id
+        name
+    }
+}
+

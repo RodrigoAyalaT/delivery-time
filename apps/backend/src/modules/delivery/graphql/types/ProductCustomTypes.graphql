@@ -1,0 +1,8 @@
+input ProductFilterInput{
+    name: String
+    ingredients: [ID]
+}
+
+type Query {
+    productFetchFiltered(filters:ProductFilterInput): [Product]
+}

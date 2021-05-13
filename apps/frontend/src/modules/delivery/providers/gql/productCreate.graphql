@@ -1,5 +1,5 @@
-mutation productCreate($name:String!, $description:String, $image:String, $price:Float!, $stock:Int, $active:Boolean){
-    productCreate(input: {name: $name, description: $description, image: $image, price: $price, stock: $stock, active: $active }){
+mutation productCreate($name:String!, $description:String, $image:String, $price:Float!, $stock:Int, $active:Boolean, $ingredients:[ID]){
+    productCreate(input: {name: $name, description: $description, image: $image, price: $price, stock: $stock, active: $active, ingredients: $ingredients }){
         id
         name
         description
@@ -7,6 +7,10 @@ mutation productCreate($name:String!, $description:String, $image:String, $price
         price
         stock
         active
+        ingredients{
+            id
+            name
+        }
     }
 }
 

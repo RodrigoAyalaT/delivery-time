@@ -14,7 +14,8 @@ const ProductSchema = new Schema({
  image: {type: String, required: false, unique: false},
  price: {type: Number, required: true, unique: false},
  stock: {type: Number, required: false, unique: false},
- active: {type: Boolean, required: false}
+ active: {type: Boolean, required: false},
+ ingredients: [{type: mongoose.Schema.Types.ObjectId, ref: "Ingredient",required: false, unique: false}]
 
 
 }, { timestamps: true });

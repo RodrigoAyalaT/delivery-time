@@ -9,6 +9,7 @@ id: ID!
  price: Float!
  stock: Int
  active: Boolean
+ ingredients: [Ingredient]
 }
 
 type ProductPaginated{
@@ -32,6 +33,7 @@ input ProductInput{
  price: Float!
  stock: Int
  active: Boolean
+ ingredients: [ID]
 }
 
 type ProductDelete{

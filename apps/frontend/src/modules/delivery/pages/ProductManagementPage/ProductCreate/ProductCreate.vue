@@ -42,7 +42,8 @@
                     image: '',
                     price: null,
                     stock: null,
-                    active: false
+                    active: false,
+                    ingredients: []
                 }
             }
         },

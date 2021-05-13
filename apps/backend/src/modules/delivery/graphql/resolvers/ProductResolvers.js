@@ -19,8 +19,8 @@ export default {
             return findProduct(id)
         },
         productFetch: (_, {}, {user,rbac}) => {
-           // if (!user) throw new AuthenticationError("Unauthenticated")
-          //  if(!rbac.isAllowed(user.id, PRODUCT_SHOW)) throw new ForbiddenError("Not Authorized")
+            if (!user) throw new AuthenticationError("Unauthenticated")
+            if(!rbac.isAllowed(user.id, PRODUCT_SHOW)) throw new ForbiddenError("Not Authorized")
             return fetchProducts()
         },
         productPaginate: (_, {pageNumber, itemsPerPage, search, orderBy, orderDesc}, {user,rbac}) => {
@@ -28,7 +28,7 @@ export default {
             if(!rbac.isAllowed(user.id, PRODUCT_SHOW)) throw new ForbiddenError("Not Authorized")
             return paginateProducts(pageNumber, itemsPerPage, search, orderBy, orderDesc)
         },
-
+        
     },
     Mutation: {
         productCreate: (_, {input}, {user,rbac}) => {

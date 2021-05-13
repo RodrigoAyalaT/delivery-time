@@ -1,0 +1,37 @@
+
+        
+        
+type Ingredient{
+id: ID!
+ name: String!
+}
+
+type IngredientPaginated{
+    totalItems: Int!
+    page: Int!
+    items: [Ingredient!]
+}
+
+type Query {
+    ingredientFind(id:ID!): Ingredient
+    ingredientFetch: [Ingredient]
+    ingredientPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): IngredientPaginated  
+    
+    
+}
+
+input IngredientInput{
+    name: String!
+}
+
+type IngredientDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    ingredientCreate(input: IngredientInput): Ingredient
+    ingredientUpdate(id: ID!, input: IngredientInput): Ingredient
+    ingredientDelete(id: ID!): IngredientDelete!
+}

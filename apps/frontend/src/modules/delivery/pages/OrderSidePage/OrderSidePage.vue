@@ -1,17 +1,12 @@
 <template>
-  <v-container fill-height>
-    <v-btn :style="{'z-index':5}"
-           color="primary" fixed bottom right
-           @click="showOrder=!showOrder"
-           class="mt-6"
-           fab large
-    >
-      <v-icon>shopping_cart</v-icon>
-      {{ getTotalItems }}
-    </v-btn>
+  <v-container>
+    <cart-button :total="getTotalItems"   @click="showOrder=!showOrder"></cart-button>
     <v-row>
 
       <v-col cols="12" sm="8" md="9">
+
+        <product-filters v-model="filters" @input="fetchProducts"></product-filters>
+
         <v-row>
 
 
@@ -118,13 +113,20 @@
 
 <script>
 import ProductProvider from "@/modules/delivery/providers/ProductProvider";
+import ProductFilters from "@/modules/delivery/components/ProductFilters/ProductFilters";
+import CartButton from "@/modules/delivery/components/CartButton/CartButton";
 
 export default {
   name: "OrderSidePage",
+  components: {CartButton, ProductFilters},
   data() {
     return {
       showOrder: false,
       products: [],
+      filters: {
+        name: null,
+        ingredients: []
+      },
       order: {
         name: null,
         email: null,
@@ -172,8 +174,8 @@ export default {
       }
     },
     fetchProducts() {
-      ProductProvider.fetchProducts().then(r => {
-        this.products = r.data.productFetch
+      ProductProvider.fetchProductsFiltered(this.filters).then(r => {
+        this.products = r.data.productFetchFiltered
       })
     }
   }

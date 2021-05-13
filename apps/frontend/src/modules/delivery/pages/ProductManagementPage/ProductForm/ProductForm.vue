@@ -95,6 +95,11 @@
         ></v-checkbox>
       </v-col>
 
+
+      <v-col cols="12" sm="6">
+        <ingredient-combobox v-model="form.ingredients" :input-errors="inputErrors" />
+      </v-col>
+
     </v-row>
   </v-form>
 </template>
@@ -103,11 +108,12 @@
 
 import {InputErrorsByProps, RequiredRule} from '@dracul/common-frontend'
 import {MediaField} from "@dracul/media-frontend"
+import IngredientCombobox from "@/modules/delivery/components/IngredientCombobox/IngredientCombobox";
 
 export default {
   name: "ProductForm",
   mixins: [InputErrorsByProps, RequiredRule],
-  components: {MediaField},
+  components: {IngredientCombobox, MediaField},
   props: {
     value: {
       type: Object,

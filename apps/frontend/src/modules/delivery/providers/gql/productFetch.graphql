@@ -7,6 +7,10 @@ query productFetch{
         price
         stock
         active
+        ingredients{
+            id
+            name
+        }
     }
 }
 

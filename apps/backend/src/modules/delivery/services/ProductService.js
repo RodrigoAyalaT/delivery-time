@@ -3,7 +3,7 @@ import {UserInputError} from 'apollo-server-express'
 
 export const findProduct = async function (id) {
     return new Promise((resolve, reject) => {
-        Product.findOne({_id: id}).exec((err, res) => (
+        Product.findOne({_id: id}).populate('ingredients').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -11,7 +11,7 @@ export const findProduct = async function (id) {
 
 export const fetchProducts = async function () {
     return new Promise((resolve, reject) => {
-        Product.find({}).exec((err, res) => (
+        Product.find({}).populate('ingredients').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -40,7 +40,7 @@ export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, sea
     }
 
     let query = qs(search)
-    let populate = null
+    let populate = ['ingredients']
     let sort = getSort(orderBy, orderDesc)
     let params = {page: pageNumber, limit: itemsPerPage, populate, sort}
 
@@ -56,10 +56,10 @@ export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, sea
 
 
 
-export const createProduct = async function (authUser, {name, description, image, price, stock, active}) {
+export const createProduct = async function (authUser, {name, description, image, price, stock, active, ingredients}) {
     
     const doc = new Product({
-        name, description, image, price, stock, active
+        name, description, image, price, stock, active, ingredients
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
@@ -72,15 +72,15 @@ export const createProduct = async function (authUser, {name, description, image
                 rejects(error)
             }    
         
-            resolve(doc)
+            doc.populate('ingredients').execPopulate(() => resolve(doc))
         }))
     })
 }
 
-export const updateProduct = async function (authUser, id, {name, description, image, price, stock, active}) {
+export const updateProduct = async function (authUser, id, {name, description, image, price, stock, active, ingredients}) {
     return new Promise((resolve, rejects) => {
         Product.findOneAndUpdate({_id: id},
-        {name, description, image, price, stock, active}, 
+        {name, description, image, price, stock, active, ingredients}, 
         {new: true, runValidators: true, context: 'query'},
         (error,doc) => {
             
@@ -91,7 +91,7 @@ export const updateProduct = async function (authUser, id, {name, description, i
                 rejects(error)
             } 
         
-            resolve(doc)
+            doc.populate('ingredients').execPopulate(() => resolve(doc))
         })
     })
 }

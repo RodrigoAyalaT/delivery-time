@@ -1,0 +1,7 @@
+mutation ingredientUpdate($id: ID!, $name:String!){
+    ingredientUpdate(id: $id, input: {name: $name }){
+        id
+        name
+    }
+}
+

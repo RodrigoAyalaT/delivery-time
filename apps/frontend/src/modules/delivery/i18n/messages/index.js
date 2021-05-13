@@ -15,7 +15,8 @@ const messages = {
             image: 'Image',
             price: 'Price',
             stock: 'Stock',
-            active: 'Active'
+            active: 'Active',
+            ingredients: 'Ingredients'
           },
           
           },
@@ -33,6 +34,18 @@ order: {
             address: 'Address',
             state: 'State',
             number: 'Number'
+          },
+          
+          },
+ingredient: { 
+             title: 'Ingredient management',
+            subtitle: 'View, search, create, edit and delete Ingredient',
+            creating: 'Creating Ingredient',
+            editing: 'Editing Ingredient',
+            deleting: 'Deleting Ingredient',
+            showing: 'Showing Ingredient',
+          labels: {
+            name: 'Name'
           },
           
           }
@@ -53,7 +66,8 @@ order: {
             image: 'Imagen',
             price: 'Precio',
             stock: 'Existencias',
-            active: 'Activo'
+            active: 'Activo',
+            ingredients: 'Ingredientes'
           },
           
           },
@@ -71,6 +85,18 @@ order: {
             address: 'Dirección',
             state: 'Estado',
             number: 'Numero'
+          },
+          
+          },
+ingredient: { 
+             title: 'Administración de Ingredient',
+            subtitle: 'Ver, buscar, crear, editar, y borrar Ingredient',
+            creating: 'Creando Ingredient',
+            editing: 'Modificando Ingredient',
+            deleting: 'Eliminando Ingredient',
+            showing: 'Detalles de Ingredient',
+          labels: {
+            name: 'Nombre'
           },
           
           }
@@ -91,7 +117,8 @@ order: {
             image: 'Imagen',
             price: 'Precio',
             stock: 'Existencias',
-            active: 'Activo'
+            active: 'Activo',
+            ingredients: 'Ingredients'
           },
           
           },
@@ -109,6 +136,18 @@ order: {
             address: 'Dirección',
             state: 'Estado',
             number: 'Numero'
+          },
+          
+          },
+ingredient: { 
+             title: 'Administração de Ingredient',
+            subtitle: 'Ver, buscar, criar, editar e usar Ingredient',
+            creating: 'Criando Ingredient',
+            editing: 'Edição Ingredient',
+            deleting: 'Apagando Ingredient',
+            showing: 'Detalhes do Ingredient',
+          labels: {
+            name: 'Nome'
           },
           
           }
