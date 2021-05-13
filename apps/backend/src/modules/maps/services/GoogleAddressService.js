@@ -1,28 +1,32 @@
-import {fetchGoogleGeocode} from "../providers/GoogleApi"
+import {fetchGoogleGeocode, urlGoogleStreetViewImage} from "../providers/GoogleApi"
+import path from "path";
+import downloadFile from "../utils/downloadFile";
 
 export const addressHandler = function (address) {
-    return new Promise(async (resolve) => {
-        let locations = await getAddress(address)
-        let filteredLocations = locations.data.results
-        resolve(filteredLocations)
-    })
-}
 
-
-const getAddress = function (address) {
     return new Promise((resolve, reject) => {
-            try {
-                fetchGoogleGeocode(address)
-                    .then(response => {
-                        return resolve(response)
-                    })
-                    .catch(e => {
-                        return reject(e)
-                    })
-            } catch (e) {
-                throw new Error(e)
-            }
-
+            fetchGoogleGeocode(address)
+                .then(response => {
+                    return resolve(response.data.results)
+                })
+                .catch(e => {
+                    return reject(e)
+                })
         }
     )
 }
+
+export const streetViewImageHandler = function (latitude, longitude) {
+    return new Promise(async (resolve) => {
+
+        let urlToDownload = await urlGoogleStreetViewImage(latitude, longitude)
+
+        const finalFileName = 'st_' + latitude + '_' + longitude + ".jpg"
+        let filePath = path.join("media", "streetView", finalFileName)
+        await downloadFile(urlToDownload, filePath);
+        let localUrl = process.env.APP_API_URL + "/" + filePath
+
+        resolve(localUrl)
+    })
+}
+

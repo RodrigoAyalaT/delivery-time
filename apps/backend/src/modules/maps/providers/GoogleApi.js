@@ -20,3 +20,21 @@ export const fetchGoogleGeocode = async function (addressUser) {
         }
     )
 }
+
+export const urlGoogleStreetViewImage = function (latitude, longitude){
+    return new Promise(async (resolve)=>{
+
+        const googleApiKey = process.env.GOOGLE_APIKEY
+
+        function getUrl(baseUrl ,latitude,longitude, googleApiKey, size = '200x200') {
+            return encodeURI(baseUrl + '?size='+ size + '&location=' + latitude + ',' + longitude + '&key=' + googleApiKey)
+        }
+
+        const baseUrl = 'https://maps.googleapis.com/maps/api/streetview'
+
+        let urlToDownload = getUrl(baseUrl, latitude, longitude, googleApiKey)
+
+        resolve(urlToDownload)
+
+    })
+}

@@ -11,6 +11,7 @@ type ZonePaginated{
 }
 
 type Query {
+    zonesPoint(latitude: Float, longitude: Float):  [Zone]
     zoneFind(id:ID!): Zone
     zoneFetch: [Zone]
     zonePaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): ZonePaginated

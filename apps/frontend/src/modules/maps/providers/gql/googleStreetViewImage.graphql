@@ -1,0 +1,3 @@
+query googleStreetViewImage($latitude:Float, $longitude:Float){
+    googleStreetViewImage(latitude: $latitude, longitude: $longitude)
+}

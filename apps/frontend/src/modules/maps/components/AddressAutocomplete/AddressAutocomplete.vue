@@ -34,7 +34,7 @@
 <script>
 import {InputErrorsByProps, RequiredRule} from '@dracul/common-frontend'
 import debounce from 'lodash.debounce';
-import GoogleGeocodeProvider from "@/modules/maps/providers/GoogleGeocodeProvider";
+import GoogleProvider from "@/modules/maps/providers/GoogleProvider";
 
 export default {
   name: 'addressAutocomplete',
@@ -95,7 +95,7 @@ export default {
     },
     searchGeo2(val) {
       this.loading = true
-      GoogleGeocodeProvider.googleGeocode(val).then(response => {
+      GoogleProvider.googleGeocode(val).then(response => {
         this.items = response.data.googleGeocode.map(i => {
 
           let country = ''

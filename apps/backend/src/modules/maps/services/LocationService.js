@@ -17,7 +17,7 @@ export const fetchLocations = async function () {
     })
 }
 
-export const paginateLocations = function ( pageNumber = 1, itemsPerPage = 5, search = null, orderBy = null, orderDesc = false) {
+export const paginateLocations = function (pageNumber = 1, itemsPerPage = 5, search = null, orderBy = null, orderDesc = false) {
 
     function qs(search) {
         let qs = {}
@@ -30,8 +30,8 @@ export const paginateLocations = function ( pageNumber = 1, itemsPerPage = 5, se
         }
         return qs
     }
-    
-     function getSort(orderBy, orderDesc) {
+
+    function getSort(orderBy, orderDesc) {
         if (orderBy) {
             return (orderDesc ? '-' : '') + orderBy
         } else {
@@ -53,25 +53,28 @@ export const paginateLocations = function ( pageNumber = 1, itemsPerPage = 5, se
 }
 
 
-
-
-
 export const createLocation = async function (authUser, {address, floor, apartment, latitude, longitude, country, province, locality, postalCode}) {
-    
+
+    let point = null
+    if (latitude && longitude) {
+        point = {type: 'Point', coordinates: [latitude, longitude]}
+
+    }
+
     const doc = new Location({
-        address, floor, apartment, latitude, longitude, country, province, locality, postalCode
+        address, floor, apartment, latitude, longitude, country, province, locality, postalCode, point
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
         doc.save((error => {
-        
+
             if (error) {
                 if (error.name == "ValidationError") {
                     rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
                 rejects(error)
-            }    
-        
+            }
+
             resolve(doc)
         }))
     })
@@ -79,20 +82,27 @@ export const createLocation = async function (authUser, {address, floor, apartme
 
 export const updateLocation = async function (authUser, id, {address, floor, apartment, latitude, longitude, country, province, locality, postalCode}) {
     return new Promise((resolve, rejects) => {
+
+        let point = null
+        if (latitude && longitude) {
+            point = {type: 'Point', coordinates: [latitude, longitude]}
+
+        }
+
         Location.findOneAndUpdate({_id: id},
-        {address, floor, apartment, latitude, longitude, country, province, locality, postalCode}, 
-        {new: true, runValidators: true, context: 'query'},
-        (error,doc) => {
-            
-            if (error) {
-                if (error.name == "ValidationError") {
-                    rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+            {address, floor, apartment, latitude, longitude, country, province, locality, postalCode, point},
+            {new: true, runValidators: true, context: 'query'},
+            (error, doc) => {
+
+                if (error) {
+                    if (error.name == "ValidationError") {
+                        rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    }
+                    rejects(error)
                 }
-                rejects(error)
-            } 
-        
-            resolve(doc)
-        })
+
+                resolve(doc)
+            })
     })
 }
 

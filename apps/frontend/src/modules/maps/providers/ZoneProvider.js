@@ -9,10 +9,18 @@ class ZoneProvider {
         })
     }
 
+    fetchZonesPoint({latitude, longitude}) {
+        return graphqlClient.query({
+            query: require('./gql/zonesPoint.graphql'),
+            variables: {latitude, longitude},
+            fetchPolicy: "network-only"
+        })
+    }
+
     fetchZones() {
         return graphqlClient.query({query: require('./gql/zoneFetch.graphql')})
     }
-    
+
     paginateZones(pageNumber, itemsPerPage, search = null,  orderBy = null, orderDesc = false) {
         return graphqlClient.query({
             query: require('./gql/zonePaginate.graphql'),
@@ -20,8 +28,8 @@ class ZoneProvider {
             fetchPolicy: "network-only"
         })
     }
-    
-    
+
+
 
     createZone(form) {
         return graphqlClient.mutate({
@@ -29,14 +37,14 @@ class ZoneProvider {
             variables: form
         })
     }
-    
+
     updateZone(form) {
         return graphqlClient.mutate({
             mutation: require('./gql/zoneUpdate.graphql'),
             variables: form
         })
     }
-    
+
      deleteZone(id) {
         return graphqlClient.mutate({
             mutation: require('./gql/zoneDelete.graphql'),

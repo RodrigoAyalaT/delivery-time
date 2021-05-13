@@ -10,10 +10,10 @@ const ZoneSchema = new Schema({
 
     name: {type: String, required: true, unique: false},
     color: {type: String, required: false, unique: false},
-    location: {type: PolygonSchema, required: true}
+    location: {type: PolygonSchema, required: true,  index: '2dsphere'}
 
 });
-
+ZoneSchema.index({ location: '2dsphere' });
 
 ZoneSchema.plugin(mongoosePaginate);
 ZoneSchema.plugin(uniqueValidator, {message: 'validation.unique'});

@@ -104,9 +104,9 @@ export default {
 
       // Define the LatLng coordinates for the polygon's path.
       let polyCoords
-      if (!reset && this.coordinates && this.coordinates.length) {
-        polyCoords = this.coordinates.map(a => {
-          return {lat: a[1][0], lng: a[0][0]}
+      if (!reset && this.coordinates && this.coordinates[0] && this.coordinates[0].length) {
+        polyCoords = this.coordinates[0].map(a => {
+          return {lat: a[1], lng: a[0]}
         })
       } else {
         polyCoords = this.getBasePolygon
@@ -140,7 +140,12 @@ export default {
         for (let point of this.polygon.getPath().getArray()) {
           c.push([point.lng(), point.lat()]);
         }
-        this.coordinates = c
+        //Close Loop
+        if(c[0][0] != c[c.length -1][0] || c[0][1] != c[c.length - 1][1]){
+          c.push([c[0][0],c[0][1]])
+        }
+
+        this.coordinates = [c]
       }
     }
   }

@@ -24,4 +24,5 @@ type AddressResponse{
 
 type Query{
     googleGeocode(address:String):[AddressResponse]
+    googleStreetViewImage(latitude:Float, longitude:Float):String
 }
