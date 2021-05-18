@@ -3,19 +3,20 @@ export default [
     {
         icon: 'home',
         text:'base.home',
-        link: { name: "home" },
+        link: { name: "OrderSidePage" },
         panel: false
     },
     {
         icon: 'person',
         text: 'Gestion',
+        permission: 'PRODUCT_CREATE',
         children: [
             {
                 icon: 'production_quantity_limits',
                 text: 'menu.products',
                 link: {name: "ProductManagementPage"},
                 panel: false,
-                permission: 'PRODUCT_SHOW'
+                permission: 'PRODUCT_CREATE'
             },
             {
                 icon: 'colorize',
@@ -35,12 +36,13 @@ export default [
     {
         icon: 'maps',
         text: 'Maps',
+        permission: 'ZONE_CREATE',
         children: [
             {
                 icon: 'satellite',
                 text: 'menu.zone',
                 link: {name: "ZoneManagementPage"},
-                permission: 'ZONE_SHOW'
+                permission: 'ZONE_CREATE'
             },
             {
                 icon: 'location_on',

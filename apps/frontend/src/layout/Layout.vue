@@ -15,16 +15,14 @@
       <slot></slot>
     </v-main>
 
-    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
 import SidebarMenu from './SidebarMenu'
-import Footer from './Footer'
 
 export default {
-  components: {SidebarMenu, Footer},
+  components: {SidebarMenu},
   props: {
     menu: {type: Array, default: null},
   },

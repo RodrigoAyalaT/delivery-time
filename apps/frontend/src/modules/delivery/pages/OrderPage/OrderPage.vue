@@ -1,117 +1,205 @@
 <template>
-  <v-container fill-height fluid>
+  <v-container>
+    <cart-button :total="$store.getters.getQuantityTotal" @click="showOrder=!showOrder"></cart-button>
     <v-row>
-      <v-col cols="6" sm="8" md="9" >
-        <div :style="{height: '600px'}" class="scroll pa-2 ma-0">
-          <v-row>
-            <v-col v-for="product in products"
-                   :key="product.id"
-                   cols="12" sm="6" md="3"
-                   class="pt-0"
+
+      <!--STEPPER-->
+      <v-col cols="12">
+        <v-stepper v-model="step">
+          <v-stepper-header>
+            <v-stepper-step
+                editable
+                :step="1"
+                complete-icon="inventory_2"
+                edit-icon="inventory_2"
             >
+              Productos
+            </v-stepper-step>
 
-              <v-card :elevation="8">
-                <v-card-title>
-                  {{ product.name }}
-                </v-card-title>
-                <v-img height="150" :src="product.image"></v-img>
-                <!-- <v-card-text>
-                   <p>{{ product.description }}</p>
-                 </v-card-text>-->
-                <v-card-actions>
-                  <v-chip>${{ product.price }}</v-chip>
-                  <v-spacer></v-spacer>
-                  <v-btn dark fab small color="primary" @click="addProduct(product)">
-                    <v-icon>add</v-icon>
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
+            <v-divider></v-divider>
 
-        </div>
+            <v-stepper-step
+                :step="2"
+                editable
+                complete-icon="place"
+            >
+              Dirección
+
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+                :step="3"
+                editable
+                complete-icon="call"
+            >
+              Contacto
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+                :step="4"
+                editable
+                complete-icon="done"
+            >
+              Confirmar
+            </v-stepper-step>
+
+          </v-stepper-header>
+        </v-stepper>
+      </v-col>
+
+
+      <v-col cols="12">
+        <v-stepper v-model="step">
+          <v-stepper-items >
+            <v-stepper-content :step="1" class="grey lighten-1">
+              <!--PRODUCTS-->
+              <v-row>
+                <v-col cols="12" sm="8" md="9">
+                  <product-filters v-model="filters" @input="fetchProducts"></product-filters>
+                  <v-row>
+                    <v-col v-for="product in products"
+                           :key="product.id"
+                           cols="6" sm="6" md="3"
+                           class="pt-0"
+                    >
+                      <product-card
+                          :product="product"
+                          :quantity="$store.getters.getQuantity(product)"
+                          @addProduct="addProduct"
+                          @removeProduct="removeProduct"
+                      ></product-card>
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+                <!--CART DETAIL-->
+                <v-col v-if="$vuetify.breakpoint.smAndUp" cols="12" sm="4" md="3">
+                  <cart-detail
+                      :items="getOrderItems"
+                      @addProduct="addProduct"
+                      @removeProduct="removeProduct"
+                      @clearOrder="$store.commit('clearOrder')"
+                      :quantity-total="$store.getters.getQuantityTotal"
+                      :amount-total="$store.getters.getAmountTotal"
+
+                  ></cart-detail>
+                </v-col>
+
+              </v-row>
+            </v-stepper-content>
+
+            <v-stepper-content :step="2" class="white">
+              <location-form
+                  v-model="location"
+                  enable-map
+              ></location-form>
+            </v-stepper-content>
+
+            <v-stepper-content :step="3" class="white">
+              CONTACT
+            </v-stepper-content>
+
+            <v-stepper-content :step="4" class="grey lighten-1">
+              CONFIRMAR
+            </v-stepper-content>
+
+          </v-stepper-items>
+        </v-stepper>
 
       </v-col>
 
-      <v-col cols="6" sm="4" md="3">
-        <!-- <v-content :style="{position:'fixed'}">-->
-        <v-card flat fill-height>
-          <v-card-title>Orden</v-card-title>
-          <v-card-text class="pa-0">
-            <v-list class="px-0">
-              <v-list-item class="px-1" v-for="item in order.items" :key="item.product.id">
-                <v-list-item-avatar>
-                  <img :src="item.product.image"/>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title v-html="item.product.name"></v-list-item-title>
-                  <v-list-item-subtitle>x{{ item.quantity }}</v-list-item-subtitle>
-                </v-list-item-content>
+      <!--LOCATION-->
 
-                <v-list-item-action>
-                  <v-btn small icon @click="addProduct(item.product)">
-                    <v-icon>add</v-icon>
-                  </v-btn>
-                  <v-btn small icon @click="removeProduct(item.product)">
-                    <v-icon>remove</v-icon>
-                  </v-btn>
-                </v-list-item-action>
-              </v-list-item>
-            </v-list>
 
-          </v-card-text>
-        </v-card>
-        <!-- </v-content>-->
+      <!--CONTACT-->
 
-      </v-col>
 
     </v-row>
+
+    <!--NAVIGATION CART DETAIL-->
+    <v-navigation-drawer temporary v-model="showOrder" right fixed>
+
+      <cart-detail
+          :items="getOrderItems"
+          @addProduct="addProduct"
+          @removeProduct="removeProduct"
+          @clearOrder="$store.commit('clearOrder')"
+          :quantity-total="$store.getters.getQuantityTotal"
+          :amount-total="$store.getters.getAmountTotal"
+          show-actions
+      ></cart-detail>
+    </v-navigation-drawer>
+
   </v-container>
 </template>
 
 <script>
 import ProductProvider from "@/modules/delivery/providers/ProductProvider";
+import ProductFilters from "@/modules/delivery/components/ProductFilters/ProductFilters";
+import CartButton from "@/modules/delivery/components/CartButton/CartButton";
+import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
+import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
+import LocationForm from "@/modules/maps/components/LocationForm/LocationForm";
 
 export default {
   name: "OrderPage",
+  components: {LocationForm, ProductCard, CartDetail, CartButton, ProductFilters},
   data() {
     return {
-      products: [],
-      order: {
+      showOrder: false,
+      step: 1,
+      products:[],
+      filters: {
         name: null,
-        email: null,
-        phone: null,
-        address: null,
-        items: []
+        ingredients: []
       }
     }
   },
   mounted() {
     this.fetchProducts()
   },
-  methods: {
-    addProduct(productToAdd) {
-      // { product: {id,name, price}, quantity: 1}
-
-      let item = this.order.items.find(p => p.product.id === productToAdd.id)
-      if (item) {
-        item.quantity++
-      } else {
-        this.order.items.push({
-          product: productToAdd,
-          quantity: 1
-        })
+  computed: {
+    location: {
+      get(){
+        return this.$store.state.delivery.order.location
+      },
+      set(val){
+        this.$store.commit('setOrderLocation', val)
       }
     },
-    removeProduct(productToRemove) {
-      let item = this.order.items.find(p => p.product.id === productToRemove.id)
-      if (item && item.quantity > 0) {
-        item.quantity--
+    getOrder() {
+      return this.$store.state.delivery.order
+    },
+    getOrderItems() {
+      return this.$store.state.delivery.order.items
+    },
+    getQuantity() {
+      return (product) => {
+        let item = this.order.items.find(p => p.product.id === product.id)
+        if (item) {
+          return item.quantity
+        }
+        return 0
       }
+    },
+    getTotalItems() {
+      return this.order.items.reduce((a, v) => a + v.quantity, 0)
+    }
+  },
+  methods: {
+    addProduct(product) {
+      this.$store.commit('addOrderItem', product)
+    },
+    removeProduct(product) {
+      this.$store.commit('removeOrderItem', product)
     },
     fetchProducts() {
-      ProductProvider.fetchProducts().then(r => {
-        this.products = r.data.productFetch
+      ProductProvider.fetchProductsFiltered(this.filters).then(r => {
+        this.products = r.data.productFetchFiltered
       })
     }
   }
@@ -120,7 +208,6 @@ export default {
 
 <style scoped>
 .scroll {
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: scroll
 }
 </style>

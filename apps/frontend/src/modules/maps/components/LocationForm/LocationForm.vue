@@ -49,7 +49,7 @@
       </v-col>
 
 
-      <v-col cols="12" sm="3">
+      <v-col v-if="enableCoordinates" cols="12" sm="3">
         <v-text-field
 
             prepend-icon="explore"
@@ -66,7 +66,7 @@
       </v-col>
 
 
-      <v-col cols="12" sm="3">
+      <v-col v-if="enableCoordinates" cols="12" sm="3">
         <v-text-field
 
             prepend-icon="explore"
@@ -83,7 +83,7 @@
       </v-col>
 
 
-      <v-col cols="12" sm="6">
+      <v-col v-if="enableCountry" cols="12" sm="6">
         <v-text-field
 
             prepend-icon="flag"
@@ -99,7 +99,7 @@
       </v-col>
 
 
-      <v-col cols="12" sm="4">
+      <v-col v-if="enableProvince" cols="12" sm="4">
         <v-text-field
 
             prepend-icon="villa"
@@ -115,7 +115,7 @@
       </v-col>
 
 
-      <v-col cols="12" sm="4">
+      <v-col v-if="enableLocality" cols="12" sm="4">
         <v-text-field
 
             prepend-icon="location_city"
@@ -131,7 +131,7 @@
       </v-col>
 
 
-      <v-col cols="12" sm="4">
+      <v-col v-if="enablePostalCode" cols="12" sm="4">
         <v-text-field
 
             prepend-icon="local_shipping"
@@ -145,12 +145,15 @@
 
         ></v-text-field>
       </v-col>
+    </v-row>
 
-      <v-col cols="12" sm="6">
+
+    <v-row align="center" justify="center">
+      <v-col v-if="enableMap" cols="12" sm="6">
         <location-map v-if="form.latitude && form.longitude" v-model="form"></location-map>
       </v-col>
 
-      <v-col cols="12" sm="3">
+      <v-col v-if="enableStreetView" cols="12" sm="3">
         <street-view-image v-if="form.latitude && form.longitude"
                            :latitude="form.latitude"
                            :longitude="form.longitude"
@@ -159,7 +162,7 @@
         </street-view-image>
       </v-col>
 
-      <v-col cols="12" sm="3" class="text-center">
+      <v-col v-if="enableZone" cols="12" sm="3" class="text-center">
         <v-card>
           <v-card-title>Zonas</v-card-title>
           <v-card-text>
@@ -192,10 +195,15 @@ export default {
   mixins: [InputErrorsByProps, RequiredRule],
 
   props: {
-    value: {
-      type: Object,
-      required: true
-    },
+    value: {type: Object, required: true},
+    enableCoordinates: {type: Boolean, default: false},
+    enableCountry: {type: Boolean, default: false},
+    enableLocality: {type: Boolean, default: false},
+    enableProvince: {type: Boolean, default: false},
+    enablePostalCode: {type: Boolean, default: false},
+    enableMap: {type: Boolean, default: false},
+    enableStreetView: {type: Boolean, default: false},
+    enableZone: {type: Boolean, default: false},
   },
   computed: {
     form: {

@@ -6,25 +6,37 @@
                  @update="update"
                  @close="$emit('close')"
     >
-         <location-form ref="form" v-model="form" :input-errors="inputErrors" />
+          <location-form
+              ref="form"
+              v-model="form"
+              :input-errors="inputErrors"
+              enable-coordinates
+              enable-country
+              enable-locality
+              enable-map
+              enable-postal-code
+              enable-province
+              enable-street-view
+              enable-zone
+          />
     </crud-update>
 </template>
 
 <script>
 
     import LocationProvider from "../../../providers/LocationProvider";
-    
+
     import {CrudUpdate, ClientError} from '@dracul/common-frontend'
-    
-    import LocationForm from "../LocationForm";
-  
-    
+
+    import LocationForm from "../../../components/LocationForm";
+
+
 
     export default {
         name: "LocationUpdate",
-        
+
         components: { LocationForm, CrudUpdate },
-        
+
         props:{
           open: {type: Boolean, default: true},
           item: {type: Object, required: true}

@@ -3,7 +3,7 @@
       prepend-icon="account_box"
       v-model="model"
       :items="items"
-      name="asd"
+      name="address"
       :search-input.sync="search"
       :label="label"
       :placeholder="placeholder"
@@ -17,18 +17,6 @@
       @change="change"
       :rules="required"
   >
-    <template v-slot:append>
-      <v-tooltip
-          bottom
-      >
-        <template v-slot:activator="{ on }">
-          <v-icon v-on="on">
-            mdi-exclamation-thick
-          </v-icon>
-        </template>
-        {{ $t('people.person.mandatoryText') }}
-      </v-tooltip>
-    </template>
   </v-autocomplete>
 </template>
 <script>
@@ -40,8 +28,8 @@ export default {
   name: 'addressAutocomplete',
   mixins: [InputErrorsByProps, RequiredRule],
   props: {
-    type: Object,
-    value: String
+    value: {type: String},
+    delay: {type: Number, default: 1000}
   },
   data() {
     return {
@@ -57,9 +45,9 @@ export default {
 
   watch: {
     search: function (val) {
-      if (val != "") {
+      if (val != "" && val.length >= 3) {
         this.debounceVar(val)
-      } else {
+      } else if(val === ""){
         this.model = null
         this.debounceVar.cancel()
         this.items = []
@@ -69,7 +57,7 @@ export default {
   },
   created() {
     this.debounceVar = debounce(
-        this.searchGeo2, 1000)
+        this.searchGeo2, this.delay)
   },
   methods: {
     change(item) {

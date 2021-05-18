@@ -6,7 +6,7 @@
       </template>
 
       <template v-slot:toolbar-right>
-        <notification-button :user-id="getUserId"/>
+        <notification-button v-if="me" :user-id="getUserId"/>
         <dashboard-button/>
         <app-bar-user-menu/>
       </template>
@@ -26,7 +26,14 @@ import {mapGetters} from "vuex";
 
 export default {
   name: 'App',
-  components: {Layout, DashboardButton, AppBarUserMenu, LogoToolbar, TitleToolbar, NotificationButton},
+  components: {
+    Layout,
+    DashboardButton,
+    AppBarUserMenu,
+    LogoToolbar,
+    TitleToolbar,
+    NotificationButton
+  },
   data() {
     return {
       menu: menuConfig

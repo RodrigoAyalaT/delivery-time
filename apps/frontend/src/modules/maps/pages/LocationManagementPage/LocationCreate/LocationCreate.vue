@@ -6,30 +6,42 @@
                  @create="create"
                  @close="$emit('close')"
     >
-        <location-form ref="form" v-model="form" :input-errors="inputErrors" />
+        <location-form
+            ref="form"
+            v-model="form"
+            :input-errors="inputErrors"
+            enable-coordinates
+            enable-country
+            enable-locality
+            enable-map
+            enable-postal-code
+            enable-province
+            enable-street-view
+            enable-zone
+        />
     </crud-create>
 </template>
 
 <script>
 
     import LocationProvider from "../../../providers/LocationProvider";
-    
+
     import {CrudCreate, ClientError} from '@dracul/common-frontend'
-    
-    import LocationForm from "../LocationForm";
-    
-    
+
+    import LocationForm from "../../../components/LocationForm";
+
+
 
 
     export default {
         name: "LocationCreate",
-         
+
         components: { LocationForm, CrudCreate },
-        
+
         props:{
           open: {type: Boolean, default: true}
         },
-        
+
         data() {
             return {
                 title: 'maps.location.creating',
@@ -49,7 +61,7 @@
                 }
             }
         },
-        
+
         methods: {
             create() {
                 if (this.$refs.form.validate()) {

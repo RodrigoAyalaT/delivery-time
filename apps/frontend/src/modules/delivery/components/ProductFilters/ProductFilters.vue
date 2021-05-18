@@ -2,18 +2,19 @@
   <v-row>
       <v-col cols="12" sm="6" class="pt-0">
         <v-text-field
-            prepend-icon="takeout_dining"
+            prepend-inner-icon="takeout_dining"
             name="name"
             v-model="filters.name"
             :label="$t('delivery.product.labels.name')"
             :placeholder="$t('delivery.product.labels.name')"
             color="secondary"
+            solo
             hide-details
         ></v-text-field>
       </v-col>
 
     <v-col cols="12" sm="6" class="pt-0">
-      <ingredient-combobox  hide-details v-model="filters.ingredients"/>
+      <ingredient-combobox solo  hide-details v-model="filters.ingredients"/>
     </v-col>
 
   </v-row>

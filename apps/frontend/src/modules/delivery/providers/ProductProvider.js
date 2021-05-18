@@ -16,7 +16,8 @@ class ProductProvider {
     fetchProductsFiltered(filters) {
         return graphqlClient.query({
             query: require('./gql/productFetchFiltered.graphql'),
-            variables: {filters}
+            variables: {filters},
+            fetchPolicy: "network-only"
         })
     }
 

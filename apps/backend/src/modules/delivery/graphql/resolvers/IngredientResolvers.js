@@ -19,8 +19,6 @@ export default {
             return findIngredient(id)
         },
         ingredientFetch: (_, {}, {user,rbac}) => {
-            if (!user) throw new AuthenticationError("Unauthenticated")
-            if(!rbac.isAllowed(user.id, INGREDIENT_SHOW)) throw new ForbiddenError("Not Authorized")
             return fetchIngredients()
         },
         ingredientPaginate: (_, {pageNumber, itemsPerPage, search, orderBy, orderDesc}, {user,rbac}) => {
@@ -28,7 +26,7 @@ export default {
             if(!rbac.isAllowed(user.id, INGREDIENT_SHOW)) throw new ForbiddenError("Not Authorized")
             return paginateIngredients(pageNumber, itemsPerPage, search, orderBy, orderDesc)
         },
-        
+
     },
     Mutation: {
         ingredientCreate: (_, {input}, {user,rbac}) => {

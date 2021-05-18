@@ -3,7 +3,7 @@
   <v-select
 
       multiple
-      prepend-icon="colorize"
+      prepend-inner-icon="colorize"
       :items="items"
       :item-text="'name'"
       :item-value="'id'"
@@ -15,6 +15,7 @@
       color="secondary"
       item-color="secondary"
       :hide-details="hideDetails"
+      :solo="solo"
   ></v-select>
 
 </template>
@@ -33,7 +34,9 @@ export default {
     value: {
       type: [String, Array]
     },
-    hideDetails: {type: Boolean, default: false}
+    hideDetails: {type: Boolean, default: false},
+    solo: {type: Boolean, default: false},
+
   },
   data() {
     return {
