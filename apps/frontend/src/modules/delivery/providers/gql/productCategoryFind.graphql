@@ -1,0 +1,6 @@
+query productCategoryFind($id:ID!){
+    productCategoryFind(id:$id){
+        id
+        name
+    }
+}

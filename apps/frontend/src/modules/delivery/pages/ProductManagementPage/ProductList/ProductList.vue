@@ -26,28 +26,18 @@
                 @update:items-per-page="fetch"
         >
 
-
+            
          <template v-slot:item.ingredients="{ item }">
             {{item.ingredients.map(e=> e.name).join(", ")}}
          </template>
-
-         <template v-slot:item.image="{item}">
-           <v-avatar tile>
-             <v-img :src="item.image" />
-           </v-avatar>
+        
+         <template v-slot:item.category="{ item }">
+            {{ item.category.name }}
          </template>
-
-         <template v-slot:item.price="{item}">
-           ${{item.price}}
-         </template>
-
-
-         <template v-slot:item.active="{item}">
-           <v-icon v-if="item.active" color="green">done</v-icon>
-           <v-icon v-else color="red">cancel</v-icon>
-         </template>
-
-
+        
+            
+            
+            
             <template slot="no-data">
                <div class="text-xs-center" v-t="'common.noData'"></div>
             </template>
@@ -69,14 +59,14 @@
 
 <script>
    import ProductProvider from "../../../providers/ProductProvider";
-
+   
    import {DeleteButton, EditButton, ShowButton, SearchInput} from "@dracul/common-frontend"
-
-
+    
+   
     export default {
         name: "ProductList",
         components: {DeleteButton, EditButton, ShowButton, SearchInput},
-
+        
         data() {
             return {
                 items: [],
@@ -89,17 +79,18 @@
                 search: ''
             }
         },
-        computed: {
+        computed: {   
           headers () {
             return [
                     //Entity Headers
-              {text: this.$t('delivery.product.labels.image'), value: 'image'},
-
-              {text: this.$t('delivery.product.labels.name'), value: 'name'},
+                    {text: this.$t('delivery.product.labels.name'), value: 'name'},
+                    {text: this.$t('delivery.product.labels.description'), value: 'description'},
+                    {text: this.$t('delivery.product.labels.image'), value: 'image'},
                     {text: this.$t('delivery.product.labels.price'), value: 'price'},
                     {text: this.$t('delivery.product.labels.stock'), value: 'stock'},
                     {text: this.$t('delivery.product.labels.active'), value: 'active'},
                     {text: this.$t('delivery.product.labels.ingredients'), value: 'ingredients'},
+                    {text: this.$t('delivery.product.labels.category'), value: 'category'},
                     //Actions
                     {text: this.$t('common.actions'), value: 'action', sortable: false},
                 ]
@@ -109,7 +100,7 @@
           },
           getOrderDesc(){
               return  (Array.isArray(this.orderDesc)) ? this.orderDesc[0]: this.orderDesc
-          }
+          } 
         },
         created() {
             this.fetch()
@@ -122,10 +113,10 @@
             fetch() {
                 this.loading = true
                 ProductProvider.paginateProducts(
-                    this.pageNumber,
+                    this.pageNumber, 
                     this.itemsPerPage,
                     this.search,
-                    this.getOrderBy,
+                    this.getOrderBy, 
                     this.getOrderDesc
                 ).then(r => {
                     this.items = r.data.productPaginate.items
@@ -135,7 +126,7 @@
                 }).finally(() => this.loading = false)
             }
         }
-
+        
     }
 </script>
 

@@ -16,6 +16,7 @@
       item-color="secondary"
       :hide-details="hideDetails"
       :solo="solo"
+      :clearable="clearable"
   ></v-select>
 
 </template>
@@ -36,7 +37,7 @@ export default {
     },
     hideDetails: {type: Boolean, default: false},
     solo: {type: Boolean, default: false},
-
+    clearable: {type: Boolean, default: false},
   },
   data() {
     return {

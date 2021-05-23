@@ -3,7 +3,7 @@ import {UserInputError} from 'apollo-server-express'
 
 export const findProduct = async function (id) {
     return new Promise((resolve, reject) => {
-        Product.findOne({_id: id}).populate('ingredients').exec((err, res) => (
+        Product.findOne({_id: id}).populate('ingredients').populate('category').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -11,7 +11,7 @@ export const findProduct = async function (id) {
 
 export const fetchProducts = async function () {
     return new Promise((resolve, reject) => {
-        Product.find({}).populate('ingredients').exec((err, res) => (
+        Product.find({}).populate('ingredients').populate('category').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -40,7 +40,7 @@ export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, sea
     }
 
     let query = qs(search)
-    let populate = ['ingredients']
+    let populate = ['ingredients','category']
     let sort = getSort(orderBy, orderDesc)
     let params = {page: pageNumber, limit: itemsPerPage, populate, sort}
 
@@ -56,10 +56,10 @@ export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, sea
 
 
 
-export const createProduct = async function (authUser, {name, description, image, price, stock, active, ingredients}) {
+export const createProduct = async function (authUser, {name, description, image, price, stock, active, ingredients, category}) {
     
     const doc = new Product({
-        name, description, image, price, stock, active, ingredients
+        name, description, image, price, stock, active, ingredients, category
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
@@ -72,15 +72,15 @@ export const createProduct = async function (authUser, {name, description, image
                 rejects(error)
             }    
         
-            doc.populate('ingredients').execPopulate(() => resolve(doc))
+            doc.populate('ingredients').populate('category').execPopulate(() => resolve(doc))
         }))
     })
 }
 
-export const updateProduct = async function (authUser, id, {name, description, image, price, stock, active, ingredients}) {
+export const updateProduct = async function (authUser, id, {name, description, image, price, stock, active, ingredients, category}) {
     return new Promise((resolve, rejects) => {
         Product.findOneAndUpdate({_id: id},
-        {name, description, image, price, stock, active, ingredients}, 
+        {name, description, image, price, stock, active, ingredients, category}, 
         {new: true, runValidators: true, context: 'query'},
         (error,doc) => {
             
@@ -91,7 +91,7 @@ export const updateProduct = async function (authUser, id, {name, description, i
                 rejects(error)
             } 
         
-            doc.populate('ingredients').execPopulate(() => resolve(doc))
+            doc.populate('ingredients').populate('category').execPopulate(() => resolve(doc))
         })
     })
 }

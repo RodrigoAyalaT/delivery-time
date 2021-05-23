@@ -1,0 +1,7 @@
+mutation productCategoryUpdate($id: ID!, $name:String!){
+    productCategoryUpdate(id: $id, input: {name: $name }){
+        id
+        name
+    }
+}
+

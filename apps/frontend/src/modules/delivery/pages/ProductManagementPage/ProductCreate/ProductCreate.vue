@@ -43,7 +43,8 @@
                     price: null,
                     stock: null,
                     active: false,
-                    ingredients: []
+                    ingredients: [],
+                    category: null
                 }
             }
         },

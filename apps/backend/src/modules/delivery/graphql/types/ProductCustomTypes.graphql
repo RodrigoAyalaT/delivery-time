@@ -1,6 +1,7 @@
 input ProductFilterInput{
     name: String
     ingredients: [ID]
+    category: ID
 }
 
 type Query {

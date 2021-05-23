@@ -11,5 +11,9 @@ query productFetchFiltered($filters:ProductFilterInput){
             id
             name
         }
+        category{
+            id
+            name
+        }
     }
 }

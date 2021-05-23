@@ -12,8 +12,12 @@ export const fetchProductFiltered = async function (filters) {
             find.ingredients = { "$in": filters.ingredients }
         }
 
-        console.log()
-        Product.find(find).populate('ingredients').exec((err, res) => (
+        if(filters.category){
+            find.category = filters.category
+        }
+
+
+        Product.find(find).populate('ingredients').populate('category').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })

@@ -8,8 +8,12 @@ query productFind($id:ID!){
         stock
         active
         ingredients{
-            id
-            name
-        }
+                id
+                name
+            }
+        category{
+                id
+                name
+            }
     }
 }

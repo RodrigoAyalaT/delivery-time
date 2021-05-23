@@ -12,6 +12,7 @@
             <v-list>
                  <show-field :value="item.description" :label="$t('delivery.product.labels.description')" icon="description"/>
                  <show-field :value="String(item.stock)" :label="$t('delivery.product.labels.stock')" icon="inventory_2"/>
+                 <show-field :value="item.category.name" :label="$t('delivery.product.labels.category')" icon="category"/>
             </v-list>
         </v-col>
 

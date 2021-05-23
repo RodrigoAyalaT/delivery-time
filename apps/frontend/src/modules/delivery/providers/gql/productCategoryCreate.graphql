@@ -1,0 +1,7 @@
+mutation productCategoryCreate($name:String!){
+    productCategoryCreate(input: {name: $name }){
+        id
+        name
+    }
+}
+

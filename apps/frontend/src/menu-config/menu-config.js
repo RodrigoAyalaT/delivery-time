@@ -19,6 +19,13 @@ export default [
                 permission: 'PRODUCT_CREATE'
             },
             {
+                icon: 'category',
+                text: 'menu.categories',
+                link: {name: "ProductCategoryManagementPage"},
+                panel: false,
+                permission: 'PRODUCTCATEGORY_CREATE'
+            },
+            {
                 icon: 'colorize',
                 text: 'menu.ingredients',
                 link: {name: "IngredientManagementPage"},

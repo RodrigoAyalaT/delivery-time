@@ -15,7 +15,8 @@ const ProductSchema = new Schema({
  price: {type: Number, required: true, unique: false},
  stock: {type: Number, required: false, unique: false},
  active: {type: Boolean, required: false},
- ingredients: [{type: mongoose.Schema.Types.ObjectId, ref: "Ingredient",required: false, unique: false}]
+ ingredients: [{type: mongoose.Schema.Types.ObjectId, ref: "Ingredient",required: false, unique: false}],
+ category: {type: mongoose.Schema.Types.ObjectId, ref: "ProductCategory", required: true, unique: false}
 
 
 }, { timestamps: true });

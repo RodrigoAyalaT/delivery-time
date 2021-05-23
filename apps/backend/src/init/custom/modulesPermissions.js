@@ -12,6 +12,13 @@ import {
 } from '../../modules/delivery/permissions/Product'
 
 import {
+    PRODUCTCATEGORY_CREATE,
+    PRODUCTCATEGORY_DELETE,
+    PRODUCTCATEGORY_SHOW,
+    PRODUCTCATEGORY_UPDATE
+} from '../../modules/delivery/permissions/ProductCategory'
+
+import {
     INGREDIENT_CREATE,
     INGREDIENT_DELETE,
     INGREDIENT_SHOW,
@@ -45,6 +52,11 @@ export default [
     PRODUCT_DELETE,
     PRODUCT_SHOW,
     PRODUCT_UPDATE,
+
+    PRODUCTCATEGORY_CREATE,
+    PRODUCTCATEGORY_DELETE,
+    PRODUCTCATEGORY_SHOW,
+    PRODUCTCATEGORY_UPDATE,
 
     INGREDIENT_CREATE,
     INGREDIENT_DELETE,

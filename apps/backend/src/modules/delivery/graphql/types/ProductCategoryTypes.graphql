@@ -1,0 +1,34 @@
+type ProductCategory{
+    id: ID!
+    name: String!
+}
+
+type ProductCategoryPaginated{
+    totalItems: Int!
+    page: Int!
+    items: [ProductCategory!]
+}
+
+type Query {
+    productCategoryFind(id:ID!): ProductCategory
+    productCategoryFetch: [ProductCategory]
+    productCategoryPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): ProductCategoryPaginated
+
+
+}
+
+input ProductCategoryInput{
+    name: String!
+}
+
+type ProductCategoryDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    productCategoryCreate(input: ProductCategoryInput): ProductCategory
+    productCategoryUpdate(id: ID!, input: ProductCategoryInput): ProductCategory
+    productCategoryDelete(id: ID!): ProductCategoryDelete!
+}
