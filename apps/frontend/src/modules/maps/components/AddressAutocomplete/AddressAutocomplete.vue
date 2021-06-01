@@ -1,6 +1,7 @@
 <template>
   <v-autocomplete
-      prepend-icon="account_box"
+      :prepend-icon="prependIcon"
+      :prepend-inner-icon="prependInnerIcon"
       v-model="model"
       :items="items"
       name="address"
@@ -16,6 +17,11 @@
       return-object
       @change="change"
       :rules="required"
+      :rounded="rounded"
+      :solo="solo"
+      :outlined="outlined"
+      :clearable="clearable"
+      :hide-details="hideDetails"
   >
   </v-autocomplete>
 </template>
@@ -29,7 +35,14 @@ export default {
   mixins: [InputErrorsByProps, RequiredRule],
   props: {
     value: {type: String},
-    delay: {type: Number, default: 1000}
+    prependIcon: {type: String},
+    prependInnerIcon: {type: String},
+    delay: {type: Number, default: 1000},
+    clearable: {type: Boolean, default: true},
+    rounded: {type: Boolean, default: false},
+    solo: {type: Boolean, default: false},
+    outlined: {type: Boolean, default: false},
+    hideDetails: {type: Boolean, default: false},
   },
   data() {
     return {

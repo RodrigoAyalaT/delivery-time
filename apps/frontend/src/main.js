@@ -15,6 +15,7 @@ import {UploadProvider, FileProvider} from '@dracul/media-frontend'
 
 import {customizationProvider} from '@dracul/customize-frontend'
 import {notificationProvider} from '@dracul/notification-frontend'
+import {SettingsProvider} from "@dracul/settings-frontend";
 
 setGraphQlClientToProviders(apolloClient)
 customizationProvider.setGqlc(apolloClient)
@@ -35,6 +36,10 @@ store.dispatch('loadCustomizations')
      .then(r => {
          i18n.locale = r.language
      })
+
+//LoadSettings
+SettingsProvider.setGqlc(apolloClient)
+store.dispatch('loadSettings')
 
 new Vue({
     vuetify,

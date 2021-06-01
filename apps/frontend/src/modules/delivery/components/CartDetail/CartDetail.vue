@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
-      <h6 class="text-h6">Mi pedido</h6>
-      <v-divider class="mb-3"></v-divider>
+    <h6 class="text-h6">Mi pedido</h6>
+    <v-divider class="mb-3"></v-divider>
 
     <v-card-text v-if="items.length == 0" class="pa-0">
       Tu pedido está vacio.
@@ -49,8 +49,8 @@
     </v-card-text>
     <v-card-actions v-if="showActions">
       <v-spacer></v-spacer>
-      <v-btn text color="grey" @click="showCancel=true">Cancelar</v-btn>
-      <v-btn class="primary">Pedir</v-btn>
+      <v-btn text color="grey" :disabled="quantityTotal?false:true" @click="showCancel=true">Cancelar</v-btn>
+      <v-btn class="primary" :disabled="quantityTotal?false:true">Pedir</v-btn>
     </v-card-actions>
     <confirm-dialog
         v-model="showCancel"

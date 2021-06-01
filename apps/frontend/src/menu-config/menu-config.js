@@ -3,8 +3,14 @@ export default [
     {
         icon: 'home',
         text:'base.home',
-        link: { name: "OrderSidePage" },
+        link: { name: "home" },
         panel: false
+    },
+    {
+        icon: 'settings',
+        text: 'menu.settings',
+        link: {name: "SettingsPage"},
+        permission: 'SETTINGS_UPDATE'
     },
     {
         icon: 'person',

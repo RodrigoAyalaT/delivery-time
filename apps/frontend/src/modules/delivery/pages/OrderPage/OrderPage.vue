@@ -6,10 +6,20 @@
       <!--STEPPER-->
       <v-col cols="12">
         <v-stepper v-model="step" non-linear>
-          <v-stepper-header >
+          <v-stepper-header>
+
             <v-stepper-step
                 editable
                 :step="1"
+                complete-icon="inventory_2"
+                edit-icon="inventory_2"
+            >
+              Entrega
+            </v-stepper-step>
+            <v-divider></v-divider>
+            <v-stepper-step
+                editable
+                :step="2"
                 complete-icon="inventory_2"
                 edit-icon="inventory_2"
             >
@@ -19,7 +29,7 @@
             <v-divider></v-divider>
 
             <v-stepper-step
-                :step="2"
+                :step="3"
                 editable
                 complete-icon="place"
             >
@@ -30,7 +40,7 @@
             <v-divider></v-divider>
 
             <v-stepper-step
-                :step="3"
+                :step="4"
                 editable
                 complete-icon="call"
             >
@@ -40,7 +50,7 @@
             <v-divider></v-divider>
 
             <v-stepper-step
-                :step="4"
+                :step="5"
                 editable
                 complete-icon="done"
             >
@@ -53,40 +63,43 @@
 
 
       <v-col cols="12">
-        <v-stepper v-model="step">
-          <v-stepper-items >
-            <v-stepper-content  :step="1" class="py-0"   >
+        <v-stepper v-model="step" >
+            <div :style="{border:'none', shadow: 'none'}"  :step="1" class="pa-0">
+              <delivery-mode></delivery-mode>
+            </div>
+
+            <v-stepper-content :step="2" class="py-0">
               <!--PRODUCTS-->
               <v-row>
-                <v-col cols="12" sm="4" md="3"  >
-                    <product-filters
-                        v-model="filters"
-                        @input="fetchProducts"
-                        vertical
-                    />
-                    <cart-detail
-                        v-if="$vuetify.breakpoint.smAndUp" cols="12" sm="12" md="12"
-                        :items="getOrderItems"
-                        @addProduct="addProduct"
-                        @removeProduct="removeProduct"
-                        @clearOrder="$store.commit('clearOrder')"
-                        :quantity-total="$store.getters.getQuantityTotal"
-                        :amount-total="$store.getters.getAmountTotal"
+                <v-col cols="12" sm="4" md="3">
+                  <product-filters
+                      v-model="filters"
+                      @input="fetchProducts"
+                      vertical
+                  />
+                  <cart-detail
+                      v-if="$vuetify.breakpoint.smAndUp" cols="12" sm="12" md="12"
+                      :items="getOrderItems"
+                      @addProduct="addProduct"
+                      @removeProduct="removeProduct"
+                      @clearOrder="$store.commit('clearOrder')"
+                      :quantity-total="$store.getters.getQuantityTotal"
+                      :amount-total="$store.getters.getAmountTotal"
 
-                    ></cart-detail>
+                  ></cart-detail>
 
                 </v-col>
 
                 <v-col cols="12" sm="8" md="9">
                   <v-row v-for="category in getCategories" :key="category.id">
                     <v-col cols="12" class="my-2">
-                      <h5 class="text-h5">{{category.name}}</h5>
+                      <h5 class="text-h5">{{ category.name }}</h5>
                       <v-divider></v-divider>
                     </v-col>
                     <v-col v-for="product in getProductsByCategory(category)"
                            :key="product.id"
-                           cols="6" sm="6" md="4"
-                           class="pt-0"
+                           cols="12" sm="6" md="4"
+                           class=""
                     >
                       <product-card
                           :product="product"
@@ -102,22 +115,21 @@
               </v-row>
             </v-stepper-content>
 
-            <v-stepper-content :step="2" class="white">
+            <v-stepper-content :step="3" class="white">
               <location-form
                   v-model="location"
                   enable-map
               ></location-form>
             </v-stepper-content>
 
-            <v-stepper-content :step="3" class="white">
+            <v-stepper-content :step="4" class="white">
               CONTACT
             </v-stepper-content>
 
-            <v-stepper-content :step="4" class="grey lighten-1">
+            <v-stepper-content :step="5" class="grey lighten-1">
               CONFIRMAR
             </v-stepper-content>
 
-          </v-stepper-items>
         </v-stepper>
 
       </v-col>
@@ -155,15 +167,16 @@ import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
 import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
 import LocationForm from "@/modules/maps/components/LocationForm/LocationForm";
 import ProductCategoryProvider from "@/modules/delivery/providers/ProductCategoryProvider";
+import DeliveryMode from "@/modules/delivery/components/DeliveryMode/DeliveryMode";
 
 export default {
   name: "OrderPage",
-  components: {LocationForm, ProductCard, CartDetail, CartButton, ProductFilters},
+  components: {DeliveryMode, LocationForm, ProductCard, CartDetail, CartButton, ProductFilters},
   data() {
     return {
       showOrder: false,
       step: 1,
-      products:[],
+      products: [],
       categories: [],
       filters: {
         name: null,
@@ -178,10 +191,10 @@ export default {
   },
   computed: {
     location: {
-      get(){
+      get() {
         return this.$store.state.delivery.order.location
       },
-      set(val){
+      set(val) {
         this.$store.commit('setOrderLocation', val)
       }
     },
@@ -203,15 +216,15 @@ export default {
     getTotalItems() {
       return this.order.items.reduce((a, v) => a + v.quantity, 0)
     },
-    getCategories(){
-      if(this.filters.category){
-        return this.categories.filter(c => c.id === this.filters.category )
+    getCategories() {
+      if (this.filters.category) {
+        return this.categories.filter(c => c.id === this.filters.category)
       }
       return this.categories
     },
-    getProductsByCategory(){
+    getProductsByCategory() {
       return category => {
-        return this.products.filter(p => p.category.id === category.id )
+        return this.products.filter(p => p.category.id === category.id)
       }
     }
   },
@@ -222,7 +235,7 @@ export default {
     removeProduct(product) {
       this.$store.commit('removeOrderItem', product)
     },
-    fetchCategories(){
+    fetchCategories() {
       ProductCategoryProvider.fetchProductCategories().then(r => {
         this.categories = r.data.productCategoryFetch
       })

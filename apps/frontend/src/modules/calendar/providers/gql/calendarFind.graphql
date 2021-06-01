@@ -1,0 +1,23 @@
+query calendarFind($id:ID!){
+    calendarFind(id:$id){
+        id
+        name
+        description
+        identifier
+        user{
+                id
+                username
+            }
+        priority
+        schedule{
+            id
+            dayOfWeek
+            dayName
+            activeHours{
+                id
+                from
+                to
+            }
+        }
+    }
+}

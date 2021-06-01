@@ -1,0 +1,7 @@
+mutation calendarDelete($id: ID!){
+    calendarDelete(id: $id){
+        id
+        success
+    }
+}
+

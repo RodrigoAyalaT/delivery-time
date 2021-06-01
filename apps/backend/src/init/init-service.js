@@ -12,6 +12,7 @@ import {
 } from '@dracul/media-backend'
 import {initPermissionsCustomization} from '@dracul/customize-backend'
 import {initCustomization} from './custom/initCustomization'
+import {initSettings} from './custom/initSettings'
 import operatorRole from './custom/initOperatorRole'
 
 import {
@@ -21,6 +22,9 @@ import {
 import modulesPermissions from './custom/modulesPermissions'
 
 const initService = async () => {
+
+    //SETTINGS
+    await initSettings()
 
     //Default user Permissions
     await InitService.initPermissions()

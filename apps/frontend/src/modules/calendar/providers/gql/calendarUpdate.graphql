@@ -1,0 +1,24 @@
+mutation calendarUpdate($id: ID!, $name:String!, $description:String, $identifier:String!, $user:ID, $priority:Int, $schedule:  [CalendarScheduleInput!] ){
+    calendarUpdate(id: $id, input: {name: $name, description: $description, identifier: $identifier, user: $user, priority: $priority, schedule: $schedule }){
+        id
+        name
+        description
+        identifier
+        user{
+            id
+            username
+        }
+        priority
+        schedule{
+            id
+            dayOfWeek
+            dayName
+            activeHours{
+                id
+                from
+                to
+            }
+        }
+    }
+}
+

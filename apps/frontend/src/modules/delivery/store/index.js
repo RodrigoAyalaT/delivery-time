@@ -1,6 +1,8 @@
 export default {
     state: {
         order: {
+            deliveryMode: null, //TAKE_AWAY|DELIVERY
+            deliveryTimeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED
             contact: {
                 name: null,
                 phone: null,
@@ -15,6 +17,12 @@ export default {
         },
     },
     getters: {
+        getDeliveryMode(state){
+            return state.order.deliveryMode
+        },
+        getDeliveryTimeMode(state){
+            return state.order.deliveryTimeMode
+        },
         getQuantity: (state) => (product) => {
             if (product) {
                 let item = state.order.items.find(p => p.product.id === product.id)
@@ -66,6 +74,13 @@ export default {
                 },
                 items: []
             }
+        },
+        setOrderDeliveryMode(state, val) {
+            state.order.deliveryMode = val
+            state.order.deliveryTimeMode = null
+        },
+        setOrderDeliveryTimeMode(state, val){
+            state.order.deliveryTimeMode = val
         },
         setOrderContact(state, val) {
             state.order.contact = val

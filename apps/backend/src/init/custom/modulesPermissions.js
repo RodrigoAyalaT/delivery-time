@@ -5,6 +5,10 @@ import {
 } from '../../modules/base/permissions'
 
 import {
+    permissions as settingsPermissions
+} from '@dracul/settings-backend'
+
+import {
     PRODUCT_CREATE,
     PRODUCT_DELETE,
     PRODUCT_SHOW,
@@ -46,8 +50,22 @@ import {
     LOCATION_UPDATE
 } from '../../modules/maps/permissions/Location'
 
+
+import {
+   CALENDAR_CREATE,
+    CALENDAR_DELETE,
+    CALENDAR_SHOW,
+    CALENDAR_UPDATE
+} from '../../modules/calendar/permissions/Calendar'
+
 export default [
     BASE_SHOW,
+
+    settingsPermissions.SETTINGS_CREATE,
+    settingsPermissions.SETTINGS_DELETE,
+    settingsPermissions.SETTINGS_SHOW,
+    settingsPermissions.SETTINGS_UPDATE,
+
     PRODUCT_CREATE,
     PRODUCT_DELETE,
     PRODUCT_SHOW,
@@ -76,5 +94,10 @@ export default [
     LOCATION_CREATE,
     LOCATION_DELETE,
     LOCATION_SHOW,
-    LOCATION_UPDATE
+    LOCATION_UPDATE,
+
+    CALENDAR_CREATE,
+    CALENDAR_DELETE,
+    CALENDAR_SHOW,
+    CALENDAR_UPDATE
 ]

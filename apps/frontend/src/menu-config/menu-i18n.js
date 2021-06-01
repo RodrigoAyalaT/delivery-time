@@ -4,21 +4,33 @@ const messages = {
         menu: {
             userdashboard: 'Users Dashboard',
             customization: 'Customization',
-            administration: 'Administration'
+            administration: 'Administration',
+            products: "Products",
+            categories: "Categories",
+            ingredients: "Ingredients",
+            orders: "Orders"
         }
     },
     es: {
         menu: {
             userdashboard: 'Tablero de Usuarios',
             customization: 'Personalización',
-            administration: 'Administración'
+            administration: 'Administración',
+            products: "Productos",
+            categories: "Categorias",
+            ingredients: "Ingredientes",
+            orders: "Pedidos"
         }
     },
     pt: {
         menu: {
             userdashboard: 'Painel de controle',
             customization: 'Costumização',
-            administration: 'administração'
+            administration: 'administração',
+            products: "Productos",
+            categories: "Categorias",
+            ingredients: "Ingredientes",
+            orders: "Pedidos"
         }
     }
 }

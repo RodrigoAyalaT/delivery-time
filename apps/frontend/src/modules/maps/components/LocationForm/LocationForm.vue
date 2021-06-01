@@ -5,6 +5,7 @@
       <v-col cols="12" sm="6">
 
         <address-autocomplete
+            prepend-inner-icon="location_on"
             :value="form.address"
             @input="(val) => (form.address = val)"
             @lat="(val) => (form.latitude = val)"

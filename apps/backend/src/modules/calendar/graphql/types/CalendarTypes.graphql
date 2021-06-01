@@ -1,0 +1,72 @@
+type ActiveHours{
+    id: ID!
+    from: String!
+    to: String!
+}
+
+type CalendarSchedule{
+    id: ID!
+    dayOfWeek: Int!
+    dayName: String!
+    activeHours: [ActiveHours!]
+
+}
+
+type Calendar{
+    id: ID!
+    name: String!
+    description: String
+    identifier: String!
+    user: User
+    priority: Int
+    schedule: [CalendarSchedule!]
+}
+
+type CalendarPaginated{
+    totalItems: Int!
+    page: Int!
+    items: [Calendar!]
+}
+
+type Query {
+    calendarFind(id:ID!): Calendar
+    calendarFetch: [Calendar]
+    calendarPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): CalendarPaginated
+
+
+}
+
+input CalendarScheduleInput{
+    id: ID
+    dayOfWeek: Int!
+    dayName: String!
+    activeHours: [ActiveHoursInput!]
+}
+
+input ActiveHoursInput{
+    id: ID
+    from: String!
+    to: String!
+}
+
+input CalendarInput{
+
+    name: String!
+    description: String
+    identifier: String!
+    user: ID
+    priority: Int
+    schedule: [CalendarScheduleInput!]
+}
+
+type CalendarDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    calendarCreate(input: CalendarInput): Calendar
+    calendarUpdate(id: ID!, input: CalendarInput): Calendar
+    calendarDelete(id: ID!): CalendarDelete!
+}

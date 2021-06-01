@@ -7,7 +7,7 @@ import ProductCategoryManagementPage from '../pages/ProductCategoryManagementPag
 import ProductCustomManagementPage from '../pages/ProductCustomManagementPage'
 
 const routes = [
-    {name: 'root', path: '/', redirect: OrderPage},
+   // {name: 'root', path: '/', redirect: OrderPage},
     {name: 'ProductManagementPage', path: '/product-management', component: ProductCustomManagementPage},
     {name: 'OrderManagementPage', path: '/order-management', component: OrderManagementPage},
     {name: 'IngredientManagementPage', path: '/ingredient-management', component: IngredientManagementPage},

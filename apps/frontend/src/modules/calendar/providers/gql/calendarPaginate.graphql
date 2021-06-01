@@ -1,0 +1,27 @@
+query calendarPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orderBy: String, $orderDesc: Boolean){
+    calendarPaginate( pageNumber: $pageNumber, itemsPerPage: $itemsPerPage, search: $search, orderBy: $orderBy, orderDesc: $orderDesc){
+        totalItems
+        page
+        items{
+            id
+            name
+            description
+            identifier
+            user{
+                id
+                username
+            }
+            priority
+            schedule{
+                id
+                dayOfWeek
+                dayName
+                activeHours{
+                    id
+                    from
+                    to
+                }
+            }
+        }
+    }
+}

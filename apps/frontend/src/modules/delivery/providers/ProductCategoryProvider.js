@@ -10,9 +10,12 @@ class ProductCategoryProvider {
     }
 
     fetchProductCategories() {
-        return graphqlClient.query({query: require('./gql/productCategoryFetch.graphql')})
+        return graphqlClient.query({
+            query: require('./gql/productCategoryFetch.graphql'),
+            fetchPolicy: "network-only"
+        })
     }
-    
+
     paginateProductCategories(pageNumber, itemsPerPage, search = null,  orderBy = null, orderDesc = false) {
         return graphqlClient.query({
             query: require('./gql/productCategoryPaginate.graphql'),
@@ -20,8 +23,8 @@ class ProductCategoryProvider {
             fetchPolicy: "network-only"
         })
     }
-    
-    
+
+
 
     createProductCategory(form) {
         return graphqlClient.mutate({
@@ -29,14 +32,14 @@ class ProductCategoryProvider {
             variables: form
         })
     }
-    
+
     updateProductCategory(form) {
         return graphqlClient.mutate({
             mutation: require('./gql/productCategoryUpdate.graphql'),
             variables: form
         })
     }
-    
+
      deleteProductCategory(id) {
         return graphqlClient.mutate({
             mutation: require('./gql/productCategoryDelete.graphql'),

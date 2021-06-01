@@ -6,9 +6,10 @@
     <v-btn
         v-if="show"
         :style="{'z-index':5}"
-        color="yellow darken-2 purple--text text--darken-2" fixed bottom right
+        color="primary"
+        fixed bottom right
         @click="$emit('click')"
-        class="mt-6"
+        class="mt-6 OnPrimary--text"
         fab x-large
     >
       <v-icon>shopping_cart</v-icon>
