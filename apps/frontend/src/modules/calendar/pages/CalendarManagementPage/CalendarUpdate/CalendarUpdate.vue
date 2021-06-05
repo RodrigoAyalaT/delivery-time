@@ -17,7 +17,7 @@ import CalendarProvider from "../../../providers/CalendarProvider";
 
 import {CrudUpdate, ClientError} from '@dracul/common-frontend'
 
-import CalendarForm from "../CalendarForm";
+import CalendarForm from "../../../components/CalendarForm";
 
 export default {
   name: "CalendarUpdate",

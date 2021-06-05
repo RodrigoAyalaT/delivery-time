@@ -42,7 +42,17 @@
                <div   class="text-xs-center" v-t="'common.loading'"></div>
             </template>
 
-            <template v-slot:item.action="{ item }">
+         <template v-slot:item.links="{ item }">
+           <v-btn icon small :to="{name: 'CalendarPage', params: {id: item.id}}">
+             <v-icon>edit_calendar</v-icon>
+           </v-btn>
+           <v-btn icon small :to="{name: 'CalendarSchedulePage', params: {id: item.id}}">
+             <v-icon>event</v-icon>
+           </v-btn>
+         </template>
+
+
+         <template v-slot:item.action="{ item }">
                 <show-button  @click="$emit('show', item)" />
                 <edit-button  @click="$emit('update', item)" />
                 <delete-button @click="$emit('delete', item)" />
@@ -84,6 +94,7 @@
                     {text: this.$t('calendar.calendar.labels.user'), value: 'user'},
                     {text: this.$t('calendar.calendar.labels.priority'), value: 'priority'},
                     //Actions
+                    {text: this.$t('calendar.calendar.labels.links'), value: 'links', sortable: false},
                     {text: this.$t('common.actions'), value: 'action', sortable: false},
                 ]
           },

@@ -16,7 +16,7 @@
     "@dracul/settings-frontend": "^1.1.6",
     "@dracul/customize-frontend": "^1.1.2",
     "@dracul/notification-frontend": "^1.1.3",
-    "@dracul/user-frontend": "^1.1.3",
+    "@dracul/user-frontend": "^1.1.9",
     "@dracul/media-frontend": "^1.1.1",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",

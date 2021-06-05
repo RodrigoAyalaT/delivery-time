@@ -1,14 +1,29 @@
 <template>
-  <v-container fluid>
-    <v-card v-for="item in items" :key="item.dayOfWeek" class="my-5">
-      <v-card-title>
-        {{item.dayName}} ({{item.dayOfWeek}})
-      </v-card-title>
-      <v-card-text>
-        <input-from-to v-model="item.activeHours"></input-from-to>
-      </v-card-text>
-    </v-card>
-  </v-container>
+  <v-row justify="center">
+    <v-col>
+      <v-tabs v-model="tab" show-arrows grow>
+        <v-tabs-slider color="onSecondary"></v-tabs-slider>
+        <v-tab v-for="item in items" :key="item.dayOfWeek" class="secondary onSecondary--text">
+
+          {{ item.dayName }} ({{ item.dayOfWeek }})
+        </v-tab>
+
+      </v-tabs>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item
+            v-for="item in items" :key="item.dayOfWeek"
+
+        >
+          <input-from-to v-model="item.activeHours"></input-from-to>
+        </v-tab-item>
+      </v-tabs-items>
+
+
+    </v-col>
+
+
+  </v-row>
 
 </template>
 
@@ -20,6 +35,11 @@ export default {
   name: "CalendarSchedule",
   components: {InputFromTo},
   mixins: [InputErrorsByProps, RequiredRule],
+  data() {
+    return {
+      tab: 0
+    }
+  },
   props: {
     value: {
       type: Array,

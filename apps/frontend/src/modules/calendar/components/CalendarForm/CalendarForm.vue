@@ -2,7 +2,7 @@
   <v-form ref="form" autocomplete="off" @submit.prevent="save">
     <v-row>
 
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="5">
         <v-text-field
 
             prepend-icon="edit_calendar"
@@ -14,27 +14,14 @@
             :error-messages="getInputErrors('name')"
             color="secondary"
             :rules="required"
+            :disabled="onlySchedule"
         ></v-text-field>
       </v-col>
 
 
-      <v-col cols="12" sm="6">
-        <v-text-field
-
-            prepend-icon="description"
-            name="description"
-            v-model="form.description"
-            :label="$t('calendar.calendar.labels.description')"
-            :placeholder="$t('calendar.calendar.labels.description')"
-            :error="hasInputErrors('description')"
-            :error-messages="getInputErrors('description')"
-            color="secondary"
-
-        ></v-text-field>
-      </v-col>
 
 
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="5">
         <v-text-field
 
             prepend-icon="fingerprint"
@@ -46,16 +33,13 @@
             :error-messages="getInputErrors('identifier')"
             color="secondary"
             :rules="identifierRules"
+            :disabled="onlySchedule"
         ></v-text-field>
       </v-col>
 
 
-      <v-col cols="12" sm="6">
-        <user-combobox v-model="form.user" :input-errors="inputErrors"/>
-      </v-col>
 
-
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="2">
         <v-text-field
 
             prepend-icon="sort"
@@ -67,9 +51,36 @@
             :error="hasInputErrors('priority')"
             :error-messages="getInputErrors('priority')"
             color="secondary"
-
+            :disabled="onlySchedule"
         ></v-text-field>
       </v-col>
+
+
+      <v-col cols="12" sm="8">
+        <v-text-field
+
+            prepend-icon="description"
+            name="description"
+            v-model="form.description"
+            :label="$t('calendar.calendar.labels.description')"
+            :placeholder="$t('calendar.calendar.labels.description')"
+            :error="hasInputErrors('description')"
+            :error-messages="getInputErrors('description')"
+            color="secondary"
+            :disabled="onlySchedule"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="12" sm="4">
+        <user-autocomplete
+            v-if="!onlySchedule"
+            solo
+            v-model="form.user"
+            :input-errors="inputErrors"
+        />
+        <user-view v-else-if="form.user" :id="form.user"></user-view>
+      </v-col>
+
 
       <v-col cols="12">
         <calendar-schedule v-model="form.schedule"></calendar-schedule>
@@ -82,20 +93,20 @@
 <script>
 
 import {InputErrorsByProps, RequiredRule} from '@dracul/common-frontend'
-
-import UserCombobox from "./UserCombobox";
+import {UserAutocomplete, UserView} from '@dracul/user-frontend'
 import CalendarSchedule from "@/modules/calendar/components/CalendarSchedule/CalendarSchedule";
 
 
 export default {
   name: "CalendarForm",
   mixins: [InputErrorsByProps, RequiredRule],
-  components: {CalendarSchedule, UserCombobox,},
+  components: {CalendarSchedule, UserAutocomplete, UserView},
   props: {
     value: {
       type: Object,
       required: true
     },
+    onlySchedule: {type: Boolean, default: false}
   },
   computed: {
     form: {

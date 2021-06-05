@@ -12,6 +12,7 @@ const messages = {
                 editing: 'Editing Calendar',
                 deleting: 'Deleting Calendar',
                 showing: 'Showing Calendar',
+                calendarSchedule: 'Calendar schedule',
                 labels: {
                     name: 'Name',
                     description: 'Description',
@@ -21,7 +22,8 @@ const messages = {
                     dayOfWeek: 'Day of Week',
                     dayName: 'Day name',
                     from: 'From',
-                    to :' To'
+                    to: ' To',
+                    links: 'Links'
                 },
 
             }
@@ -34,12 +36,13 @@ const messages = {
                 wrongHourFormat: 'Formato incorrecto. Formato esperado: HH:MM'
             },
             calendar: {
-                title: 'Administración de Calendar',
-                subtitle: 'Ver, buscar, crear, editar, y borrar Calendar',
+                title: 'Administración de Calendario',
+                subtitle: 'Ver, buscar, crear, editar, y borrar Calendario',
                 creating: 'Creando Calendar',
-                editing: 'Modificando Calendar',
-                deleting: 'Eliminando Calendar',
-                showing: 'Detalles de Calendar',
+                editing: 'Modificando Calendario',
+                deleting: 'Eliminando Calendario',
+                showing: 'Detalles de Calendario',
+                calendarSchedule: 'Horarios de calendario',
                 labels: {
                     name: 'Nombre',
                     description: 'Descripción',
@@ -49,7 +52,8 @@ const messages = {
                     dayOfWeek: 'Dia de la semana',
                     dayName: 'Nombre del dia',
                     from: 'Desde',
-                    to :' Hasta'
+                    to: ' Hasta',
+                    links: 'Links'
                 },
 
             }
@@ -68,6 +72,7 @@ const messages = {
                 editing: 'Edição Calendar',
                 deleting: 'Apagando Calendar',
                 showing: 'Detalhes do Calendar',
+                calendarSchedule: 'Horarios de calendario',
                 labels: {
                     name: 'Nome',
                     description: 'Descrição',
@@ -77,7 +82,8 @@ const messages = {
                     dayOfWeek: 'Day of Week',
                     dayName: 'Day name',
                     from: 'From',
-                    to :' To'
+                    to: ' To',
+                    links: 'Links'
                 },
 
             }
