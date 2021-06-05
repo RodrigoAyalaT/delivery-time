@@ -9,10 +9,17 @@ class CalendarProvider {
         })
     }
 
+    findCalendarByIdentifier(identifier) {
+        return graphqlClient.query({
+            query: require('./gql/calendarFindByIdentifier.graphql'),
+            variables: {identifier}
+        })
+    }
+
     fetchCalendars() {
         return graphqlClient.query({query: require('./gql/calendarFetch.graphql')})
     }
-    
+
     paginateCalendars(pageNumber, itemsPerPage, search = null,  orderBy = null, orderDesc = false) {
         return graphqlClient.query({
             query: require('./gql/calendarPaginate.graphql'),
@@ -20,8 +27,8 @@ class CalendarProvider {
             fetchPolicy: "network-only"
         })
     }
-    
-    
+
+
 
     createCalendar(form) {
         return graphqlClient.mutate({
@@ -29,14 +36,14 @@ class CalendarProvider {
             variables: form
         })
     }
-    
+
     updateCalendar(form) {
         return graphqlClient.mutate({
             mutation: require('./gql/calendarUpdate.graphql'),
             variables: form
         })
     }
-    
+
      deleteCalendar(id) {
         return graphqlClient.mutate({
             mutation: require('./gql/calendarDelete.graphql'),

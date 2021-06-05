@@ -9,6 +9,14 @@ export const findCalendar = async function (id) {
     })
 }
 
+export const findCalendarByIdentifier = async function (identifier) {
+    return new Promise((resolve, reject) => {
+        Calendar.findOne({identifier: identifier}).populate('user').exec((err, res) => (
+            err ? reject(err) : resolve(res)
+        ));
+    })
+}
+
 export const fetchCalendars = async function () {
     return new Promise((resolve, reject) => {
         Calendar.find({}).populate('user').exec((err, res) => (

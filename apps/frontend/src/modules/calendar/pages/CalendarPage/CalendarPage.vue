@@ -48,6 +48,9 @@ export default {
     getCalendarId() {
       return this.$route.params.id
     },
+    getCalendarIdentifier() {
+      return this.$route.params.identifier
+    },
     onlySchedule() {
       if (this.$route.name === 'CalendarSchedulePage') {
         return true
@@ -57,7 +60,11 @@ export default {
     }
   },
   mounted() {
-    this.fetchCalendar()
+    if (this.getCalendarId) {
+      this.fetchCalendar()
+    } else if (this.getCalendarIdentifier) {
+      this.fetchCalendarByIdentifier()
+    }
   },
   methods: {
     fetchCalendar() {
@@ -65,6 +72,17 @@ export default {
       CalendarProvider.findCalendar(this.getCalendarId)
           .then(r => {
             this.setCalendar(r.data.calendarFind)
+          })
+          .catch(e => {
+            console.error(e)
+          })
+          .finally(() => this.loading = false)
+    },
+    fetchCalendarByIdentifier() {
+      this.loading = true
+      CalendarProvider.findCalendarByIdentifier(this.getCalendarIdentifier)
+          .then(r => {
+            this.setCalendar(r.data.calendarFindByIdentifier)
           })
           .catch(e => {
             console.error(e)

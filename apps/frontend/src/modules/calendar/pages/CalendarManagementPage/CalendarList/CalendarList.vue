@@ -46,7 +46,7 @@
            <v-btn icon small :to="{name: 'CalendarPage', params: {id: item.id}}">
              <v-icon>edit_calendar</v-icon>
            </v-btn>
-           <v-btn icon small :to="{name: 'CalendarSchedulePage', params: {id: item.id}}">
+           <v-btn icon small :to="{name: 'CalendarSchedulePage', params: {identifier: item.identifier}}">
              <v-icon>event</v-icon>
            </v-btn>
          </template>

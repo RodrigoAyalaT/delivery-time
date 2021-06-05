@@ -1,0 +1,23 @@
+query calendarFindByIdentifier($identifier:String!){
+    calendarFindByIdentifier(identifier:$identifier){
+        id
+        name
+        description
+        identifier
+        user{
+                id
+                username
+            }
+        priority
+        schedule{
+            id
+            dayOfWeek
+            dayName
+            activeHours{
+                id
+                from
+                to
+            }
+        }
+    }
+}

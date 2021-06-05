@@ -30,6 +30,7 @@ type CalendarPaginated{
 
 type Query {
     calendarFind(id:ID!): Calendar
+    calendarFindByIdentifier(identifier:String!): Calendar
     calendarFetch: [Calendar]
     calendarPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): CalendarPaginated
 
