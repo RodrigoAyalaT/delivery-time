@@ -6,12 +6,7 @@ export default [
         link: { name: "home" },
         panel: false
     },
-    {
-        icon: 'settings',
-        text: 'menu.settings',
-        link: {name: "SettingsPage"},
-        permission: 'SETTINGS_UPDATE'
-    },
+
     {
         icon: 'person',
         text: 'Gestion',
@@ -43,6 +38,18 @@ export default [
                 text: 'menu.orders',
                 link: {name: "OrderManagementPage"},
                 permission: 'ORDER_SHOW'
+            },
+            {
+                icon: 'settings',
+                text: 'menu.settings',
+                link: {name: "SettingsPage"},
+                permission: 'SETTINGS_UPDATE'
+            },
+            {
+                icon: 'edit_calendar',
+                text: 'calendar.calendar.menu.calendar',
+                link: {name: "CalendarSchedulePage", params: {identifier: 'horario-atencion'}},
+                permission: 'CALENDAR_UPDATE'
             },
         ]
     },

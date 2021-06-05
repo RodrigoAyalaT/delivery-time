@@ -13,6 +13,9 @@ const messages = {
                 deleting: 'Deleting Calendar',
                 showing: 'Showing Calendar',
                 calendarSchedule: 'Calendar schedule',
+                menu: {
+                  calendar: 'Calendar'
+                },
                 labels: {
                     name: 'Name',
                     description: 'Description',
@@ -43,6 +46,9 @@ const messages = {
                 deleting: 'Eliminando Calendario',
                 showing: 'Detalles de Calendario',
                 calendarSchedule: 'Horarios de calendario',
+                menu: {
+                    calendar: 'Calendario'
+                },
                 labels: {
                     name: 'Nombre',
                     description: 'Descripción',
@@ -73,6 +79,9 @@ const messages = {
                 deleting: 'Apagando Calendar',
                 showing: 'Detalhes do Calendar',
                 calendarSchedule: 'Horarios de calendario',
+                menu: {
+                    calendar: 'Calendário'
+                },
                 labels: {
                     name: 'Nome',
                     description: 'Descrição',

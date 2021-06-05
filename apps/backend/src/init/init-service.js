@@ -13,6 +13,7 @@ import {
 import {initPermissionsCustomization} from '@dracul/customize-backend'
 import {initCustomization} from './custom/initCustomization'
 import {initSettings} from './custom/initSettings'
+import {initCalendar} from './custom/initCalendar'
 import operatorRole from './custom/initOperatorRole'
 
 import {
@@ -25,6 +26,9 @@ const initService = async () => {
 
     //SETTINGS
     await initSettings()
+
+    //CALENDAR
+    await initCalendar()
 
     //Default user Permissions
     await InitService.initPermissions()

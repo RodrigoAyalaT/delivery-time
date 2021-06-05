@@ -5,19 +5,24 @@ class CalendarProvider {
     findCalendar(id) {
         return graphqlClient.query({
             query: require('./gql/calendarFind.graphql'),
-            variables: {id:id}
+            variables: {id:id},
+            fetchPolicy: "network-only"
         })
     }
 
     findCalendarByIdentifier(identifier) {
         return graphqlClient.query({
             query: require('./gql/calendarFindByIdentifier.graphql'),
-            variables: {identifier}
+            variables: {identifier},
+            fetchPolicy: "network-only"
         })
     }
 
     fetchCalendars() {
-        return graphqlClient.query({query: require('./gql/calendarFetch.graphql')})
+        return graphqlClient.query({
+            query: require('./gql/calendarFetch.graphql'),
+            fetchPolicy: "network-only"
+        })
     }
 
     paginateCalendars(pageNumber, itemsPerPage, search = null,  orderBy = null, orderDesc = false) {

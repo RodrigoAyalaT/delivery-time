@@ -8,7 +8,8 @@ const messages = {
             products: "Products",
             categories: "Categories",
             ingredients: "Ingredients",
-            orders: "Orders"
+            orders: "Orders",
+            settings: "Settings"
         }
     },
     es: {
@@ -19,7 +20,8 @@ const messages = {
             products: "Productos",
             categories: "Categorias",
             ingredients: "Ingredientes",
-            orders: "Pedidos"
+            orders: "Pedidos",
+            settings: "Ajustes"
         }
     },
     pt: {
@@ -30,7 +32,8 @@ const messages = {
             products: "Productos",
             categories: "Categorias",
             ingredients: "Ingredientes",
-            orders: "Pedidos"
+            orders: "Pedidos",
+            settings: "Definições"
         }
     }
 }
