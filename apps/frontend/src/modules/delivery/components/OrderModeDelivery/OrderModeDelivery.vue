@@ -3,19 +3,57 @@
 
     <v-col cols="12">
       <v-row justify="center" dense>
-        <v-col cols="12" sm="8" md="8">
+        <v-col cols="12" sm="8" md="4">
           <location-form
-              v-model="form"
+              v-model="location"
               enable-map
+              map-height="200px"
+              :address-sm-col="12"
+              :apartment-sm-col="6"
+              :floor-sm-col="6"
+              :map-sm-col="12"
           ></location-form>
         </v-col>
 
       </v-row>
     </v-col>
 
-    <v-col v-if="!isActiveHours || isScheduled" cols="12">
+    <!--#[EN HORA]-->
+    <v-col v-if="isActiveHours" cols="12">
       <v-row justify="center" dense>
-        <v-col cols="6" sm="8" md="4">
+
+        <!--#[EN ZONA] => LOADING -->
+        <v-col v-if="loadingInZone" cols="12" sm="8" md="4">
+          <loading :text="$t('maps.zone.determiningZone')"></loading>
+        </v-col>
+
+        <!--#[EN ZONA] => TRUE -->
+        <v-col v-else-if="inZone === true && loadingInZone === false" cols="12" sm="8" md="4">
+          <schedule-as-son-as-posible-time
+              :calendar="calendar"
+              enable-delivery-time
+          />
+        </v-col>
+
+        <!--#[FUERA  ZONA] => FALSE -->
+        <v-col v-else-if="inZone === false && loadingInZone === false" cols="6" sm="8" md="4">
+
+        </v-col>
+
+      </v-row>
+    </v-col>
+
+    <!--#[FUERA DE HORA] => FALSE -->
+    <v-col v-if="!isActiveHours" cols="12">
+      <v-row justify="center" dense>
+
+        <!--#[EN ZONA] => LOADING -->
+        <v-col v-if="loadingInZone" cols="12" sm="8" md="4">
+          <loading :text="$t('maps.zone.determiningZone')"></loading>
+        </v-col>
+
+        <!--#[EN ZONA] => TRUE -->
+        <v-col v-else-if="inZone === true && loadingInZone === false" cols="12" sm="8" md="4">
           <v-alert v-if="!isActiveHours && !isScheduled"
                    type="warning"
                    class="text-left"
@@ -26,16 +64,14 @@
           >
             {{ getMessageOutOfTime }}
           </v-alert>
-          <schedule-time v-model="time" :calendar="calendar"></schedule-time>
+          <schedule-time v-model="time" :calendar="calendar" delivery-mode></schedule-time>
         </v-col>
-      </v-row>
-    </v-col>
 
-    <v-col v-if="isActiveHours && isAsSonAsPosible" cols="12">
-      <v-row justify="center" dense>
-        <v-col cols="6" sm="8" md="4">
-          <schedule-as-son-as-posible-time v-model="time" :calendar="calendar"></schedule-as-son-as-posible-time>
+        <!--#[FUERA  ZONA] => FALSE -->
+        <v-col v-else-if="inZone === false && loadingInZone === false" cols="6" sm="8" md="4">
+
         </v-col>
+
       </v-row>
     </v-col>
 
@@ -48,38 +84,37 @@
 
 <script>
 import CalendarIsActive from "@/modules/calendar/mixins/CalendarIsActive";
-import ScheduleTime from "@/modules/delivery/components/ScheduleTime/ScheduleTime";
-import {SubmitButton} from "@dracul/common-frontend"
+import {SubmitButton, Loading} from "@dracul/common-frontend"
+import LocationForm from "@/modules/maps/components/LocationForm/LocationForm";
+import LocationIsInZone from "@/modules/maps/mixins/LocationIsInZone";
 import ScheduleAsSonAsPosibleTime
   from "@/modules/delivery/components/ScheduleAsSonAsPosibleTime/ScheduleAsSonAsPosibleTime";
-import LocationForm from "@/modules/maps/components/LocationForm/LocationForm";
+import ScheduleTime from "@/modules/delivery/components/ScheduleTime/ScheduleTime";
 
 const AS_SON_AS_POSIBLE = 'AS_SON_AS_POSIBLE'
 const SCHEDULED = 'SCHEDULED'
 export default {
   name: "OrderModeDelivery",
-  components: {LocationForm, ScheduleAsSonAsPosibleTime, ScheduleTime, SubmitButton},
-  mixins: [CalendarIsActive],
+  components: {ScheduleTime, ScheduleAsSonAsPosibleTime, LocationForm, SubmitButton, Loading},
+  mixins: [CalendarIsActive, LocationIsInZone],
   props: {
     calendar: {type: Object, required: true}
   },
   data() {
     return {
       isActiveHours: null,
-      form: {
-        address: '',
-        floor: '',
-        apartment: '',
-        latitude: null,
-        longitude: null,
-        country: '',
-        province: '',
-        locality: '',
-        postalCode: ''
-      }
     }
   },
   computed: {
+    location: {
+      get() {
+        return this.$store.getters.getOrderLocation
+      },
+      set(val) {
+        this.$store.commit('setOrderLocation', val)
+        this.locationIsInZone(val)
+      }
+    },
     getMessageOutOfTime() {
       return this.$store.getters.getSetting('MessageOutOfTime').value
     },
@@ -100,6 +135,7 @@ export default {
   },
   created() {
     this.determineActiveHours()
+    this.locationIsInZone(this.location)
   },
   methods: {
     determineActiveHours() {

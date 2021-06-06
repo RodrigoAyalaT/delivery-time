@@ -19,7 +19,8 @@ export default {
   mixins: [CalendarIsActive],
   props: {
     value: {type: String},
-    calendar: {type: Object, required: true}
+    calendar: {type: Object, required: true},
+    deliveryMode: {type: Boolean, default: false}
   },
   data() {
     return {
@@ -35,7 +36,12 @@ export default {
       }
     },
     getIntervalTime() {
-      return this.$store.getters.getSetting('IntervalTime').value
+      if(this.deliveryMode){
+        return this.$store.getters.getSetting('IntervalDeliveryTime').value
+      }else{
+        return this.$store.getters.getSetting('IntervalTakeAwayTime').value
+      }
+
     },
     getPreparationTime() {
       return this.$store.getters.getSetting('PreparationTime').value
@@ -53,7 +59,16 @@ export default {
       while (working < 1440) {
 
         if (hour.isAfter(now) && this.calendarIsActive(this.calendar, hour.format('HH:mm'))) {
-          options.push(hour.format("HH:mm"))
+
+          if(this.deliveryMode){
+            let hourTo = hour.add(this.getIntervalTime,'m')
+            let text = hour.format("HH:mm") + " a " + hourTo.format("HH:mm")
+            options.push({text: text, value:  hour.format("HH:mm")} )
+          }else{
+            options.push({text: hour.format("HH:mm"), value:  hour.format("HH:mm")} )
+          }
+
+
         }
 
         hour = hour.add(this.getIntervalTime, 'm')

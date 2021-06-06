@@ -2,11 +2,12 @@
   <v-form ref="form" autocomplete="off" @submit.prevent="save">
     <v-row>
 
-      <v-col cols="12" sm="6">
+      <v-col cols="12" :sm="addressSmCol">
 
         <address-autocomplete
             prepend-inner-icon="location_on"
             :value="form.address"
+            hide-details
             @input="(val) => (form.address = val)"
             @lat="(val) => (form.latitude = val)"
             @lng="(val) => (form.longitude = val)"
@@ -18,10 +19,10 @@
       </v-col>
 
 
-      <v-col cols="12" sm="3">
+      <v-col cols="6" :sm="apartmentSmCol">
         <v-text-field
 
-            prepend-icon="apartment"
+            prepend-inner-icon="apartment"
             name="floor"
             v-model="form.floor"
             :label="$t('maps.location.labels.floor')"
@@ -34,10 +35,10 @@
       </v-col>
 
 
-      <v-col cols="12" sm="3">
+      <v-col cols="6" :sm="floorSmCol">
         <v-text-field
 
-            prepend-icon="meeting_room"
+            prepend-inner-icon="meeting_room"
             name="apartment"
             v-model="form.apartment"
             :label="$t('maps.location.labels.apartment')"
@@ -53,7 +54,7 @@
       <v-col v-if="enableCoordinates" cols="12" sm="3">
         <v-text-field
 
-            prepend-icon="explore"
+            prepend-inner-icon="explore"
             name="latitude"
             v-model.number="form.latitude"
             type="number"
@@ -70,7 +71,7 @@
       <v-col v-if="enableCoordinates" cols="12" sm="3">
         <v-text-field
 
-            prepend-icon="explore"
+            prepend-inner-icon="explore"
             name="longitude"
             v-model.number="form.longitude"
             type="number"
@@ -87,7 +88,7 @@
       <v-col v-if="enableCountry" cols="12" sm="6">
         <v-text-field
 
-            prepend-icon="flag"
+            prepend-inner-icon="flag"
             name="country"
             v-model="form.country"
             :label="$t('maps.location.labels.country')"
@@ -103,7 +104,7 @@
       <v-col v-if="enableProvince" cols="12" sm="4">
         <v-text-field
 
-            prepend-icon="villa"
+            prepend-inner-icon="villa"
             name="province"
             v-model="form.province"
             :label="$t('maps.location.labels.province')"
@@ -119,7 +120,7 @@
       <v-col v-if="enableLocality" cols="12" sm="4">
         <v-text-field
 
-            prepend-icon="location_city"
+            prepend-inner-icon="location_city"
             name="locality"
             v-model="form.locality"
             :label="$t('maps.location.labels.locality')"
@@ -135,7 +136,7 @@
       <v-col v-if="enablePostalCode" cols="12" sm="4">
         <v-text-field
 
-            prepend-icon="local_shipping"
+            prepend-inner-icon="local_shipping"
             name="postalCode"
             v-model="form.postalCode"
             :label="$t('maps.location.labels.postalCode')"
@@ -150,8 +151,12 @@
 
 
     <v-row align="center" justify="center">
-      <v-col v-if="enableMap" cols="12" sm="6">
-        <location-map v-if="form.latitude && form.longitude" v-model="form"></location-map>
+      <v-col v-if="enableMap" cols="12" :sm="mapSmCol">
+        <location-map
+            v-if="form.latitude && form.longitude"
+            v-model="form"
+            :height="mapHeight"
+        ></location-map>
       </v-col>
 
       <v-col v-if="enableStreetView" cols="12" sm="3">
@@ -165,14 +170,11 @@
 
       <v-col v-if="enableZone" cols="12" sm="3" class="text-center">
         <v-card>
-          <v-card-title>Zonas</v-card-title>
-          <v-card-text>
             <zones-point
                 v-if="form.latitude && form.longitude"
                 :latitude="form.latitude"
                 :longitude="form.longitude"
             ></zones-point>
-          </v-card-text>
         </v-card>
 
       </v-col>
@@ -197,12 +199,19 @@ export default {
 
   props: {
     value: {type: Object, required: true},
+
+    addressSmCol: {type: Number, default: 6},
+    apartmentSmCol: {type: Number, default: 3},
+    floorSmCol: {type: Number, default: 3},
+    mapSmCol: {type: Number, default: 6},
+
     enableCoordinates: {type: Boolean, default: false},
     enableCountry: {type: Boolean, default: false},
     enableLocality: {type: Boolean, default: false},
     enableProvince: {type: Boolean, default: false},
     enablePostalCode: {type: Boolean, default: false},
     enableMap: {type: Boolean, default: false},
+    mapHeight: {type: String, default: '300px'},
     enableStreetView: {type: Boolean, default: false},
     enableZone: {type: Boolean, default: false},
   },

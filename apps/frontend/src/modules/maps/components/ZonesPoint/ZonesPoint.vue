@@ -1,11 +1,16 @@
 <template>
-  <div>
-    <v-list>
-      <v-list-item v-for="zone in zones" :key="zone.id">
-        <v-list-item-title>{{zone.name}}</v-list-item-title>
-      </v-list-item>
-    </v-list>
-  </div>
+  <v-list>
+    <v-list-item v-for="zone in zones" :key="zone.id">
+      <v-list-item-avatar>
+        <v-icon>map</v-icon>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title>{{ zone.name }}</v-list-item-title>
+        <v-list-item-subtitle>{{ $t('maps.zone.zone') }}</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+  </v-list>
+
 </template>
 
 <script>

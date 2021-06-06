@@ -8,7 +8,6 @@
       :search-input.sync="search"
       :label="label"
       :placeholder="placeholder"
-      class="pa-3"
       autocomplete="off"
       :loading="loading"
       :filter="d=>d"

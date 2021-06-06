@@ -7,6 +7,8 @@ const messages = {
                 locations: 'Locations'
             },
             zone: {
+                determiningZone: 'Determining zone',
+                zone: 'Zone',
                 title: 'Zone management',
                 subtitle: 'View, search, create, edit and delete Zone',
                 creating: 'Creating Zone',
@@ -50,6 +52,8 @@ const messages = {
                 locations: 'Ubicaciones'
             },
             zone: {
+                determiningZone: 'Determinando zona',
+                zone: 'Zona',
                 title: 'Administración de Zone',
                 subtitle: 'Ver, buscar, crear, editar, y borrar Zone',
                 creating: 'Creando Zone',
@@ -93,6 +97,8 @@ const messages = {
                 locations: 'Localizações'
             },
             zone: {
+                determiningZone: 'zona determinante',
+                zone: 'Zone',
                 title: 'Administração de Zone',
                 subtitle: 'Ver, buscar, criar, editar e usar Zone',
                 creating: 'Criando Zone',

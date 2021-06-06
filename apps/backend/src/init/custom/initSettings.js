@@ -9,9 +9,19 @@ const settings = [
         label: {en: 'Preparation time', es: 'Tiempo de preparación', pt: 'Tempo de preparação'}
     },
     {
-        key: 'IntervalTime',
+        key: 'DeliveryTime',
+        value: '60',
+        label: {en: 'Delivery time', es: 'Tiempo de delivery', pt: 'Tempo de entrega'}
+    },
+    {
+        key: 'IntervalTakeAwayTime',
         value: '10',
-        label: {en: 'Interval time', es: 'Tiempo de intervalo', pt: 'Tempo de intervalo'}
+        label: {en: 'Interval take away time', es: 'Intervalo retiro en local', pt: 'Intervalo de retirada local'}
+    },
+    {
+        key: 'IntervalDeliveryTime',
+        value: '60',
+        label: {en: 'Interval delivery time', es: 'Intervalo de delivery', pt: 'Intervalo de entrega'}
     },
     {
         key: 'MessageOutOfTime',

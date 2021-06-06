@@ -13,7 +13,8 @@ export default {
   mixins: [CalendarIsActive],
   props: {
     value: {type: String},
-    calendar: {type: Object, required: true}
+    calendar: {type: Object, required: true},
+    enableDeliveryTime: {type: Boolean, default: false}
   },
   computed: {
     hour: {
@@ -27,9 +28,17 @@ export default {
     getPreparationTime() {
       return this.$store.getters.getSetting('PreparationTime').value
     },
+    getDeliveryTime() {
+      return this.$store.getters.getSetting('DeliveryTime').value
+    },
     getTime() {
       let now = Dayjs()
       now = now.add(this.getPreparationTime, 'm')
+
+      if(this.enableDeliveryTime){
+        now = now.add(this.getDeliveryTime, 'm')
+      }
+
       return now.format('HH:mm')
     }
   }

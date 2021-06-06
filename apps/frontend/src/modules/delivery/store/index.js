@@ -13,13 +13,22 @@ export default {
             },
             location: {
                 address: '',
-                floor: null,
-                apartment: null
+                floor: '',
+                apartment: '',
+                latitude: null,
+                longitude: null,
+                country: '',
+                province: '',
+                locality: '',
+                postalCode: ''
             },
             items: []
         },
     },
     getters: {
+        getOrderLocation(state){
+            return state.order.location
+        },
         getDeliveryMode(state){
             return state.order.delivery.mode
         },
