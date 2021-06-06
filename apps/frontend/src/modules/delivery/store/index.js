@@ -1,8 +1,11 @@
 export default {
     state: {
         order: {
-            deliveryMode: null, //TAKE_AWAY|DELIVERY
-            deliveryTimeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED
+            delivery: {
+                mode: null, //TAKE_AWAY|DELIVERY
+                timeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED
+                time: null,
+            },
             contact: {
                 name: null,
                 phone: null,
@@ -18,10 +21,13 @@ export default {
     },
     getters: {
         getDeliveryMode(state){
-            return state.order.deliveryMode
+            return state.order.delivery.mode
         },
         getDeliveryTimeMode(state){
-            return state.order.deliveryTimeMode
+            return state.order.delivery.timeMode
+        },
+        getDeliveryTime(state){
+            return state.order.delivery.time
         },
         getQuantity: (state) => (product) => {
             if (product) {
@@ -76,11 +82,15 @@ export default {
             }
         },
         setOrderDeliveryMode(state, val) {
-            state.order.deliveryMode = val
-            state.order.deliveryTimeMode = null
+            state.order.delivery.mode = val
+            state.order.delivery.timeMode = null
         },
+
         setOrderDeliveryTimeMode(state, val){
-            state.order.deliveryTimeMode = val
+            state.order.delivery.timeMode = val
+        },
+        setOrderDeliveryTime(state, val){
+            state.order.delivery.time = val
         },
         setOrderContact(state, val) {
             state.order.contact = val

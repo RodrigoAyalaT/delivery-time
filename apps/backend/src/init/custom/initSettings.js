@@ -8,6 +8,11 @@ const settings = [
         value: '30',
         label: {en: 'Preparation time', es: 'Tiempo de preparación', pt: 'Tempo de preparação'}
     },
+    {
+        key: 'IntervalTime',
+        value: '10',
+        label: {en: 'Interval time', es: 'Tiempo de intervalo', pt: 'Tempo de intervalo'}
+    },
 ]
 
 export const initSettings = async function () {

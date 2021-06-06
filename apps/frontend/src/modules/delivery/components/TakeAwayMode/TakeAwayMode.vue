@@ -26,8 +26,8 @@
         <v-alert type="warning" dense class="align-center">
           "Lo sentimos, el local esta cerrado, podes programar el retiro de tu pedido"
         </v-alert>
-        <schedule-time></schedule-time>
-        <submit-button></submit-button>
+        <schedule-time v-model="time" :calendar="calendar"></schedule-time>
+        <submit-button :text="$t('common.confirm')" @click="$emit('confirm')" ></submit-button>
       </v-col>
 
     </template>
@@ -61,6 +61,14 @@ export default {
     },
     isScheduled() {
       return this.$store.getters.getDeliveryTimeMode == SCHEDULED
+    },
+    time:{
+      get(){
+        return this.$store.getters.getDeliveryTime
+      },
+      set(v){
+        this.setDeliveryTime(v)
+      }
     }
   },
   created() {
@@ -78,6 +86,9 @@ export default {
     },
     scheduled() {
       this.$store.commit('setOrderDeliveryTimeMode', SCHEDULED)
+    },
+    setDeliveryTime(val) {
+      this.$store.commit('setOrderDeliveryTime', val)
     }
   }
 }

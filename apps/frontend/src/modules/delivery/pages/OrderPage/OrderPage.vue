@@ -63,72 +63,76 @@
 
 
       <v-col cols="12">
-        <v-stepper v-model="step" >
-            <div :style="{border:'none', shadow: 'none'}"  :step="1" class="pa-0">
-              <delivery-mode></delivery-mode>
-            </div>
+        <v-stepper v-model="step">
+          <div
+              v-if="step===1"
+              :style="{border:'none', shadow: 'none'}"
+              class="pa-0"
+          >
+            <delivery-mode @confirm="step=2"></delivery-mode>
+          </div>
 
-            <v-stepper-content :step="2" class="py-0">
-              <!--PRODUCTS-->
-              <v-row>
-                <v-col cols="12" sm="4" md="3">
-                  <product-filters
-                      v-model="filters"
-                      @input="fetchProducts"
-                      vertical
-                  />
-                  <cart-detail
-                      v-if="$vuetify.breakpoint.smAndUp" cols="12" sm="12" md="12"
-                      :items="getOrderItems"
-                      @addProduct="addProduct"
-                      @removeProduct="removeProduct"
-                      @clearOrder="$store.commit('clearOrder')"
-                      :quantity-total="$store.getters.getQuantityTotal"
-                      :amount-total="$store.getters.getAmountTotal"
+          <v-stepper-content :step="2" class="py-0">
+            <!--PRODUCTS-->
+            <v-row>
+              <v-col cols="12" sm="4" md="3">
+                <product-filters
+                    v-model="filters"
+                    @input="fetchProducts"
+                    vertical
+                />
+                <cart-detail
+                    v-if="$vuetify.breakpoint.smAndUp" cols="12" sm="12" md="12"
+                    :items="getOrderItems"
+                    @addProduct="addProduct"
+                    @removeProduct="removeProduct"
+                    @clearOrder="$store.commit('clearOrder')"
+                    :quantity-total="$store.getters.getQuantityTotal"
+                    :amount-total="$store.getters.getAmountTotal"
 
-                  ></cart-detail>
+                ></cart-detail>
 
-                </v-col>
+              </v-col>
 
-                <v-col cols="12" sm="8" md="9">
-                  <v-row v-for="category in getCategories" :key="category.id">
-                    <v-col cols="12" class="my-2">
-                      <h5 class="text-h5">{{ category.name }}</h5>
-                      <v-divider></v-divider>
-                    </v-col>
-                    <v-col v-for="product in getProductsByCategory(category)"
-                           :key="product.id"
-                           cols="12" sm="6" md="4"
-                           class=""
-                    >
-                      <product-card
-                          :product="product"
-                          :quantity="$store.getters.getQuantity(product)"
-                          @addProduct="addProduct"
-                          @removeProduct="removeProduct"
-                      ></product-card>
-                    </v-col>
-                  </v-row>
-                </v-col>
+              <v-col cols="12" sm="8" md="9">
+                <v-row v-for="category in getCategories" :key="category.id">
+                  <v-col cols="12" class="my-2">
+                    <h5 class="text-h5">{{ category.name }}</h5>
+                    <v-divider></v-divider>
+                  </v-col>
+                  <v-col v-for="product in getProductsByCategory(category)"
+                         :key="product.id"
+                         cols="12" sm="6" md="4"
+                         class=""
+                  >
+                    <product-card
+                        :product="product"
+                        :quantity="$store.getters.getQuantity(product)"
+                        @addProduct="addProduct"
+                        @removeProduct="removeProduct"
+                    ></product-card>
+                  </v-col>
+                </v-row>
+              </v-col>
 
 
-              </v-row>
-            </v-stepper-content>
+            </v-row>
+          </v-stepper-content>
 
-            <v-stepper-content :step="3" class="white">
-              <location-form
-                  v-model="location"
-                  enable-map
-              ></location-form>
-            </v-stepper-content>
+          <v-stepper-content :step="3" class="white">
+            <location-form
+                v-model="location"
+                enable-map
+            ></location-form>
+          </v-stepper-content>
 
-            <v-stepper-content :step="4" class="white">
-              CONTACT
-            </v-stepper-content>
+          <v-stepper-content :step="4" class="white">
+            CONTACT
+          </v-stepper-content>
 
-            <v-stepper-content :step="5" class="grey lighten-1">
-              CONFIRMAR
-            </v-stepper-content>
+          <v-stepper-content :step="5" class="grey lighten-1">
+            CONFIRMAR
+          </v-stepper-content>
 
         </v-stepper>
 
