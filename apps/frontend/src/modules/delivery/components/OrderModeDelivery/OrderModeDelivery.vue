@@ -37,7 +37,24 @@
 
         <!--#[FUERA  ZONA] => FALSE -->
         <v-col v-else-if="inZone === false && loadingInZone === false" cols="6" sm="8" md="4">
-
+          <v-alert
+              type="warning"
+              class="text-left"
+              rounded
+              text
+              outlined
+              prominent
+          >
+            {{ getMessageOutOfZone }}
+          </v-alert>
+          <v-btn
+              class="green white--text"
+              :href="getWhatsappLink"
+              target="_blank"
+          >
+            <v-icon left>contact_support</v-icon>
+            Whatsapp
+          </v-btn>
         </v-col>
 
       </v-row>
@@ -69,13 +86,22 @@
 
         <!--#[FUERA  ZONA] => FALSE -->
         <v-col v-else-if="inZone === false && loadingInZone === false" cols="6" sm="8" md="4">
-
+          <v-alert
+              type="warning"
+              class="text-left"
+              rounded
+              text
+              outlined
+              prominent
+          >
+            {{ getMessageOutOfZone }}
+          </v-alert>
         </v-col>
 
       </v-row>
     </v-col>
 
-    <v-col v-if="time" cols="12">
+    <v-col v-if="time && inZone" cols="12">
       <submit-button :text="$t('common.confirm')" @click="$emit('confirm')"></submit-button>
     </v-col>
 
@@ -117,6 +143,15 @@ export default {
     },
     getMessageOutOfTime() {
       return this.$store.getters.getSetting('MessageOutOfTime').value
+    },
+    getMessageOutOfZone() {
+      return this.$store.getters.getSetting('MessageOutOfZone').value
+    },
+    getWhatsappNumber() {
+      return this.$store.getters.getSetting('WhatsappNumber').value
+    },
+    getWhatsappLink() {
+      return 'https://api.whatsapp.com/send?phone=' + this.getWhatsappNumber
     },
     isAsSonAsPosible() {
       return this.$store.getters.getDeliveryTimeMode == AS_SON_AS_POSIBLE

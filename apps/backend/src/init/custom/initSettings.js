@@ -28,6 +28,16 @@ const settings = [
         value: 'Lo sentimos, el local esta cerrado, podes programar el retiro de tu pedido',
         label: {en: 'Message out of time', es: 'Mensaje fuera de hora', pt: 'Mensagem fora do tempo'}
     },
+    {
+        key: 'MessageOutOfZone',
+        value: 'Tu dirección de entrega esta bastante lejos de nuestro local. Podes retirar en nuestro local o envíanos un whatsapp para ver las opciones',
+        label: {en: 'Message out of zone', es: 'Mensaje fuera de zona', pt: 'Mensagem fora da zona'}
+    },
+    {
+        key: 'WhatsappNumber',
+        value: '',
+        label: {en: 'Whatsapp number', es: 'Número de Whatsapp', pt: 'Número do Whatsapp'}
+    },
 ]
 
 export const initSettings = async function () {
