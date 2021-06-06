@@ -1,8 +1,9 @@
-mutation zoneCreate($name:String!, $color:String, $location:PolygonInput!){
-    zoneCreate(input: {name: $name, color: $color, location: $location }){
+mutation zoneCreate($name:String!, $color:String, $value: Float, $location:PolygonInput!){
+    zoneCreate(input: {name: $name, color: $color, value: $value, location: $location }){
         id
         name
         color
+        value
         location{
             type
             coordinates

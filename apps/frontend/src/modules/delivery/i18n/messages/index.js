@@ -6,6 +6,8 @@ const messages = {
                 delivery: 'Delivery',
                 asSonAsPosible: 'As son as posible',
                 scheduledWithdrawal: 'Scheduled',
+                estimatedTime: "Estimated time {hour}",
+                deliveryTime: "Delivery time"
             },
             product: {
                 title: 'Product management',
@@ -76,6 +78,8 @@ const messages = {
                 delivery: 'Delivery',
                 asSonAsPosible: 'Lo antes posible',
                 scheduledWithdrawal: 'Programado',
+                estimatedTime: "Hora estimada {hour}",
+                deliveryTime: "Hora de entrega"
             },
             product: {
                 title: 'Administración de Product',
@@ -146,6 +150,8 @@ const messages = {
                 delivery: 'Delivery',
                 asSonAsPosible: 'Lo antes posible',
                 scheduledWithdrawal: 'Programado',
+                estimatedTime: "Tempo estimado {hour}",
+                deliveryTime: "tempo de entrega"
             },
             product: {
                 title: 'Administração de Product',

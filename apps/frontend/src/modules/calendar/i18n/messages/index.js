@@ -14,7 +14,16 @@ const messages = {
                 showing: 'Showing Calendar',
                 calendarSchedule: 'Calendar schedule',
                 menu: {
-                  calendar: 'Calendar'
+                    calendar: 'Calendar'
+                },
+                days: {
+                    monday: 'Monday',
+                    thursday: 'Thursday',
+                    wednesday: 'Wednesday',
+                    tuesday: 'Tuesday',
+                    friday: 'Friday',
+                    saturday: 'Saturday',
+                    sunday: 'Sunday'
                 },
                 labels: {
                     name: 'Name',
@@ -49,6 +58,15 @@ const messages = {
                 menu: {
                     calendar: 'Calendario'
                 },
+                days: {
+                    monday: 'Lunes',
+                    thursday: 'Martes',
+                    wednesday: 'Miercoles',
+                    tuesday: 'Jueves',
+                    friday: 'Viernes',
+                    saturday: 'Sabado',
+                    sunday: 'Domingo'
+                },
                 labels: {
                     name: 'Nombre',
                     description: 'Descripción',
@@ -81,6 +99,15 @@ const messages = {
                 calendarSchedule: 'Horarios de calendario',
                 menu: {
                     calendar: 'Calendário'
+                },
+                days: {
+                    monday: 'Segunda-feira',
+                    thursday: 'Quinta-feira',
+                    wednesday: 'Quarta-feira',
+                    tuesday: 'Terça-feira',
+                    friday: 'Sexta-feira',
+                    saturday: 'Sábado',
+                    sunday: 'Domigo'
                 },
                 labels: {
                     name: 'Nome',

@@ -1,8 +1,9 @@
-mutation zoneUpdate($id: ID!, $name:String!, $color:String, $location:PolygonInput!){
-    zoneUpdate(id: $id, input: {name: $name, color: $color, location: $location }){
+mutation zoneUpdate($id: ID!, $name:String!, $color:String, $value: Float, $location:PolygonInput!){
+    zoneUpdate(id: $id, input: {name: $name, color: $color, value: $value, location: $location }){
         id
         name
         color
+        value
         location{
             type
             coordinates

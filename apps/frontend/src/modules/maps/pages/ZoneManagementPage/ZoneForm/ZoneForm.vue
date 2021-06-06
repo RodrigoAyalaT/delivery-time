@@ -3,7 +3,7 @@
     <v-row>
 
 
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="4">
         <v-text-field
 
             prepend-icon="title"
@@ -18,20 +18,32 @@
         ></v-text-field>
       </v-col>
 
-
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="4">
         <v-text-field
+            type="number"
+            prepend-icon="price_change"
+            name="value"
+            v-model.number="form.value"
+            :label="$t('maps.zone.labels.value')"
+            :placeholder="$t('maps.zone.labels.value')"
+            :error="hasInputErrors('value')"
+            :error-messages="getInputErrors('value')"
+            color="secondary"
+        ></v-text-field>
+      </v-col>
 
-            prepend-icon="palette"
-            name="color"
+      <v-col cols="12" sm="4">
+        <color-input
             v-model="form.color"
             :label="$t('maps.zone.labels.color')"
             :placeholder="$t('maps.zone.labels.color')"
             :error="hasInputErrors('color')"
             :error-messages="getInputErrors('color')"
-            color="secondary"
+            :color="form.color"
+        >
 
-        ></v-text-field>
+        </color-input>
+
       </v-col>
 
       <v-col  cols="12">
@@ -47,15 +59,14 @@
 
 <script>
 
-import {InputErrorsByProps, RequiredRule} from '@dracul/common-frontend'
+import {InputErrorsByProps, RequiredRule, ColorInput} from '@dracul/common-frontend'
 import ZoneMap from "@/modules/maps/components/ZoneMap/ZoneMap";
 
 
 export default {
   name: "ZoneForm",
-  components: {ZoneMap},
+  components: {ZoneMap, ColorInput},
   mixins: [InputErrorsByProps, RequiredRule],
-
   props: {
     value: {
       type: Object,

@@ -24,28 +24,41 @@
            class="text-center px-0"
     >
       <loading v-if="loading"></loading>
-      <take-away-mode
+      <order-mode-take-away
           v-if="calendar"
           :calendar="calendar"
           @confirm="$emit('confirm')"
-      ></take-away-mode>
+      ></order-mode-take-away>
+    </v-col>
+
+    <v-col cols="12"
+           v-if="isDelivery"
+           class="text-center px-0"
+    >
+      <loading v-if="loading"></loading>
+      <order-mode-delivery
+          v-if="calendar"
+          :calendar="calendar"
+          @confirm="$emit('confirm')"
+      ></order-mode-delivery>
     </v-col>
 
   </v-row>
 </template>
 
 <script>
-import TakeAwayMode from "@/modules/delivery/components/TakeAwayMode/TakeAwayMode";
+import OrderModeTakeAway from "@/modules/delivery/components/OrderModeTakeAway";
 import CardButton from "@/modules/delivery/components/CardButton/CardButton";
 import CalendarProvider from "@/modules/calendar/providers/CalendarProvider";
 import {Loading} from '@dracul/common-frontend'
+import OrderModeDelivery from "@/modules/delivery/components/OrderModeDelivery/OrderModeDelivery";
 
 const TAKE_AWAY = 'TAKE_AWAY'
 const DELIVERY = 'DELIVERY'
 
 export default {
-  name: "DeliveryMode",
-  components: {CardButton, TakeAwayMode, Loading},
+  name: "OrderMode",
+  components: {OrderModeDelivery, CardButton, OrderModeTakeAway, Loading},
   data() {
     return {
       calendar: null,

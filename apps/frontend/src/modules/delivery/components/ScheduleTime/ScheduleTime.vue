@@ -2,8 +2,9 @@
   <v-select
       :items="getOptions"
       v-model="hour"
-      :label="$t('Hour')"
+      :label="$t('delivery.mode.deliveryTime')"
       @change="v => $emit('change',v)"
+      outlined
   >
 
   </v-select>

@@ -1,6 +1,11 @@
 const messages = {
     en: {
         maps: {
+            menu: {
+                maps: 'Maps',
+                zones: 'Zones',
+                locations: 'Locations'
+            },
             zone: {
                 title: 'Zone management',
                 subtitle: 'View, search, create, edit and delete Zone',
@@ -10,7 +15,8 @@ const messages = {
                 showing: 'Showing Zone',
                 labels: {
                     name: 'Name',
-                    color: 'Color'
+                    color: 'Color',
+                    value: 'Value'
                 },
 
             },
@@ -38,6 +44,11 @@ const messages = {
     },
     es: {
         maps: {
+            menu: {
+                maps: 'Mapas',
+                zones: 'Zonas',
+                locations: 'Ubicaciones'
+            },
             zone: {
                 title: 'Administración de Zone',
                 subtitle: 'Ver, buscar, crear, editar, y borrar Zone',
@@ -47,7 +58,8 @@ const messages = {
                 showing: 'Detalles de Zone',
                 labels: {
                     name: 'Nombre',
-                    color: 'Color'
+                    color: 'Color',
+                    value: 'Valor'
                 },
 
             },
@@ -75,6 +87,11 @@ const messages = {
     },
     pt: {
         maps: {
+            menu: {
+                maps: 'Mapas',
+                zones: 'Zonas',
+                locations: 'Localizações'
+            },
             zone: {
                 title: 'Administração de Zone',
                 subtitle: 'Ver, buscar, criar, editar e usar Zone',
@@ -84,7 +101,8 @@ const messages = {
                 showing: 'Detalhes do Zone',
                 labels: {
                     name: 'Nome',
-                    color: 'Color'
+                    color: 'Color',
+                     value: 'Valor'
                 },
 
             },

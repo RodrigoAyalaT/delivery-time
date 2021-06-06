@@ -26,10 +26,10 @@
                 @update:items-per-page="fetch"
         >
 
-            
-            
-            
-            
+
+
+
+
             <template slot="no-data">
                <div class="text-xs-center" v-t="'common.noData'"></div>
             </template>
@@ -51,14 +51,14 @@
 
 <script>
    import ZoneProvider from "../../../providers/ZoneProvider";
-   
+
    import {DeleteButton, EditButton, ShowButton, SearchInput} from "@dracul/common-frontend"
-    
-   
+
+
     export default {
         name: "ZoneList",
         components: {DeleteButton, EditButton, ShowButton, SearchInput},
-        
+
         data() {
             return {
                 items: [],
@@ -71,12 +71,13 @@
                 search: ''
             }
         },
-        computed: {   
+        computed: {
           headers () {
             return [
                     //Entity Headers
                     {text: this.$t('maps.zone.labels.name'), value: 'name'},
                     {text: this.$t('maps.zone.labels.color'), value: 'color'},
+                    {text: this.$t('maps.zone.labels.value'), value: 'value'},
                     //Actions
                     {text: this.$t('common.actions'), value: 'action', sortable: false},
                 ]
@@ -86,7 +87,7 @@
           },
           getOrderDesc(){
               return  (Array.isArray(this.orderDesc)) ? this.orderDesc[0]: this.orderDesc
-          } 
+          }
         },
         created() {
             this.fetch()
@@ -99,10 +100,10 @@
             fetch() {
                 this.loading = true
                 ZoneProvider.paginateZones(
-                    this.pageNumber, 
+                    this.pageNumber,
                     this.itemsPerPage,
                     this.search,
-                    this.getOrderBy, 
+                    this.getOrderBy,
                     this.getOrderDesc
                 ).then(r => {
                     this.items = r.data.zonePaginate.items
@@ -112,7 +113,7 @@
                 }).finally(() => this.loading = false)
             }
         }
-        
+
     }
 </script>
 

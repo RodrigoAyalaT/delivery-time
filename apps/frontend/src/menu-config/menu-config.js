@@ -55,18 +55,18 @@ export default [
     },
     {
         icon: 'maps',
-        text: 'Maps',
+        text: 'maps.menu.maps',
         permission: 'ZONE_CREATE',
         children: [
             {
                 icon: 'satellite',
-                text: 'menu.zone',
+                text: 'maps.menu.zones',
                 link: {name: "ZoneManagementPage"},
                 permission: 'ZONE_CREATE'
             },
             {
                 icon: 'location_on',
-                text: 'menu.location',
+                text: 'maps.menu.locations',
                 link: {name: "LocationManagementPage"},
                 permission: 'LOCATION_SHOW'
             },

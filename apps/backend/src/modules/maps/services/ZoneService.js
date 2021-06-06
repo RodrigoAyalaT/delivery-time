@@ -70,10 +70,10 @@ export const paginateZones = function ( pageNumber = 1, itemsPerPage = 5, search
 
 
 
-export const createZone = async function (authUser, {name, color, location}) {
+export const createZone = async function (authUser, {name, color, value, location}) {
     console.log("Location",location)
     const doc = new Zone({
-        name, color, location
+        name, color, value, location
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
@@ -91,13 +91,13 @@ export const createZone = async function (authUser, {name, color, location}) {
     })
 }
 
-export const updateZone = async function (authUser, id, {name, color, location}) {
+export const updateZone = async function (authUser, id, {name, color, value, location}) {
     return new Promise((resolve, rejects) => {
 
         console.log("Location",location)
 
         Zone.findOneAndUpdate({_id: id},
-        {name, color, location},
+        {name, color, value, location},
         {new: true, runValidators: true, context: 'query'},
         (error,doc) => {
 

@@ -3,6 +3,7 @@ query zonesPoint($latitude:Float, $longitude:Float){
         id
         name
         color
+        value
         location{
             type
             coordinates

@@ -5,7 +5,7 @@
         <v-tabs-slider color="onSecondary"></v-tabs-slider>
         <v-tab v-for="item in items" :key="item.dayOfWeek" class="secondary onSecondary--text">
 
-          {{ item.dayName }} ({{ item.dayOfWeek }})
+          {{$t('calendar.calendar.days.'+ item.dayName)  }}
         </v-tab>
 
       </v-tabs>

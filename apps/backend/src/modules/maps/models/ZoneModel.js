@@ -10,6 +10,7 @@ const ZoneSchema = new Schema({
 
     name: {type: String, required: true, unique: false},
     color: {type: String, required: false, unique: false},
+    value: {type: Number, required: false, unique: false},
     location: {type: PolygonSchema, required: true,  index: '2dsphere'}
 
 });

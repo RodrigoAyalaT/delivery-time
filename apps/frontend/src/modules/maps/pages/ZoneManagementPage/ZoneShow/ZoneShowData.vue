@@ -14,7 +14,7 @@
 
         <v-col cols="12" sm="6" md="4">
             <v-list>
-                
+              <show-field :value="item.value.toString()" :label="$t('maps.zone.labels.color')" icon="palette"/>
             </v-list>
         </v-col>
 
@@ -22,12 +22,12 @@
 </template>
 <script>
     import {ShowField} from '@dracul/common-frontend'
-     
-    
+
+
     export default {
         name: 'ZoneShowData',
         components: {ShowField},
-        
+
         props: {
             item: {type: Object, required: true}
         }

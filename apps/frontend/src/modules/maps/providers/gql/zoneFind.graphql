@@ -3,6 +3,7 @@ query zoneFind($id:ID!){
         id
         name
         color
+        value
         location{
             type
             coordinates

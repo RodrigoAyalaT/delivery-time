@@ -13,6 +13,11 @@ const settings = [
         value: '10',
         label: {en: 'Interval time', es: 'Tiempo de intervalo', pt: 'Tempo de intervalo'}
     },
+    {
+        key: 'MessageOutOfTime',
+        value: 'Lo sentimos, el local esta cerrado, podes programar el retiro de tu pedido',
+        label: {en: 'Message out of time', es: 'Mensaje fuera de hora', pt: 'Mensagem fora do tempo'}
+    },
 ]
 
 export const initSettings = async function () {

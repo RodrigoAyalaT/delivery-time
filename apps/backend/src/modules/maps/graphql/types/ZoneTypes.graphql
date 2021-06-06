@@ -2,6 +2,7 @@ type Zone{
     id: ID!
     name: String!
     color: String
+    value: Float
     location: Polygon
 }
 type ZonePaginated{
@@ -22,6 +23,7 @@ type Query {
 input ZoneInput{
     name: String!
     color: String
+    value: Float
     location: PolygonInput!
 }
 

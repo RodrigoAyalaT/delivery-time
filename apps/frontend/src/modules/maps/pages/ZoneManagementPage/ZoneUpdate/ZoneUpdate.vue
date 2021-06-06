@@ -5,6 +5,7 @@
                :errorMessage="errorMessage"
                @update="update"
                @close="$emit('close')"
+               fullscreen
   >
     <zone-form ref="form" v-model="form" :input-errors="inputErrors"/>
   </crud-update>
@@ -39,6 +40,7 @@ export default {
         id: this.item.id,
         name: this.item.name,
         color: this.item.color,
+        value: this.item.value,
         location: {
           type: 'Polygon',
           coordinates: this.item.location.coordinates

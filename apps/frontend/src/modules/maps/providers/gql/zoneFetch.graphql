@@ -3,6 +3,7 @@ query zoneFetch{
         id
         name
         color
+        value
         location{
             type
             coordinates

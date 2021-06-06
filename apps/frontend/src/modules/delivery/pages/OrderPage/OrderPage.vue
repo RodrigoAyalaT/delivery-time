@@ -64,13 +64,11 @@
 
       <v-col cols="12">
         <v-stepper v-model="step">
-          <div
-              v-if="step===1"
-              :style="{border:'none', shadow: 'none'}"
-              class="pa-0"
-          >
-            <delivery-mode @confirm="step=2"></delivery-mode>
-          </div>
+
+          <v-stepper-content :step="1" class="py-0">
+            <order-mode @confirm="step=2"></order-mode>
+          </v-stepper-content>
+
 
           <v-stepper-content :step="2" class="py-0">
             <!--PRODUCTS-->
@@ -171,11 +169,11 @@ import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
 import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
 import LocationForm from "@/modules/maps/components/LocationForm/LocationForm";
 import ProductCategoryProvider from "@/modules/delivery/providers/ProductCategoryProvider";
-import DeliveryMode from "@/modules/delivery/components/DeliveryMode/DeliveryMode";
+import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 
 export default {
   name: "OrderPage",
-  components: {DeliveryMode, LocationForm, ProductCard, CartDetail, CartButton, ProductFilters},
+  components: {OrderMode, LocationForm, ProductCard, CartDetail, CartButton, ProductFilters},
   data() {
     return {
       showOrder: false,
