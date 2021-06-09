@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@dracul/common-frontend": "^1.1.10",
-    "@dracul/settings-frontend": "^1.1.6",
+    "@dracul/settings-frontend": "^1.1.11",
     "@dracul/customize-frontend": "^1.1.2",
     "@dracul/notification-frontend": "^1.1.3",
     "@dracul/user-frontend": "^1.1.9",

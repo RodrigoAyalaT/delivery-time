@@ -14,8 +14,8 @@ import {
 export default {
     Query: {
         zonesPoint: (_, {latitude, longitude}, {user,rbac}) => {
-            if (!user) throw new AuthenticationError("Unauthenticated")
-            if(!rbac.isAllowed(user.id, ZONE_SHOW)) throw new ForbiddenError("Not Authorized")
+           // if (!user) throw new AuthenticationError("Unauthenticated")
+          //  if(!rbac.isAllowed(user.id, ZONE_SHOW)) throw new ForbiddenError("Not Authorized")
             return pointZones(latitude, longitude)
         },
         zoneFind: (_, {id}, {user,rbac}) => {

@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import {UserModuleStore} from '@dracul/user-frontend'
 import {CustomizationStore} from '@dracul/customize-frontend'
-import{SettingsModuleStore} from '@dracul/settings-frontend'
+import {SettingsModuleStore} from '@dracul/settings-frontend'
 
 import BaseModuleStore from '../modules/base/storage/BaseModuleStore'
 import DeliveryModuleStore from '../modules/delivery/store'
@@ -13,6 +13,14 @@ Vue.use(Vuex)
 import createPersistedState from "vuex-persistedstate";
 
 export default new Vuex.Store({
+    state: {
+        extensionMenu: []
+    },
+    mutations: {
+        setExtensionMenu(state, val) {
+            state.extensionMenu = val
+        }
+    },
     modules: {
         settings: SettingsModuleStore,
         user: UserModuleStore,

@@ -49,8 +49,20 @@
     </v-card-text>
     <v-card-actions v-if="showActions">
       <v-spacer></v-spacer>
-      <v-btn text color="grey" :disabled="quantityTotal?false:true" @click="showCancel=true">Cancelar</v-btn>
-      <v-btn class="primary" :disabled="quantityTotal?false:true">Pedir</v-btn>
+      <v-btn
+          text color="grey"
+          :disabled="quantityTotal?false:true"
+          @click="showCancel=true"
+      >
+        {{ $t('common.cancel') }}
+      </v-btn>
+      <v-btn
+          class="primary"
+          :disabled="quantityTotal?false:true"
+          @click="next"
+      >
+        {{ $t('common.next') }}
+      </v-btn>
     </v-card-actions>
     <confirm-dialog
         v-model="showCancel"
@@ -83,6 +95,9 @@ export default {
   methods: {
     confirmed() {
       this.$emit('clearOrder')
+    },
+    next(){
+      this.$emit('next')
     }
   }
 }

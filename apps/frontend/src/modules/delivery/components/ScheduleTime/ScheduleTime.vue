@@ -1,13 +1,15 @@
 <template>
-  <v-select
-      :items="getOptions"
-      v-model="hour"
-      :label="$t('delivery.mode.deliveryTime')"
-      @change="v => $emit('change',v)"
-      outlined
+  <v-select v-if="getOptions.length >= 1"
+            :items="getOptions"
+            v-model="hour"
+            :label="$t('delivery.mode.deliveryTime')"
+            @change="v => $emit('change',v)"
+            outlined
   >
-
   </v-select>
+  <v-alert v-else type="info">
+    {{ $t('delivery.scheduleTime.noOptions') }}
+  </v-alert>
 </template>
 
 <script>
@@ -23,22 +25,26 @@ export default {
     deliveryMode: {type: Boolean, default: false}
   },
   data() {
-    return {
+    return {}
+  },
+  mounted(){
+    if(this.getOptions.length === 0){
+      this.hour = null
     }
   },
   computed: {
     hour: {
-      get(){
+      get() {
         return this.value
       },
-      set(v){
-        this.$emit('input',v)
+      set(v) {
+        this.$emit('input', v)
       }
     },
     getIntervalTime() {
-      if(this.deliveryMode){
+      if (this.deliveryMode) {
         return this.$store.getters.getSetting('IntervalDeliveryTime').value
-      }else{
+      } else {
         return this.$store.getters.getSetting('IntervalTakeAwayTime').value
       }
 
@@ -46,6 +52,7 @@ export default {
     getPreparationTime() {
       return this.$store.getters.getSetting('PreparationTime').value
     },
+
     getOptions() {
       let hour = Dayjs().startOf('day')
       let now = Dayjs()
@@ -60,12 +67,12 @@ export default {
 
         if (hour.isAfter(now) && this.calendarIsActive(this.calendar, hour.format('HH:mm'))) {
 
-          if(this.deliveryMode){
-            let hourTo = hour.add(this.getIntervalTime,'m')
+          if (this.deliveryMode) {
+            let hourTo = hour.add(this.getIntervalTime, 'm')
             let text = hour.format("HH:mm") + " a " + hourTo.format("HH:mm")
-            options.push({text: text, value:  hour.format("HH:mm")} )
-          }else{
-            options.push({text: hour.format("HH:mm"), value:  hour.format("HH:mm")} )
+            options.push({text: text, value: hour.format("HH:mm")})
+          } else {
+            options.push({text: hour.format("HH:mm"), value: hour.format("HH:mm")})
           }
 
 

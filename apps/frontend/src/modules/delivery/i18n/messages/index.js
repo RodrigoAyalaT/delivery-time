@@ -1,6 +1,9 @@
 const messages = {
     en: {
         delivery: {
+            scheduleTime: {
+                noOptions: 'No schedules available'
+            },
             mode: {
                 takeAway: 'Take Away',
                 delivery: 'Delivery',
@@ -73,6 +76,9 @@ const messages = {
     },
     es: {
         delivery: {
+            scheduleTime: {
+                noOptions: 'Sin horarios disponibles'
+            },
             mode: {
                 takeAway: 'Retiro en local',
                 delivery: 'Delivery',
@@ -145,6 +151,9 @@ const messages = {
     },
     pt: {
         delivery: {
+            scheduleTime: {
+                noOptions: 'Sem horários disponíveis'
+            },
             mode: {
                 takeAway: 'Retiro en local',
                 delivery: 'Delivery',

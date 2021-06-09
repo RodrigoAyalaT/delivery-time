@@ -1,10 +1,10 @@
 <template>
     <v-form ref="form" autocomplete="off" @submit.prevent="save" >
         <v-row>
-           
+
                     <v-col cols="12" sm="6">
                         <v-text-field
-                                
+
                                 prepend-icon="badge"
                                 name="name"
                                 v-model="form.name"
@@ -13,14 +13,14 @@
                                 :error="hasInputErrors('name')"
                                 :error-messages="getInputErrors('name')"
                                 color="secondary"
-                                
+
                         ></v-text-field>
                     </v-col>
-    
- 
+
+
                     <v-col cols="12" sm="6">
                         <v-text-field
-                                
+
                                 prepend-icon="phone"
                                 name="phone"
                                 v-model="form.phone"
@@ -32,11 +32,11 @@
                                 :rules="required"
                         ></v-text-field>
                     </v-col>
-    
- 
+
+
                     <v-col cols="12" sm="6">
                         <v-text-field
-                                
+
                                 prepend-icon="email"
                                 name="email"
                                 v-model="form.email"
@@ -45,14 +45,14 @@
                                 :error="hasInputErrors('email')"
                                 :error-messages="getInputErrors('email')"
                                 color="secondary"
-                                
+
                         ></v-text-field>
                     </v-col>
-    
- 
+
+
                     <v-col cols="12" sm="6">
                         <v-text-field
-                                
+
                                 prepend-icon="location_on"
                                 name="address"
                                 v-model="form.address"
@@ -61,19 +61,19 @@
                                 :error="hasInputErrors('address')"
                                 :error-messages="getInputErrors('address')"
                                 color="secondary"
-                                
+
                         ></v-text-field>
                     </v-col>
-    
- 
+
+
                    <v-col cols="12" sm="6">
                         <state-combobox v-model="form.state" :input-errors="inputErrors" />
-                   </v-col>    
+                   </v-col>
 
- 
+
                     <v-col cols="12" sm="6">
                         <v-text-field
-                                
+
                                 prepend-icon="tag"
                                 name="number"
                                 v-model.number="form.number"
@@ -83,10 +83,10 @@
                                 :error="hasInputErrors('number')"
                                 :error-messages="getInputErrors('number')"
                                 color="secondary"
-                                
+
                         ></v-text-field>
                     </v-col>
-    
+
         </v-row>
     </v-form>
 </template>
@@ -94,12 +94,8 @@
 <script>
 
     import {InputErrorsByProps, RequiredRule } from '@dracul/common-frontend'
-    
-    
-    import StateCombobox from "./StateCombobox";
-    
 
-    
+    import StateCombobox from "./StateCombobox";
 
     export default {
         name: "OrderForm",
@@ -132,7 +128,7 @@
         },
         data(){
             return {
-                
+
             }
         }
     }

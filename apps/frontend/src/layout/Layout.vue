@@ -4,7 +4,7 @@
       <sidebar-menu :nav="menu" v-on:closeDrawer="drawer = false"></sidebar-menu>
     </v-navigation-drawer>
 
-    <v-app-bar app absolute color="primary" :clipped-left="clipped"
+    <v-app-bar app fixed extended color="primary" :clipped-left="clipped"
     src="@/assets/img/AppBarMini.png"
     >
       <template v-slot:img="{ props }">
@@ -17,6 +17,19 @@
       <slot name="toolbar-left"></slot>
       <v-spacer></v-spacer>
       <slot name="toolbar-right"></slot>
+
+      <template v-if="$store.state.extensionMenu && $store.state.extensionMenu.length" v-slot:extension>
+        <v-tabs class="onPrimary--text">
+          <v-tab
+              v-for="(menu,i) in $store.state.extensionMenu"
+              :key="i"
+              @click="$vuetify.goTo('#'+menu)"
+              class="onPrimary--text"
+          >
+            {{menu}}
+          </v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
 
     <v-main>

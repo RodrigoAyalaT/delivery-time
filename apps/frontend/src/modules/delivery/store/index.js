@@ -26,6 +26,9 @@ export default {
         },
     },
     getters: {
+        getOrderContact(state){
+            return state.order.contact
+        },
         getOrderLocation(state){
             return state.order.location
         },
@@ -76,19 +79,7 @@ export default {
     actions: {},
     mutations: {
         clearOrder(state) {
-            state.order = {
-                contact: {
-                    name: null,
-                    phone: null,
-                    email: null
-                },
-                location: {
-                    address: null,
-                    floor: null,
-                    apartment: null
-                },
-                items: []
-            }
+            state.order.items = []
         },
         setOrderDeliveryMode(state, val) {
             state.order.delivery.mode = val

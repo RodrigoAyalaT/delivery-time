@@ -96,13 +96,21 @@
           >
             {{ getMessageOutOfZone }}
           </v-alert>
+          <v-btn
+              class="green white--text"
+              :href="getWhatsappLink"
+              target="_blank"
+          >
+            <v-icon left>contact_support</v-icon>
+            Whatsapp
+          </v-btn>
         </v-col>
 
       </v-row>
     </v-col>
 
     <v-col v-if="time && inZone" cols="12">
-      <submit-button :text="$t('common.confirm')" @click="$emit('confirm')"></submit-button>
+      <submit-button :text="$t('common.next')" @click="$emit('confirm')"></submit-button>
     </v-col>
 
   </v-row>
