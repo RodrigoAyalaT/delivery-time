@@ -41,6 +41,7 @@ export default {
         getDeliveryTime(state){
             return state.order.delivery.time
         },
+
         getQuantity: (state) => (product) => {
             if (product) {
                 let item = state.order.items.find(p => p.product.id === product.id)

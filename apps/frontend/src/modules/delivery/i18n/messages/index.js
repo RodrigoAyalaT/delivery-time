@@ -1,10 +1,22 @@
 const messages = {
     en: {
         delivery: {
+            contact: 'Contact',
+            destination: 'Destination',
+            checkAndConfirm: 'Check and confirm',
+            myOrder: 'My order',
+            emptyOrder: 'Your order is empty',
+            schedule: 'Schedule', //Horario
+            cart:{
+              total: 'Total price',
+              quantity: 'Items quantity'
+            },
             scheduleTime: {
                 noOptions: 'No schedules available'
             },
             mode: {
+                TAKE_AWAY:'Take Away',
+                DELIVERY: 'Delivery',
                 takeAway: 'Take Away',
                 delivery: 'Delivery',
                 asSonAsPosible: 'As son as posible',
@@ -13,6 +25,7 @@ const messages = {
                 deliveryTime: "Delivery time"
             },
             product: {
+                products: 'Products',
                 title: 'Product management',
                 subtitle: 'View, search, create, edit and delete Product',
                 creating: 'Creating Product',
@@ -76,10 +89,22 @@ const messages = {
     },
     es: {
         delivery: {
+            contact: 'Contacto',
+            destination: 'Destino',
+            checkAndConfirm: 'Verificar y confirmar pedido',
+            myOrder: 'Mi pedido',
+            emptyOrder: 'Su pedido esta vacío',
+            schedule: 'Horario', //Horario
+            cart:{
+                total: 'Monto total',
+                quantity: 'Cantidad total'
+            },
             scheduleTime: {
                 noOptions: 'Sin horarios disponibles'
             },
             mode: {
+                TAKE_AWAY:'Retiro en local',
+                DELIVERY: 'Delivery',
                 takeAway: 'Retiro en local',
                 delivery: 'Delivery',
                 asSonAsPosible: 'Lo antes posible',
@@ -88,6 +113,7 @@ const messages = {
                 deliveryTime: "Hora de entrega"
             },
             product: {
+                products: 'Productos',
                 title: 'Administración de Product',
                 subtitle: 'Ver, buscar, crear, editar, y borrar Product',
                 creating: 'Creando Product',
@@ -151,10 +177,22 @@ const messages = {
     },
     pt: {
         delivery: {
+            contact: 'Contato',
+            destination: 'Destino',
+            checkAndConfirm: 'Verifique e confirme',
+            myOrder: 'O meu pedido',
+            emptyOrder: 'seu pedido está vazio',
+            schedule: 'Cronograma', //Horario
+            cart:{
+                total: 'Monto total',
+                quantity: 'Cantidad de items'
+            },
             scheduleTime: {
                 noOptions: 'Sem horários disponíveis'
             },
             mode: {
+                TAKE_AWAY:'Retiro en local',
+                DELIVERY: 'Delivery',
                 takeAway: 'Retiro en local',
                 delivery: 'Delivery',
                 asSonAsPosible: 'Lo antes posible',
@@ -163,6 +201,7 @@ const messages = {
                 deliveryTime: "tempo de entrega"
             },
             product: {
+                products: 'Products',
                 title: 'Administração de Product',
                 subtitle: 'Ver, buscar, criar, editar e usar Product',
                 creating: 'Criando Product',

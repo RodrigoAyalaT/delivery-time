@@ -1,5 +1,17 @@
 <template>
-  <v-row dense class="py-1 px-0" justify="center" align="center">
+
+  <v-row v-if="!$store.getters.isSettingsReady"
+         dense class="py-1 px-0" justify="center" align="center"
+  >
+
+    <v-col cols="6" sm="4" md="4">
+      <loading ></loading>
+    </v-col>
+  </v-row>
+
+  <v-row v-else
+         dense class="py-1 px-0" justify="center" align="center"
+  >
 
     <v-col cols="6" sm="4" md="2">
       <card-button

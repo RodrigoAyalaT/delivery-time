@@ -66,7 +66,7 @@
 
         <!--#[EN ZONA] => LOADING -->
         <v-col v-if="loadingInZone" cols="12" sm="8" md="4">
-          <loading :text="$t('maps.zone.determiningZone')"></loading>
+          <loading text="maps.zone.determiningZone"></loading>
         </v-col>
 
         <!--#[EN ZONA] => TRUE -->
@@ -110,7 +110,7 @@
     </v-col>
 
     <v-col v-if="time && inZone" cols="12">
-      <submit-button :text="$t('common.next')" @click="$emit('confirm')"></submit-button>
+      <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>
     </v-col>
 
   </v-row>
@@ -176,7 +176,7 @@ export default {
       }
     }
   },
-  created() {
+   mounted() {
     this.determineActiveHours()
     this.locationIsInZone(this.location)
   },

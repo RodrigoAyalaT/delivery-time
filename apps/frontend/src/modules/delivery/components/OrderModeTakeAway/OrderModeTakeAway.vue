@@ -50,7 +50,7 @@
     </v-col>
 
     <v-col v-if="time" cols="12">
-      <submit-button :text="$t('common.next')" @click="$emit('confirm')"></submit-button>
+      <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>
     </v-col>
 
   </v-row>

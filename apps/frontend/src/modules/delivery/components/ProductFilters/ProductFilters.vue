@@ -1,6 +1,8 @@
 <template>
-  <v-card flat class="mb-1">
-      <h6 class="text-h6">Filtros</h6>
+  <v-card flat class="mb-1 mt-2">
+      <h6 class="text-h6 grey--text text--darken-2">
+        {{$tc('common.filter',2)}}
+      </h6>
       <v-divider class="mb-3"></v-divider>
 
     <v-row>

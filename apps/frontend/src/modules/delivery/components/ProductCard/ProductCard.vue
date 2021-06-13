@@ -11,11 +11,21 @@
       <v-chip class="primary--text">${{ product.price }}</v-chip>
 
       <v-spacer></v-spacer>
-      <v-btn v-if="quantity > 0"  fab x-small outlined color="primary" @click="$emit('removeProduct',product)">
+      <!--REMOVE-->
+      <v-btn v-if="editQuantity && quantity > 0"
+             fab x-small outlined color="primary"
+             @click="$emit('removeProduct',product)"
+      >
         <v-icon>remove</v-icon>
       </v-btn>
+      <!--SHOW-->
       <span v-if="quantity > 0" class="px-3">x{{ quantity }}</span>
-      <v-btn  fab x-small  color="primary" @click="$emit('addProduct',product)">
+      <!--ADD-->
+      <v-btn  v-if="editQuantity"
+              fab x-small
+              color="primary"
+              @click="$emit('addProduct',product)"
+      >
         <v-icon>add</v-icon>
       </v-btn>
     </v-card-actions>
@@ -27,7 +37,8 @@ export default {
   name: "ProductCard",
   props: {
     product: Object,
-    quantity: Number
+    quantity: Number,
+    editQuantity: {type: Boolean, default: false}
   },
   data(){
     return {

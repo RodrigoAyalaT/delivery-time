@@ -38,6 +38,11 @@ const settings = [
         value: '',
         label: {en: 'Whatsapp number', es: 'Número de Whatsapp', pt: 'Número do Whatsapp'}
     },
+    {
+        key: 'ShopAddress',
+        value: 'Arcos 3182, CABA',
+        label: {en: 'Shop address', es: 'Dirección del local', pt: 'Endereço das instalações'}
+    },
 ]
 
 export const initSettings = async function () {

@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <cart-button
+        v-if="[2,3].includes(step)"
         :total="$store.getters.getQuantityTotal"
         @click="showOrder=!showOrder"
     ></cart-button>
@@ -86,28 +87,29 @@
 
               </v-col>
 
-              <v-col cols="12" sm="8" md="9">
+              <v-col cols="12" sm="8" md="9" class="pt-0">
 
                 <v-row v-for="category in getCategories" :key="category.id">
 
                   <v-col cols="12" class="my-2">
                     <section :id="category.name">
-                      <h5 class="text-h5">{{ category.name }}</h5>
+                      <h5 class="text-h5 grey--text text--darken-3">{{ category.name }}</h5>
                     </section>
                     <v-divider></v-divider>
-                    </v-col>
-                    <v-col v-for="product in getProductsByCategory(category)"
-                           :key="product.id"
-                           cols="12" sm="6" md="4"
-                           class=""
-                    >
-                      <product-card
-                          :product="product"
-                          :quantity="$store.getters.getQuantity(product)"
-                          @addProduct="addProduct"
-                          @removeProduct="removeProduct"
-                      ></product-card>
-                    </v-col>
+                  </v-col>
+                  <v-col v-for="product in getProductsByCategory(category)"
+                         :key="product.id"
+                         cols="12" sm="6" md="4"
+                         class=""
+                  >
+                    <product-card
+                        :product="product"
+                        :quantity="$store.getters.getQuantity(product)"
+                        @addProduct="addProduct"
+                        @removeProduct="removeProduct"
+                        edit-quantity
+                    ></product-card>
+                  </v-col>
                 </v-row>
               </v-col>
 
@@ -119,8 +121,13 @@
             <contact-form @next="nextStep"></contact-form>
           </v-stepper-content>
 
-          <v-stepper-content :step="5" class="grey lighten-1">
-            CONFIRMAR
+          <v-stepper-content :step="4" class="grey lighten-4">
+
+            <show-order
+                @editContact="step=3"
+                @editLocation="step=1"
+                @editProducts="step=2"
+            />
           </v-stepper-content>
 
         </v-stepper>
@@ -136,8 +143,21 @@
     </v-row>
 
     <!--NAVIGATION CART DETAIL-->
-    <v-navigation-drawer width="300" temporary v-model="showOrder" right fixed class="py-2 pl-2">
-
+    <v-navigation-drawer
+        width="320"
+        temporary
+        v-model="showOrder"
+        right fixed
+        class="py-2 pl-2"
+    >
+      <v-btn
+          icon
+             x-small fab
+             absolute :style="{top: '0.5%', right: '1%'}"
+             @click="showOrder = false"
+      >
+        <v-icon>close</v-icon>
+      </v-btn>
       <cart-detail
           :items="getOrderItems"
           @addProduct="addProduct"
@@ -162,10 +182,11 @@ import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
 import ProductCategoryProvider from "@/modules/delivery/providers/ProductCategoryProvider";
 import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 import ContactForm from "@/modules/delivery/components/ContactForm/ContactForm";
+import ShowOrder from "@/modules/delivery/components/ShowOrder/ShowOrder";
 
 export default {
   name: "OrderPage",
-  components: {ContactForm, OrderMode, ProductCard, CartDetail, CartButton, ProductFilters},
+  components: {ShowOrder, ContactForm, OrderMode, ProductCard, CartDetail, CartButton, ProductFilters},
   data() {
     return {
       showOrder: false,
@@ -183,7 +204,9 @@ export default {
     step(val) {
       if (val === 2) {
         let menu = this.getCategoriesMenu
-        menu.unshift('inicio')
+        if(!menu.includes('inicio')){
+          menu.unshift('inicio')
+        }
         this.$store.commit('setExtensionMenu', menu)
       } else {
         this.$store.commit('setExtensionMenu', [])
@@ -242,7 +265,7 @@ export default {
     }
   },
   methods: {
-    nextStep(){
+    nextStep() {
       this.step++
       this.showOrder = false
     },

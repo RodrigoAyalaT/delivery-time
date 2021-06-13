@@ -56,7 +56,7 @@
 
           <v-col cols="12" class="text-right">
             <submit-button
-                :text="$t('common.next')"
+                text="common.next"
                 @click="submitContact"
                 :disabled="submitDisabled"
             ></submit-button>
@@ -103,7 +103,9 @@ export default {
       ]
     },
   },
-
+  mounted() {
+    this.stateSubmitButton()
+  },
   methods: {
     submitContact() {
       if (this.validate()) {
