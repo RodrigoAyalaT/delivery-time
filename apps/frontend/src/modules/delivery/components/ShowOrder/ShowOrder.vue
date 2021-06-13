@@ -26,11 +26,24 @@
     <v-col cols="12" sm="6" md="8">
       <show-order-total></show-order-total>
       <v-row no-gutters>
+
+        <v-col>
+          {{ $store.getters.getOrderError }}
+          {{ $store.getters.getOrderLoading }}
+        </v-col>
+
         <v-col cols="12" class="text-center">
 
-          <v-btn :disabled="!orderIsReady" color="green white--text" x-large>
+          <!--CREATE ORDER-->
+          <v-btn
+              @click="$store.dispatch('createOrder')"
+              :disabled="!orderIsReady"
+              color="green white--text"
+              x-large
+          >
             <v-icon large left>done</v-icon>
-            <span class="font-weight-bold">{{ $t('common.confirm') }} PEDIDO</span>
+            <span class="font-weight-bold"
+            >{{ $t('common.confirm') }} PEDIDO</span>
           </v-btn>
 
         </v-col>
@@ -50,14 +63,26 @@ import ShowOrderItems from "@/modules/delivery/components/ShowOrderItems/ShowOrd
 export default {
   name: "ShowOrder",
   components: {ShowOrderItems, ShowOrderTotal, ShowOrderLocation, ShowOrderContact},
-  computed:{
-    orderIsReady(){
-      if(this.$store.getters.getQuantityTotal  > 0){
-        return true
+  computed: {
+    orderIsReady() {
+      //NO ITEMS
+      if (this.$store.getters.getQuantityTotal == 0) {
+        return false
       }
-      return false
+      //NO DELIVERY COMPLETE
+      if (
+          !this.$store.getters.getOrderDelivery.mode ||
+          !this.$store.getters.getOrderDelivery.timeMode ||
+          !this.$store.getters.getOrderDelivery.time
+      ) {
+        return false
+      }
+
+      return true
     }
   }
+  ,
+
 }
 </script>
 

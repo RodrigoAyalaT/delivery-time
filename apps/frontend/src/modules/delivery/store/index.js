@@ -1,5 +1,9 @@
+import OrderProvider from "@/modules/delivery/providers/OrderProvider";
+
 export default {
     state: {
+        orderError: null,
+        orderLoading: false,
         order: {
             delivery: {
                 mode: null, //TAKE_AWAY|DELIVERY
@@ -26,19 +30,28 @@ export default {
         },
     },
     getters: {
-        getOrderContact(state){
+        getOrderLoading(state) {
+            return state.orderLoading
+        },
+        getOrderError(state) {
+            return state.orderError
+        },
+        getOrderDelivery(state) {
+            return state.order.delivery
+        },
+        getOrderContact(state) {
             return state.order.contact
         },
-        getOrderLocation(state){
+        getOrderLocation(state) {
             return state.order.location
         },
-        getDeliveryMode(state){
+        getDeliveryMode(state) {
             return state.order.delivery.mode
         },
-        getDeliveryTimeMode(state){
+        getDeliveryTimeMode(state) {
             return state.order.delivery.timeMode
         },
-        getDeliveryTime(state){
+        getDeliveryTime(state) {
             return state.order.delivery.time
         },
 
@@ -75,10 +88,44 @@ export default {
                 return 0
             }
 
+        },
+        getOrderForm(state){
+            let order = {
+                delivery: state.order.delivery,
+                contact: state.order.contact,
+                location: state.order.location,
+                items: state.order.items.map(item => ({
+                    product: item.product.id,
+                    quantity: item.quantity,
+                    amount: item.amount
+                }))
+            }
+            return order
         }
     },
-    actions: {},
+    actions: {
+        createOrder({commit, getters}) {
+            commit("setOrderLoading", true)
+            commit("setOrderError", null)
+            OrderProvider.createOrder(getters.getOrderForm)
+                .then(r => {
+                    console.log("orderCreated", r.data)
+                })
+                .catch(e => {
+                    commit("setOrderError", e.message)
+                })
+                .finally(() => {
+                    commit("setOrderLoading", false)
+                })
+        }
+    },
     mutations: {
+        setOrderError(state, val) {
+            state.orderError = val
+        },
+        setOrderLoading(state, val) {
+            state.orderLoading = val
+        },
         clearOrder(state) {
             state.order.items = []
         },
@@ -87,10 +134,10 @@ export default {
             state.order.delivery.timeMode = null
         },
 
-        setOrderDeliveryTimeMode(state, val){
+        setOrderDeliveryTimeMode(state, val) {
             state.order.delivery.timeMode = val
         },
-        setOrderDeliveryTime(state, val){
+        setOrderDeliveryTime(state, val) {
             state.order.delivery.time = val
         },
         setOrderContact(state, val) {

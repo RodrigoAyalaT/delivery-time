@@ -17,7 +17,7 @@ export const fetchOrders = async function () {
     })
 }
 
-export const paginateOrders = function ( pageNumber = 1, itemsPerPage = 5, search = null, orderBy = null, orderDesc = false) {
+export const paginateOrders = function (pageNumber = 1, itemsPerPage = 5, search = null, orderBy = null, orderDesc = false) {
 
     function qs(search) {
         let qs = {}
@@ -25,17 +25,17 @@ export const paginateOrders = function ( pageNumber = 1, itemsPerPage = 5, searc
             qs = {
                 $or: [
                     {name: {$regex: search, $options: 'i'}},
-{phone: {$regex: search, $options: 'i'}},
-{email: {$regex: search, $options: 'i'}},
-{address: {$regex: search, $options: 'i'}},
-{number: {$regex: search, $options: 'i'}}
+                    {phone: {$regex: search, $options: 'i'}},
+                    {email: {$regex: search, $options: 'i'}},
+                    {address: {$regex: search, $options: 'i'}},
+                    {number: {$regex: search, $options: 'i'}}
                 ]
             }
         }
         return qs
     }
-    
-     function getSort(orderBy, orderDesc) {
+
+    function getSort(orderBy, orderDesc) {
         if (orderBy) {
             return (orderDesc ? '-' : '') + orderBy
         } else {
@@ -57,46 +57,43 @@ export const paginateOrders = function ( pageNumber = 1, itemsPerPage = 5, searc
 }
 
 
-
-
-
-export const createOrder = async function (authUser, {name, phone, email, address, state, number}) {
-    
+export const createOrder = async function (authUser, {contact, delivery, location, items}) {
+    let state = 'NEW'
     const doc = new Order({
-        name, phone, email, address, state, number
+        contact, delivery, location, items, state
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
         doc.save((error => {
-        
+
             if (error) {
                 if (error.name == "ValidationError") {
-                    rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
-                rejects(error)
-            }    
-        
-            resolve(doc)
+                return rejects(error)
+            }
+
+            return doc.populate('items.product').execPopulate(() => resolve(doc))
         }))
     })
 }
 
-export const updateOrder = async function (authUser, id, {name, phone, email, address, state, number}) {
+export const updateOrder = async function (authUser, id, {contact, delivery, location, items, state}) {
     return new Promise((resolve, rejects) => {
         Order.findOneAndUpdate({_id: id},
-        {name, phone, email, address, state, number}, 
-        {new: true, runValidators: true, context: 'query'},
-        (error,doc) => {
-            
-            if (error) {
-                if (error.name == "ValidationError") {
-                    rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+            {contact, delivery, location, items, state},
+            {new: true, runValidators: true, context: 'query'},
+            (error, doc) => {
+
+                if (error) {
+                    if (error.name == "ValidationError") {
+                        return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    }
+                    return rejects(error)
                 }
-                rejects(error)
-            } 
-        
-            resolve(doc)
-        })
+
+                return resolve(doc)
+            })
     })
 }
 

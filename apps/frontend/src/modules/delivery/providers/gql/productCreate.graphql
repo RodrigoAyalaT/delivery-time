@@ -8,13 +8,13 @@ mutation productCreate($name:String!, $description:String, $image:String, $price
         stock
         active
         ingredients{
-                id
-                name
-            }
+            id
+            name
+        }
         category{
-                id
-                name
-            }
+            id
+            name
+        }
     }
 }
 

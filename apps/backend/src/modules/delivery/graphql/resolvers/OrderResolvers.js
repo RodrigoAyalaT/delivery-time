@@ -28,12 +28,13 @@ export default {
             if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
             return paginateOrders(pageNumber, itemsPerPage, search, orderBy, orderDesc)
         },
-        
+
     },
     Mutation: {
         orderCreate: (_, {input}, {user,rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")
             if(!rbac.isAllowed(user.id, ORDER_CREATE)) throw new ForbiddenError("Not Authorized")
+            console.log("INPUT",input)
             return createOrder(user, input)
         },
         orderUpdate: (_, {id, input}, {user,rbac}) => {

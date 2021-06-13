@@ -1,12 +1,42 @@
-mutation orderCreate($name:String, $phone:String!, $email:String, $address:String, $state:stateEnum, $number:Int){
-    orderCreate(input: {name: $name, phone: $phone, email: $email, address: $address, state: $state, number: $number }){
+mutation orderCreate($input: OrderInput){
+    orderCreate(input: $input){
         id
-        name
-        phone
-        email
-        address
         state
         number
+        createdAt
+        updatedAt
+        contact{
+            name
+            phone
+            email
+        }
+        delivery{
+            mode
+            timeMode
+            time
+        }
+        items{
+            product{
+                id
+                name
+                description
+                image
+                price
+            }
+            quantity
+            amount
+        }
+        location{
+            address
+            floor
+            apartment
+            latitude
+            longitude
+            country
+            province
+            locality
+            postalCode
+        }
     }
 }
 

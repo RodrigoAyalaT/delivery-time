@@ -1,19 +1,52 @@
+enum OrderStateEnum{
+    NEW,
+    PREPARING,
+    READY,
+    ON_THE_WAY,
+    DELIVERED
+}
 
-enum stateEnum{
-        NUEVO,
-PREPARADO,
-EN_CAMINO,
-ENTREGADO
-    }        
-        
+type OrderContact{
+    name: String!
+    phone: String!
+    email: String!
+}
+
+type OrderDelivery{
+    mode: String!
+    timeMode: String!
+    time: String!
+}
+
+type OrderItems{
+    product: Product!
+    quantity: Int!
+    amount: Float!
+}
+
+type OrderLocation{
+    address: String!
+    floor: String
+    apartment: String
+    latitude: Float
+    longitude: Float
+    country: String
+    province: String
+    locality: String
+    postalCode: String
+}
+
+
 type Order{
-id: ID!
- name: String
- phone: String!
- email: String
- address: String
- state: stateEnum
- number: Int
+    id: ID!
+    contact: OrderContact!
+    location: OrderLocation
+    delivery: OrderDelivery!
+    items: [OrderItems]
+    state: OrderStateEnum
+    number: Int
+    createdAt: String
+    updatedAt: String
 }
 
 type OrderPaginated{
@@ -25,18 +58,47 @@ type OrderPaginated{
 type Query {
     orderFind(id:ID!): Order
     orderFetch: [Order]
-    orderPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): OrderPaginated  
-    
-    
+    orderPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): OrderPaginated
+
+
 }
 
 input OrderInput{
-    name: String
- phone: String!
- email: String
- address: String
- state: stateEnum
- number: Int
+    contact: OrderContactInput!
+    location: OrderLocationInput
+    delivery: OrderDeliveryInput!
+    items: [OrderItemsInput!]
+}
+
+
+input OrderContactInput{
+    name: String!
+    phone: String!
+    email: String!
+}
+
+input OrderDeliveryInput{
+    mode: String!
+    timeMode: String!
+    time: String!
+}
+
+input OrderItemsInput{
+    product: ID!
+    quantity: Int!
+    amount: Float!
+}
+
+input OrderLocationInput{
+    address: String!
+    floor: String
+    apartment: String
+    latitude: Float
+    longitude: Float
+    country: String
+    province: String
+    locality: String
+    postalCode: String
 }
 
 type OrderDelete{

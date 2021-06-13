@@ -3,13 +3,43 @@ query orderPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orde
         totalItems
         page
         items{
-          id
-          name
-        phone
-        email
-        address
-        state
-        number
+            id
+            state
+            number
+            createdAt
+            updatedAt
+            contact{
+                name
+                phone
+                email
+            }
+            delivery{
+                mode
+                timeMode
+                time
+            }
+            items{
+                product{
+                    id
+                    name
+                    description
+                    image
+                    price
+                }
+                quantity
+                amount
+            }
+            location{
+                address
+                floor
+                apartment
+                latitude
+                longitude
+                country
+                province
+                locality
+                postalCode
+            }
         }
     }
 }
