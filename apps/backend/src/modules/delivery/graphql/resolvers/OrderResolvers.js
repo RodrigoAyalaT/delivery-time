@@ -1,5 +1,13 @@
 
-import { createOrder, updateOrder, deleteOrder,  findOrder, fetchOrders, paginateOrders} from '../../services/OrderService'
+import {
+    createOrder,
+    updateOrder,
+    deleteOrder,
+    findOrder,
+    fetchOrders,
+    paginateOrders,
+    fetchOrdersByState, findOrderByIdentifier
+} from '../../services/OrderService'
 
 import {AuthenticationError, ForbiddenError} from "apollo-server-express";
 
@@ -18,10 +26,20 @@ export default {
             if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
             return findOrder(id)
         },
+        orderFindByIdentifier: (_, {identifier}, {user,rbac}) => {
+            //if (!user) throw new AuthenticationError("Unauthenticated")
+           // if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
+            return findOrderByIdentifier(identifier)
+        },
         orderFetch: (_, {}, {user,rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")
             if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
             return fetchOrders()
+        },
+        orderFetchByState: (_, {state}, {user,rbac}) => {
+            if (!user) throw new AuthenticationError("Unauthenticated")
+            if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
+            return fetchOrdersByState(state)
         },
         orderPaginate: (_, {pageNumber, itemsPerPage, search, orderBy, orderDesc}, {user,rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")

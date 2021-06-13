@@ -30,7 +30,7 @@ export const paginateIngredients = function ( pageNumber = 1, itemsPerPage = 5, 
         }
         return qs
     }
-    
+
      function getSort(orderBy, orderDesc) {
         if (orderBy) {
             return (orderDesc ? '-' : '') + orderBy
@@ -57,21 +57,21 @@ export const paginateIngredients = function ( pageNumber = 1, itemsPerPage = 5, 
 
 
 export const createIngredient = async function (authUser, {name}) {
-    
+
     const doc = new Ingredient({
         name
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
         doc.save((error => {
-        
+
             if (error) {
                 if (error.name == "ValidationError") {
-                    rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
-                rejects(error)
-            }    
-        
+                return rejects(error)
+            }
+
             resolve(doc)
         }))
     })
@@ -80,17 +80,17 @@ export const createIngredient = async function (authUser, {name}) {
 export const updateIngredient = async function (authUser, id, {name}) {
     return new Promise((resolve, rejects) => {
         Ingredient.findOneAndUpdate({_id: id},
-        {name}, 
+        {name},
         {new: true, runValidators: true, context: 'query'},
         (error,doc) => {
-            
+
             if (error) {
                 if (error.name == "ValidationError") {
-                    rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
-                rejects(error)
-            } 
-        
+                return rejects(error)
+            }
+
             resolve(doc)
         })
     })

@@ -7,7 +7,7 @@
 
                                 prepend-icon="badge"
                                 name="name"
-                                v-model="form.name"
+                                v-model="form.contact.name"
                                 :label="$t('delivery.order.labels.name')"
                                 :placeholder="$t('delivery.order.labels.name')"
                                 :error="hasInputErrors('name')"
@@ -23,7 +23,7 @@
 
                                 prepend-icon="phone"
                                 name="phone"
-                                v-model="form.phone"
+                                v-model="form.contact.phone"
                                 :label="$t('delivery.order.labels.phone')"
                                 :placeholder="$t('delivery.order.labels.phone')"
                                 :error="hasInputErrors('phone')"
@@ -39,7 +39,7 @@
 
                                 prepend-icon="email"
                                 name="email"
-                                v-model="form.email"
+                                v-model="form.contact.email"
                                 :label="$t('delivery.order.labels.email')"
                                 :placeholder="$t('delivery.order.labels.email')"
                                 :error="hasInputErrors('email')"
@@ -55,7 +55,7 @@
 
                                 prepend-icon="location_on"
                                 name="address"
-                                v-model="form.address"
+                                v-model="form.location.address"
                                 :label="$t('delivery.order.labels.address')"
                                 :placeholder="$t('delivery.order.labels.address')"
                                 :error="hasInputErrors('address')"

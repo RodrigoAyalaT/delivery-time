@@ -1,17 +1,34 @@
 import Order from './../models/OrderModel'
 import {UserInputError} from 'apollo-server-express'
+import {incrementSequenceNumber} from "./SequenceNumberService";
 
-export const findOrder = async function (id) {
+export const findOrder = function (id) {
     return new Promise((resolve, reject) => {
-        Order.findOne({_id: id}).exec((err, res) => (
+        Order.findOne({_id: id}).populate('items.product').populate('user').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
 }
 
-export const fetchOrders = async function () {
+export const findOrderByIdentifier = function (identifier) {
     return new Promise((resolve, reject) => {
-        Order.find({}).exec((err, res) => (
+        Order.findOne({identifier:identifier}).populate('items.product').populate('user').exec((err, res) => (
+            err ? reject(err) : resolve(res)
+        ));
+    })
+}
+
+export const fetchOrders = function () {
+    return new Promise((resolve, reject) => {
+        Order.find({}).populate('items.product').populate('user').exec((err, res) => (
+            err ? reject(err) : resolve(res)
+        ));
+    })
+}
+
+export const fetchOrdersByState = function (state) {
+    return new Promise((resolve, reject) => {
+        Order.find({state:state}).populate('items.product').populate('user').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -44,7 +61,7 @@ export const paginateOrders = function (pageNumber = 1, itemsPerPage = 5, search
     }
 
     let query = qs(search)
-    let populate = null
+    let populate = ['items.product','user']
     let sort = getSort(orderBy, orderDesc)
     let params = {page: pageNumber, limit: itemsPerPage, populate, sort}
 
@@ -56,12 +73,27 @@ export const paginateOrders = function (pageNumber = 1, itemsPerPage = 5, search
     })
 }
 
+const randomLetters = function (length = 2) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let charactersLength = characters.length;
+
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+};
 
 export const createOrder = async function (authUser, {contact, delivery, location, items}) {
     let state = 'NEW'
+    let userId = authUser ? authUser.id : null
+    let sequence = await incrementSequenceNumber('orders')
+    let identifier = randomLetters(2) + sequence
     const doc = new Order({
-        contact, delivery, location, items, state
+        contact, delivery, location, items, state, user: userId, identifier
     })
+
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
         doc.save((error => {
@@ -73,7 +105,7 @@ export const createOrder = async function (authUser, {contact, delivery, locatio
                 return rejects(error)
             }
 
-            return doc.populate('items.product').execPopulate(() => resolve(doc))
+            return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
         }))
     })
 }

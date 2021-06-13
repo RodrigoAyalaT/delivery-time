@@ -13,7 +13,8 @@ export default {
             contact: {
                 name: null,
                 phone: null,
-                email: null
+                email: null,
+                observations: null
             },
             location: {
                 address: '',
@@ -130,8 +131,9 @@ export default {
             state.order.items = []
         },
         setOrderDeliveryMode(state, val) {
-            state.order.delivery.mode = val
+            state.order.delivery.time = null
             state.order.delivery.timeMode = null
+            state.order.delivery.mode = val
         },
 
         setOrderDeliveryTimeMode(state, val) {

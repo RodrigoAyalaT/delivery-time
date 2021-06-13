@@ -2,7 +2,7 @@ mutation orderUpdate($id: ID!, $input: OrderInput ){
     orderUpdate(id: $id, input: $input){
         id
         state
-        number
+        identifier
         createdAt
         updatedAt
         contact{

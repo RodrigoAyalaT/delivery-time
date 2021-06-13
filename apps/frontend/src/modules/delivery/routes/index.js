@@ -1,6 +1,7 @@
 
 import OrderManagementPage from '../pages/OrderManagementPage'
 import OrderPage from '../pages/OrderPage'
+import OrderManagerPage from '../pages/OrderManagerPage'
 import IngredientManagementPage from '../pages/IngredientManagementPage'
 import ProductCategoryManagementPage from '../pages/ProductCategoryManagementPage'
 
@@ -14,6 +15,7 @@ const routes = [
     {name: 'ProductCategoryManagementPage', path: '/product-category-management', component: ProductCategoryManagementPage},
 
     {name: 'OrderPage', path: '/order', component: OrderPage},
+    {name: 'OrderManagerPage', path: '/order-manager', component: OrderManagerPage},
 ]
 
 export default routes;

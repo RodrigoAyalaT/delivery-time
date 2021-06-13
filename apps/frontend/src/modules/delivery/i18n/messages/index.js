@@ -15,6 +15,7 @@ const messages = {
                 noOptions: 'No schedules available'
             },
             mode: {
+                mode: 'Mode',
                 TAKE_AWAY:'Take Away',
                 DELIVERY: 'Delivery',
                 takeAway: 'Take Away',
@@ -55,9 +56,10 @@ const messages = {
                     name: 'Name',
                     phone: 'Phone',
                     email: 'Email',
+                    observations: 'Observations',
                     address: 'Address',
                     state: 'State',
-                    number: 'Number'
+                    identifier: 'Identifier'
                 },
 
             },
@@ -103,6 +105,7 @@ const messages = {
                 noOptions: 'Sin horarios disponibles'
             },
             mode: {
+                mode: 'Modo',
                 TAKE_AWAY:'Retiro en local',
                 DELIVERY: 'Delivery',
                 takeAway: 'Retiro en local',
@@ -133,19 +136,20 @@ const messages = {
 
             },
             order: {
-                title: 'Administración de Order',
-                subtitle: 'Ver, buscar, crear, editar, y borrar Order',
-                creating: 'Creando Order',
-                editing: 'Modificando Order',
-                deleting: 'Eliminando Order',
-                showing: 'Detalles de Order',
+                title: 'Administración de Orden',
+                subtitle: 'Ver, buscar, crear, editar, y borrar Orden',
+                creating: 'Creando Orden',
+                editing: 'Modificando Orden',
+                deleting: 'Eliminando Orden',
+                showing: 'Detalles de Orden',
                 labels: {
                     name: 'Nombre',
                     phone: 'Teléfono',
                     email: 'Email',
+                    observations: 'Observaciones',
                     address: 'Dirección',
                     state: 'Estado',
-                    number: 'Numero'
+                    identifier: 'Identificador'
                 },
 
             },
@@ -191,6 +195,7 @@ const messages = {
                 noOptions: 'Sem horários disponíveis'
             },
             mode: {
+                mode: 'Mode',
                 TAKE_AWAY:'Retiro en local',
                 DELIVERY: 'Delivery',
                 takeAway: 'Retiro en local',
@@ -231,9 +236,10 @@ const messages = {
                     name: 'Nome',
                     phone: 'Telefono',
                     email: 'Email',
+                    observations: 'Observações',
                     address: 'Dirección',
                     state: 'Estado',
-                    number: 'Numero'
+                    identifier: 'Identificador'
                 },
 
             },

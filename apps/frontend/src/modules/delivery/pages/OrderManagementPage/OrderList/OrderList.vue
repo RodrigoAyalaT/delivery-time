@@ -26,10 +26,10 @@
                 @update:items-per-page="fetch"
         >
 
-            
-            
-            
-            
+
+
+
+
             <template slot="no-data">
                <div class="text-xs-center" v-t="'common.noData'"></div>
             </template>
@@ -51,14 +51,14 @@
 
 <script>
    import OrderProvider from "../../../providers/OrderProvider";
-   
+
    import {DeleteButton, EditButton, ShowButton, SearchInput} from "@dracul/common-frontend"
-    
-   
+
+
     export default {
         name: "OrderList",
         components: {DeleteButton, EditButton, ShowButton, SearchInput},
-        
+
         data() {
             return {
                 items: [],
@@ -71,16 +71,14 @@
                 search: ''
             }
         },
-        computed: {   
+        computed: {
           headers () {
             return [
                     //Entity Headers
-                    {text: this.$t('delivery.order.labels.name'), value: 'name'},
-                    {text: this.$t('delivery.order.labels.phone'), value: 'phone'},
-                    {text: this.$t('delivery.order.labels.email'), value: 'email'},
-                    {text: this.$t('delivery.order.labels.address'), value: 'address'},
+                    {text: this.$t('delivery.order.labels.name'), value: 'contact.name'},
+                    {text: this.$t('delivery.mode.mode'), value: 'delivery.mode'},
                     {text: this.$t('delivery.order.labels.state'), value: 'state'},
-                    {text: this.$t('delivery.order.labels.number'), value: 'number'},
+                    {text: this.$t('delivery.order.labels.identifier'), value: 'identifier'},
                     //Actions
                     {text: this.$t('common.actions'), value: 'action', sortable: false},
                 ]
@@ -90,7 +88,7 @@
           },
           getOrderDesc(){
               return  (Array.isArray(this.orderDesc)) ? this.orderDesc[0]: this.orderDesc
-          } 
+          }
         },
         created() {
             this.fetch()
@@ -103,10 +101,10 @@
             fetch() {
                 this.loading = true
                 OrderProvider.paginateOrders(
-                    this.pageNumber, 
+                    this.pageNumber,
                     this.itemsPerPage,
                     this.search,
-                    this.getOrderBy, 
+                    this.getOrderBy,
                     this.getOrderDesc
                 ).then(r => {
                     this.items = r.data.orderPaginate.items
@@ -116,7 +114,7 @@
                 }).finally(() => this.loading = false)
             }
         }
-        
+
     }
 </script>
 

@@ -2,7 +2,7 @@ mutation orderCreate($input: OrderInput){
     orderCreate(input: $input){
         id
         state
-        number
+        identifier
         createdAt
         updatedAt
         contact{

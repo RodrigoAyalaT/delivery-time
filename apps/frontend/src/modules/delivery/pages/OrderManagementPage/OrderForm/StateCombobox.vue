@@ -1,8 +1,8 @@
 <template>
 
         <v-select
-                
-                
+
+
                 prepend-icon="account_tree"
                 :items="items"
                 v-model="item"
@@ -12,7 +12,7 @@
                 :error-messages="getInputErrors('state')"
                 color="secondary"
                 item-color="secondary"
-                
+
         ></v-select>
 
 </template>
@@ -20,8 +20,8 @@
 <script>
 
     import {InputErrorsByProps, RequiredRule} from '@dracul/common-frontend'
-    
-    
+
+
 
     export default {
         name: "StateCombobox",
@@ -33,7 +33,7 @@
         },
         data() {
             return {
-                items: ['NUEVO','PREPARADO','EN_CAMINO','ENTREGADO'],
+                items: ['NEW','PREPARING','READY','ON_THE_WAY','DELIVERED'],
                 loading: false
             }
         },

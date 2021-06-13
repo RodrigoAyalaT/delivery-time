@@ -31,6 +31,7 @@
         <v-col v-else-if="inZone === true && loadingInZone === false" cols="12" sm="8" md="4">
           <schedule-as-son-as-posible-time
               :calendar="calendar"
+              v-model="time"
               enable-delivery-time
           />
         </v-col>
@@ -172,6 +173,7 @@ export default {
         return this.$store.getters.getDeliveryTime
       },
       set(v) {
+        this.scheduled()
         this.setDeliveryTime(v)
       }
     }

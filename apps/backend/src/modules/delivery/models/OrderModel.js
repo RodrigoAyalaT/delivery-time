@@ -10,9 +10,10 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
     contact: {
-        name: {type: String, required: false, unique: false},
+        name: {type: String, required: true, unique: false},
         phone: {type: String, required: true, unique: false},
-        email: {type: String, required: false, unique: false},
+        email: {type: String, required: true, unique: false},
+        observations: {type: String, required: false, unique: false},
     },
     delivery: {
         mode: {type: String, required: true, unique: false}, //TAKE_AWAY|DELIVERY
@@ -23,7 +24,7 @@ const OrderSchema = new Schema({
         {
             product: {type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true, unique: false},
             quantity: {type: Number, required: true, unique: false},
-            amount:  {type: Number, required: true, unique: false},
+            amount: {type: Number, required: true, unique: false},
         }
     ],
     location: {
@@ -38,15 +39,17 @@ const OrderSchema = new Schema({
         postalCode: {type: String, required: false, unique: false},
         point: {type: pointSchema}
     },
-    state: {type: String, enum: [
+    state: {
+        type: String, enum: [
             'NEW',
             'PREPARING',
             'READY',
             'ON_THE_WAY',
             'DELIVERED',
-        ], required: true},
-    number: {type: Number, required: false, unique: false}
-
+        ], required: true
+    },
+    identifier: {type: String, required: false, unique: false},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, unique: false},
 
 }, {timestamps: true});
 

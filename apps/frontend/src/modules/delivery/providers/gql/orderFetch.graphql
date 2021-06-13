@@ -2,7 +2,7 @@ query orderFetch{
     orderFetch{
         id
         state
-        number
+        identifier
         createdAt
         updatedAt
         contact{

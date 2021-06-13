@@ -1,5 +1,5 @@
-query orderFind($id:ID!){
-    orderFind(id:$id){
+query orderFindByIdentifier($identifier:String!){
+    orderFindByIdentifier(identifier:$identifier){
         id
         state
         identifier

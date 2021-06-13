@@ -30,7 +30,7 @@ export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, sea
         }
         return qs
     }
-    
+
      function getSort(orderBy, orderDesc) {
         if (orderBy) {
             return (orderDesc ? '-' : '') + orderBy
@@ -57,21 +57,21 @@ export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, sea
 
 
 export const createProduct = async function (authUser, {name, description, image, price, stock, active, ingredients, category}) {
-    
+
     const doc = new Product({
         name, description, image, price, stock, active, ingredients, category
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
         doc.save((error => {
-        
+
             if (error) {
                 if (error.name == "ValidationError") {
-                    rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
-                rejects(error)
-            }    
-        
+                return rejects(error)
+            }
+
             doc.populate('ingredients').populate('category').execPopulate(() => resolve(doc))
         }))
     })
@@ -80,17 +80,17 @@ export const createProduct = async function (authUser, {name, description, image
 export const updateProduct = async function (authUser, id, {name, description, image, price, stock, active, ingredients, category}) {
     return new Promise((resolve, rejects) => {
         Product.findOneAndUpdate({_id: id},
-        {name, description, image, price, stock, active, ingredients, category}, 
+        {name, description, image, price, stock, active, ingredients, category},
         {new: true, runValidators: true, context: 'query'},
         (error,doc) => {
-            
+
             if (error) {
                 if (error.name == "ValidationError") {
-                    rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
-                rejects(error)
-            } 
-        
+                return rejects(error)
+            }
+
             doc.populate('ingredients').populate('category').execPopulate(() => resolve(doc))
         })
     })

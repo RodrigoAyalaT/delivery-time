@@ -10,6 +10,7 @@ type OrderContact{
     name: String!
     phone: String!
     email: String!
+    observations: String
 }
 
 type OrderDelivery{
@@ -44,9 +45,10 @@ type Order{
     delivery: OrderDelivery!
     items: [OrderItems]
     state: OrderStateEnum
-    number: Int
+    identifier: String
     createdAt: String
     updatedAt: String
+    user: User
 }
 
 type OrderPaginated{
@@ -57,6 +59,8 @@ type OrderPaginated{
 
 type Query {
     orderFind(id:ID!): Order
+    orderFindByIdentifier(identifier:String!): Order
+    orderFetchByState(state:String!): [Order]
     orderFetch: [Order]
     orderPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): OrderPaginated
 
@@ -75,6 +79,7 @@ input OrderContactInput{
     name: String!
     phone: String!
     email: String!
+    observations: String
 }
 
 input OrderDeliveryInput{

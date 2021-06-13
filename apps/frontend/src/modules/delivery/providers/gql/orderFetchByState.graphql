@@ -1,5 +1,5 @@
-query orderFind($id:ID!){
-    orderFind(id:$id){
+query orderFetchByState($state:String!){
+    orderFetchByState(state:$state){
         id
         state
         identifier

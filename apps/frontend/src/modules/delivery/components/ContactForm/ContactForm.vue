@@ -54,6 +54,20 @@
             ></v-text-field>
           </v-col>
 
+          <v-col cols="12">
+            <v-textarea
+                rows="2"
+                prepend-icon="description"
+                name="observations"
+                v-model="form.observations"
+                :label="$t('delivery.order.labels.observations')"
+                :placeholder="$t('delivery.order.labels.observations')"
+                :error="hasInputErrors('observations')"
+                :error-messages="getInputErrors('observations')"
+                color="secondary"
+            ></v-textarea>
+          </v-col>
+
           <v-col cols="12" class="text-right">
             <submit-button
                 text="common.next"

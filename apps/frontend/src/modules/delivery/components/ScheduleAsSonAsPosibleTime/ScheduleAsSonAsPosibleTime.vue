@@ -1,6 +1,6 @@
 <template>
   <v-alert type="info" class="text-left" rounded text outlined>
-      {{ $t('delivery.mode.estimatedTime', {hour: getTime}) }}
+    {{ $t('delivery.mode.estimatedTime', {hour: getTime}) }}
   </v-alert>
 </template>
 
@@ -16,6 +16,30 @@ export default {
     calendar: {type: Object, required: true},
     enableDeliveryTime: {type: Boolean, default: false}
   },
+  data() {
+    return {
+      interval: null
+    }
+  },
+  mounted() {
+    this.setTime()
+    this.interval = setInterval(this.setTime, 10000)
+  },
+  destroyed() {
+    clearInterval(this.interval)
+  },
+  methods: {
+    setTime() {
+      let now = Dayjs()
+      now = now.add(this.getPreparationTime, 'm')
+
+      if (this.enableDeliveryTime) {
+        now = now.add(this.getDeliveryTime, 'm')
+      }
+      this.hour = now.format("HH:mm")
+      console.log("setTime", this.hour)
+    }
+  },
   computed: {
     hour: {
       get() {
@@ -25,22 +49,16 @@ export default {
         this.$emit('input', v)
       }
     },
+    getTime() {
+      return this.hour ? this.hour : null
+    },
     getPreparationTime() {
       return this.$store.getters.getSetting('PreparationTime').value
     },
     getDeliveryTime() {
       return this.$store.getters.getSetting('DeliveryTime').value
-    },
-    getTime() {
-      let now = Dayjs()
-      now = now.add(this.getPreparationTime, 'm')
-
-      if(this.enableDeliveryTime){
-        now = now.add(this.getDeliveryTime, 'm')
-      }
-
-      return now.format('HH:mm')
     }
+
   }
 }
 </script>
