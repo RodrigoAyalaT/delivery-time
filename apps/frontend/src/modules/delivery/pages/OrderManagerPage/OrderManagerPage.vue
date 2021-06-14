@@ -1,37 +1,52 @@
 <template>
 
-  <v-container>
-
-    <v-tabs  v-model="tab">
+  <v-container fluid>
+    <v-btn
+        fab absolute right x-small color="teal" dark
+        @click="refresh"
+    >
+      <v-icon>refresh</v-icon>
+    </v-btn>
+    <v-tabs  v-model="tabState">
       <v-tab
 
-          v-for="state in states"
+          v-for="state in $store.getters.getOrderStates"
           :key="state"
       >
-        {{ state }}
+        {{ $t('delivery.states.' + state) }}
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-if="show" v-model="tabState">
       <v-tab-item
-          v-for="state in states"
+          v-for="state in $store.getters.getOrderStates"
           :key="state"
+
       >
-        <order-manager :state="state"></order-manager>
+        <order-manager v-if="state === $store.getters.getOrderStates[tabState]" :state="state"></order-manager>
       </v-tab-item>
     </v-tabs-items>
+
   </v-container>
+
 </template>
 
 <script>
 import OrderManager from "@/modules/delivery/components/OrderManager/OrderManager";
+
 export default {
   name: "OrderManagerPage",
   components: {OrderManager},
-  data(){
+  data() {
     return {
-      tab: 'NEW',
-      states: ['NEW','PREPARING','READY','ON_THE_WAY','DELIVERED']
+      show: true,
+      tabState: 0
+    }
+  },
+  methods: {
+    refresh() {
+      this.show = false
+      this.$nextTick(() => this.show = true)
     }
   }
 }

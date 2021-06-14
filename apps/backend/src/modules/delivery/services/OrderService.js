@@ -1,6 +1,8 @@
 import Order from './../models/OrderModel'
 import {UserInputError} from 'apollo-server-express'
 import {incrementSequenceNumber} from "./SequenceNumberService";
+import {fetchProductsInId} from "./ProductService";
+import {pointZone} from "../../maps/services/ZoneService";
 
 export const findOrder = function (id) {
     return new Promise((resolve, reject) => {
@@ -12,7 +14,7 @@ export const findOrder = function (id) {
 
 export const findOrderByIdentifier = function (identifier) {
     return new Promise((resolve, reject) => {
-        Order.findOne({identifier:identifier}).populate('items.product').populate('user').exec((err, res) => (
+        Order.findOne({identifier: identifier}).populate('items.product').populate('user').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -28,7 +30,7 @@ export const fetchOrders = function () {
 
 export const fetchOrdersByState = function (state) {
     return new Promise((resolve, reject) => {
-        Order.find({state:state}).populate('items.product').populate('user').exec((err, res) => (
+        Order.find({state: state}).populate('items.product').populate('user').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -61,7 +63,7 @@ export const paginateOrders = function (pageNumber = 1, itemsPerPage = 5, search
     }
 
     let query = qs(search)
-    let populate = ['items.product','user']
+    let populate = ['items.product', 'user']
     let sort = getSort(orderBy, orderDesc)
     let params = {page: pageNumber, limit: itemsPerPage, populate, sort}
 
@@ -85,28 +87,74 @@ const randomLetters = function (length = 2) {
     return result;
 };
 
-export const createOrder = async function (authUser, {contact, delivery, location, items}) {
-    let state = 'NEW'
-    let userId = authUser ? authUser.id : null
-    let sequence = await incrementSequenceNumber('orders')
-    let identifier = randomLetters(2) + sequence
-    const doc = new Order({
-        contact, delivery, location, items, state, user: userId, identifier
+async function calculateItems(items) {
+
+    let totalAmount = 0
+    let totalQuantity = 0
+
+    let products = await fetchProductsInId(items.map(i => i.product))
+
+    items.forEach(item => {
+        let product = products.find(p => p.id === item.product)
+        if (product) {
+            item.price = product.price
+            item.amount = product.price * item.quantity
+            totalAmount = item.amount
+            totalQuantity = item.quantity
+        } else {
+            throw new Error("Product not found")
+        }
+
     })
 
-    doc.id = doc._id;
-    return new Promise((resolve, rejects) => {
-        doc.save((error => {
+    return {
+        totalQuantity: totalQuantity,
+        totalAmount: totalAmount
+    }
 
-            if (error) {
-                if (error.name == "ValidationError") {
-                    return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+}
+
+export const createOrder = function (authUser, {contact, delivery, location, items}) {
+
+    return new Promise(async (resolve, rejects) => {
+
+        try {
+
+            let state = 'NEW'
+            let userId = authUser ? authUser.id : null
+            let sequence = await incrementSequenceNumber('orders')
+            let identifier = randomLetters(3) + sequence
+            let {totalQuantity, totalAmount} = await calculateItems(items)
+
+            let zone = await pointZone(location.latitude, location.longitude)
+            let zoneName = (zone && zone.name) ? zone.name : null
+
+            const doc = new Order({
+                identifier,
+                contact, delivery, location, items,
+                state, user: userId,
+                totalQuantity, totalAmount,
+                zone, zoneName
+            })
+
+            doc.id = doc._id;
+
+            doc.save((error => {
+
+                if (error) {
+                    if (error.name == "ValidationError") {
+                        return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    }
+                    return rejects(error)
                 }
-                return rejects(error)
-            }
 
-            return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
-        }))
+                return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
+            }))
+        } catch (e) {
+            return rejects(e)
+        }
+
+
     })
 }
 
@@ -124,7 +172,26 @@ export const updateOrder = async function (authUser, id, {contact, delivery, loc
                     return rejects(error)
                 }
 
-                return resolve(doc)
+                return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
+            })
+    })
+}
+
+export const updateOrderState = async function (authUser, id, state) {
+    return new Promise((resolve, rejects) => {
+        Order.findOneAndUpdate({_id: id},
+            {state},
+            {new: true, runValidators: true, context: 'query'},
+            (error, doc) => {
+
+                if (error) {
+                    if (error.name == "ValidationError") {
+                        return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    }
+                    return rejects(error)
+                }
+
+                return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
             })
     })
 }

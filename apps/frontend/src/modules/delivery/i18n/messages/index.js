@@ -14,6 +14,13 @@ const messages = {
             scheduleTime: {
                 noOptions: 'No schedules available'
             },
+            states: {
+                NEW: 'New',
+                PREPARING: 'Preparing',
+                READY: 'ready',
+                ON_THE_WAY: 'On the way',
+                DELIVERED: 'Delivered'
+            },
             mode: {
                 mode: 'Mode',
                 TAKE_AWAY:'Take Away',
@@ -53,6 +60,7 @@ const messages = {
                 deleting: 'Deleting Order',
                 showing: 'Showing Order',
                 labels: {
+                    order: 'order',
                     name: 'Name',
                     phone: 'Phone',
                     email: 'Email',
@@ -104,6 +112,13 @@ const messages = {
             scheduleTime: {
                 noOptions: 'Sin horarios disponibles'
             },
+            states: {
+                NEW: 'Nuevo',
+                PREPARING: 'Preparando',
+                READY: 'Listo',
+                ON_THE_WAY: 'En camino',
+                DELIVERED: 'Entregado'
+            },
             mode: {
                 mode: 'Modo',
                 TAKE_AWAY:'Retiro en local',
@@ -143,6 +158,7 @@ const messages = {
                 deleting: 'Eliminando Orden',
                 showing: 'Detalles de Orden',
                 labels: {
+                    order: 'Orden',
                     name: 'Nombre',
                     phone: 'Teléfono',
                     email: 'Email',
@@ -194,6 +210,13 @@ const messages = {
             scheduleTime: {
                 noOptions: 'Sem horários disponíveis'
             },
+            states: {
+                NEW: 'Nuevo',
+                PREPARING: 'Preparando',
+                READY: 'Listo',
+                ON_THE_WAY: 'En camino',
+                DELIVERED: 'Entregado'
+            },
             mode: {
                 mode: 'Mode',
                 TAKE_AWAY:'Retiro en local',
@@ -233,6 +256,7 @@ const messages = {
                 deleting: 'Apagando Order',
                 showing: 'Detalhes do Order',
                 labels: {
+                    order: 'Order',
                     name: 'Nome',
                     phone: 'Telefono',
                     email: 'Email',

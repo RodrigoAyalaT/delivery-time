@@ -25,6 +25,8 @@ const OrderSchema = new Schema({
             product: {type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true, unique: false},
             quantity: {type: Number, required: true, unique: false},
             amount: {type: Number, required: true, unique: false},
+            price: {type: Number, required: true, unique: false},
+
         }
     ],
     location: {
@@ -39,6 +41,8 @@ const OrderSchema = new Schema({
         postalCode: {type: String, required: false, unique: false},
         point: {type: pointSchema}
     },
+    zone: {type: mongoose.Schema.Types.ObjectId, ref: "Zone", required: true, unique: false},
+    zoneName: {type: String, required: false, unique: false},
     state: {
         type: String, enum: [
             'NEW',
@@ -50,6 +54,8 @@ const OrderSchema = new Schema({
     },
     identifier: {type: String, required: false, unique: false},
     user: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, unique: false},
+    totalQuantity: {type: Number, required: true, unique: false},
+    totalAmount: {type: Number, required: true, unique: false},
 
 }, {timestamps: true});
 

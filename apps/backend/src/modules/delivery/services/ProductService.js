@@ -17,6 +17,14 @@ export const fetchProducts = async function () {
     })
 }
 
+export const fetchProductsInId = async function (ids) {
+    return new Promise((resolve, reject) => {
+        Product.find({_id: {$in: ids}}).exec((err, res) => (
+            err ? reject(err) : resolve(res)
+        ));
+    })
+}
+
 export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, search = null, orderBy = null, orderDesc = false) {
 
     function qs(search) {

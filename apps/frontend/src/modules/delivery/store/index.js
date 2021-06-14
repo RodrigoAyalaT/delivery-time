@@ -2,6 +2,7 @@ import OrderProvider from "@/modules/delivery/providers/OrderProvider";
 
 export default {
     state: {
+        orderStates: ['NEW', 'PREPARING', 'READY', 'ON_THE_WAY', 'DELIVERED'],
         orderError: null,
         orderLoading: false,
         order: {
@@ -31,6 +32,9 @@ export default {
         },
     },
     getters: {
+        getOrderStates(state) {
+            return state.orderStates
+        },
         getOrderLoading(state) {
             return state.orderLoading
         },
@@ -90,7 +94,7 @@ export default {
             }
 
         },
-        getOrderForm(state){
+        getOrderForm(state) {
             let order = {
                 delivery: state.order.delivery,
                 contact: state.order.contact,
@@ -98,7 +102,7 @@ export default {
                 items: state.order.items.map(item => ({
                     product: item.product.id,
                     quantity: item.quantity,
-                    amount: item.amount
+                   // amount: item.amount
                 }))
             }
             return order

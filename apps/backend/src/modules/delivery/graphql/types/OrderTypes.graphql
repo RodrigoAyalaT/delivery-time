@@ -91,7 +91,6 @@ input OrderDeliveryInput{
 input OrderItemsInput{
     product: ID!
     quantity: Int!
-    amount: Float!
 }
 
 input OrderLocationInput{
@@ -115,5 +114,6 @@ type OrderDelete{
 type Mutation {
     orderCreate(input: OrderInput): Order
     orderUpdate(id: ID!, input: OrderInput): Order
+    orderUpdateState(id: ID!, state: OrderStateEnum): Order
     orderDelete(id: ID!): OrderDelete!
 }

@@ -9,14 +9,20 @@
         <v-col cols="12" sm="6">
           <v-card>
             <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.takeAway') }}</v-card-title>
-            <order-manager-table :orders="takeAwayOrders"></order-manager-table>
+            <order-manager-table
+                :orders="takeAwayOrders"
+                @next="next"
+            ></order-manager-table>
           </v-card>
         </v-col>
 
         <v-col cols="12" sm="6">
           <v-card>
             <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.delivery') }}</v-card-title>
-            <order-manager-table :orders="deliveryOrders"></order-manager-table>
+            <order-manager-table
+                :orders="deliveryOrders"
+                @next="next"
+            ></order-manager-table>
           </v-card>
         </v-col>
 
@@ -40,7 +46,8 @@ export default {
   data() {
     return {
       loading: false,
-      orders: []
+      loadingOrder: false,
+      orders: [],
     }
   },
   mounted() {
@@ -55,6 +62,30 @@ export default {
     }
   },
   methods: {
+    getNextStep(orderState) {
+      let index = this.$store.getters.getOrderStates.findIndex(state => state === orderState)
+      if (this.$store.getters.getOrderStates.length > (index + 1)) {
+        return this.$store.getters.getOrderStates[index + 1]
+      }
+      return orderState
+    },
+    next(order) {
+      this.loadingOrder = true
+      OrderProvider.updateOrderState({
+        id: order.id,
+        state: this.getNextStep(order.state)
+      })
+          .then(() => {
+            this.fetchOrders()
+            this.$emit('changed')
+          })
+          .catch(e => {
+            console.error(e)
+          })
+          .finally(() => {
+            this.loadingOrder = false
+          })
+    },
     fetchOrders() {
       this.loading = true
       OrderProvider.fetchOrdersByState(this.state)

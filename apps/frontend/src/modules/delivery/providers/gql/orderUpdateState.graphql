@@ -1,0 +1,42 @@
+mutation orderUpdateState($id: ID!, $state: OrderStateEnum! ){
+    orderUpdateState(id: $id, state: $state){
+        id
+        state
+        identifier
+        createdAt
+        updatedAt
+        contact{
+            name
+            phone
+            email
+        }
+        delivery{
+            mode
+            timeMode
+            time
+        }
+        items{
+            product{
+                id
+                name
+                description
+                image
+                price
+            }
+            quantity
+            amount
+        }
+        location{
+            address
+            floor
+            apartment
+            latitude
+            longitude
+            country
+            province
+            locality
+            postalCode
+        }
+    }
+}
+

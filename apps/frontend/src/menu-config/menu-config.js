@@ -36,7 +36,7 @@ export default [
             {
                 icon: 'tag',
                 text: 'menu.orders',
-                link: {name: "OrderManagementPage"},
+                link: {name: "OrderManagerPage"},
                 permission: 'ORDER_SHOW'
             },
             {

@@ -49,6 +49,13 @@ class OrderProvider {
         })
     }
 
+    updateOrderState({id, state}) {
+        return graphqlClient.mutate({
+            mutation: require('./gql/orderUpdateState.graphql'),
+            variables: {id, state}
+        })
+    }
+
     updateOrder(orderInput) {
         return graphqlClient.mutate({
             mutation: require('./gql/orderUpdate.graphql'),

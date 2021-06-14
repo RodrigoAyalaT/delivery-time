@@ -15,6 +15,20 @@ export const pointZones = async function (latitude,longitude) {
     })
 }
 
+export const pointZone = async function (latitude,longitude) {
+    return new Promise((resolve, reject) => {
+        Zone.findOne(
+            { location: { $geoIntersects: { $geometry: { type: "Point", coordinates: [ longitude, latitude ] } } } }
+        ).exec((err, res) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(res)
+            }
+        });
+    })
+}
+
 export const findZone = async function (id) {
     return new Promise((resolve, reject) => {
         Zone.findOne({_id: id}).exec((err, res) => (
