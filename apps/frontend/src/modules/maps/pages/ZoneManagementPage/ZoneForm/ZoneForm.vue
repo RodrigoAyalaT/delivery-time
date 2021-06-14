@@ -46,9 +46,10 @@
 
       </v-col>
 
-      <v-col  cols="12">
+      <v-col cols="12" class="pt-0">
         <zone-map
             v-model="form.location.coordinates"
+            :id="form.id"
         >
         </zone-map>
       </v-col>

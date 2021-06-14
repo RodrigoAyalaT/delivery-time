@@ -35,8 +35,9 @@ export default async function gmapsinit() {
     const script = document.createElement('script');
     script.async = true;
     script.defer = true;
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&callback=${CALLBACK_NAME}`;
+    script.src = `https://maps.googleapis.com/maps/api/js?libraries=geometry&key=${GOOGLE_API_KEY}&callback=${CALLBACK_NAME}`;
     script.onerror = rejectInitPromise;
+    script.id = 'google-map-script'
     document.querySelector('head').appendChild(script);
 
     return initPromise;

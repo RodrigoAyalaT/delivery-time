@@ -18,7 +18,10 @@ class ZoneProvider {
     }
 
     fetchZones() {
-        return graphqlClient.query({query: require('./gql/zoneFetch.graphql')})
+        return graphqlClient.query({
+            query: require('./gql/zoneFetch.graphql'),
+            fetchPolicy: "network-only"
+        })
     }
 
     paginateZones(pageNumber, itemsPerPage, search = null,  orderBy = null, orderDesc = false) {
