@@ -5,7 +5,7 @@ services:
     image: mongo:4.4.4
     restart: always
     volumes:
-      - /data/ekids/mongodb:/data/db
+      - /data/delivery/mongodb:/data/db
       - ./docker-conf/mongo-entrypoint.js:/docker-entrypoint-initdb.d/mongo-entrypoint.js
     ports:
       - "57017:27017"
