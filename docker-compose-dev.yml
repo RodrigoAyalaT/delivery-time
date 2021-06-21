@@ -1,10 +1,10 @@
 version: "3.5"
 
 services:
-  draculscaffold:
+  delivery:
     build: .
-    image: dracul-scaffold
-    container_name: dracul_scaffold
+    image: delivery:1.0.0
+    container_name: delivery
     volumes:
       - ./media:/app/media
       - ./logs:/app/logs
@@ -12,7 +12,7 @@ services:
       - "8060:5000"
     environment:
       NODE_ENV: "development"
-      MONGO_URI: "mongodb://127.0.0.1:27017/dracul"
+      MONGO_URI: "mongodb://127.0.0.1:27017/delivery"
       JWT_SECRET: "V8wzw4iL9H40oxXAVj9u"
       JWT_LOGIN_EXPIRED_IN: "3d"
       JWT_REGISTER_EXPIRED_IN: "30d"

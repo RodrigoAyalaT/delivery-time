@@ -1,0 +1,64 @@
+version: "3.5"
+
+services:
+  mongo:
+    image: mongo:4.4.4
+    restart: always
+    volumes:
+      - /data/ekids/mongodb:/data/db
+      - ./docker-conf/mongo-entrypoint.js:/docker-entrypoint-initdb.d/mongo-entrypoint.js
+    ports:
+      - "57017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 15xbaVz1I7EfqXyW
+      MONGO_INITDB_DATABASE: delivery-test
+
+  apache:
+    image: httpd:2.4
+    volumes:
+      - ./docker-conf/httpd-testing.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+      - "80:80"
+
+  delivery:
+    image: delivery:1.0.0
+    container_name: delivery
+    volumes:
+      - /data/delivery/media:/app/media
+      - /data/delivery/logs:/app/logs
+    ports:
+      - "8080:5000"
+    environment:
+      NODE_ENV: "production"
+      MONGO_URI: "mongodb://delivery:Am3RpojNoofM8mb2@mongo:27017/delivery-test"
+      JWT_SECRET: "V3xzw4iL9H40oxXAVj9um8"
+      JWT_LOGIN_EXPIRED_IN: "30d"
+      JWT_REGISTER_EXPIRED_IN: "30d"
+      REGISTER_ROLE: "operator"
+      APP_NAME: "Delivery Tremendas"
+      APP_PORT: 5000
+      APP_API_URL: "http://delivery.showvlad.com"
+      APP_WEB_URL: "http://delivery.showvlad.com"
+      SMTP_HOST: "smtp.gmail.com"
+      SMTP_PORT: 465
+      SMTP_SECURE: "true"
+      SMTP_IGNORE_TLS: "false"
+      SMTP_USER: "ci.sys.virtual@gmail.com"
+      SMTP_PASS: "xxxxxx"
+      AVATAR_MAX_SIZE: 2000000
+      LOG_LEVEL: "debug"
+      LOG_REQUEST: "ON"
+      LOG_RESPONSE_TIME: "ON"
+      LOG_GQL_ERRORS: "ON"
+      LOG_TRANSPORT_CONSOLE: "ON"
+      LOG_TRANSPORT_COMBINED: "ON"
+      LOG_TRANSPORT_ERROR: "ON"
+      LOG_TRANSPORT_ACCESS: "ON"
+      LOG_TRANSPORT_GQL_ERROR: "ON"
+      LOG_TRANSPORT_GQL_RESPONSE: "ON"
+      LOG_COLORIZE: "ON"
+      LOG_FILE_MAX_SIZE: 50000000
+      LOG_FILE_MAX_FILES: 3
+      LOG_MODE: "TEXT"
+

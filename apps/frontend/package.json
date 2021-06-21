@@ -12,7 +12,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@dracul/common-frontend": "^1.1.10",
+    "@dracul/common-frontend": "^1.1.13",
     "@dracul/settings-frontend": "^1.1.12",
     "@dracul/customize-frontend": "^1.1.2",
     "@dracul/notification-frontend": "^1.1.12",
