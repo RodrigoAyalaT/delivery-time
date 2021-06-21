@@ -126,7 +126,7 @@ export default {
       zones: [],
       zonesLoading: false,
       labels: [],
-      showLabels: true,
+      showLabels: false,
       center: {lat: -34.5507742, lng: -58.4651215},
       radius: 500, //radius in meters
     }

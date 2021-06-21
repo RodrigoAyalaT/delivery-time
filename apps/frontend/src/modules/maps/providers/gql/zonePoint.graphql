@@ -1,0 +1,12 @@
+query zonePoint($latitude:Float, $longitude:Float){
+    zonePoint(latitude: $latitude, longitude: $longitude){
+        id
+        name
+        color
+        value
+        location{
+            type
+            coordinates
+        }
+    }
+}

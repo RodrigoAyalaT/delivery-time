@@ -1,4 +1,4 @@
-import ShowOrderLocation from "./ShowOrderLocation";
+import OrderConfirmationLocation from "./ShowOrderLocation";
 
-export {ShowOrderLocation}
-export default ShowOrderLocation
+export {OrderConfirmationLocation}
+export default OrderConfirmationLocation

@@ -6,11 +6,13 @@
       @mouseenter="hover=true"
       @mouseleave="hover=false"
   >
-    <slot></slot>
+    <v-card-text>
+      <slot></slot>
+    </v-card-text>
     <v-btn v-if="hover"
            color="primary" class="onPrimary--text"
            x-small fab
-           absolute :style="{top: '3%', right: '3%'}"
+           absolute :style="{top: '3%', right: '1%'}"
            @click="$emit('edit')"
     >
       <v-icon>edit</v-icon>

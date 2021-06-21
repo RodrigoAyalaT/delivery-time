@@ -1,5 +1,14 @@
 
-import { createZone, updateZone, deleteZone,  findZone, fetchZones, paginateZones, pointZones} from '../../services/ZoneService'
+import {
+    createZone,
+    updateZone,
+    deleteZone,
+    findZone,
+    fetchZones,
+    paginateZones,
+    pointZones,
+    pointZone
+} from '../../services/ZoneService'
 
 import {AuthenticationError, ForbiddenError} from "apollo-server-express";
 
@@ -17,6 +26,11 @@ export default {
            // if (!user) throw new AuthenticationError("Unauthenticated")
           //  if(!rbac.isAllowed(user.id, ZONE_SHOW)) throw new ForbiddenError("Not Authorized")
             return pointZones(latitude, longitude)
+        },
+        zonePoint: (_, {latitude, longitude}, {user,rbac}) => {
+            // if (!user) throw new AuthenticationError("Unauthenticated")
+            //  if(!rbac.isAllowed(user.id, ZONE_SHOW)) throw new ForbiddenError("Not Authorized")
+            return pointZone(latitude, longitude)
         },
         zoneFind: (_, {id}, {user,rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")

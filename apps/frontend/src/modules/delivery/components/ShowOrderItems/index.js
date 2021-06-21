@@ -1,4 +1,4 @@
-import ShowOrderItems from "./ShowOrderItems";
+import OrderConfirmationItems from "./ShowOrderItems";
 
-export {ShowOrderItems}
-export default ShowOrderItems
+export {OrderConfirmationItems}
+export default OrderConfirmationItems

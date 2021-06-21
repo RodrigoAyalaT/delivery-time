@@ -5,11 +5,20 @@ const messages = {
             destination: 'Destination',
             checkAndConfirm: 'Check and confirm',
             myOrder: 'My order',
+            orderView: 'Order #{identifier}',
             emptyOrder: 'Your order is empty',
             schedule: 'Schedule', //Horario
-            cart:{
-              total: 'Total price',
-              quantity: 'Items quantity'
+
+            empty: {
+                items: 'Your order is empty',
+                deliveryMode: 'You must choose the delivery mode "take away" or "delivery".',
+                time: 'You must choose the delivery time',
+                location: 'You must indicate your address'
+            },
+
+            cart: {
+                total: 'Total price',
+                quantity: 'Items quantity'
             },
             scheduleTime: {
                 noOptions: 'No schedules available'
@@ -23,7 +32,7 @@ const messages = {
             },
             mode: {
                 mode: 'Mode',
-                TAKE_AWAY:'Take Away',
+                TAKE_AWAY: 'Take Away',
                 DELIVERY: 'Delivery',
                 takeAway: 'Take Away',
                 delivery: 'Delivery',
@@ -103,9 +112,18 @@ const messages = {
             destination: 'Destino',
             checkAndConfirm: 'Verificar y confirmar pedido',
             myOrder: 'Mi pedido',
+            orderView: 'Orden #{identifier}',
             emptyOrder: 'Su pedido esta vacío',
             schedule: 'Horario', //Horario
-            cart:{
+
+            empty: {
+                items: 'Su pedido esta vacío',
+                deliveryMode: 'Debe elegir el modo de envío "take away" o "delivery".',
+                time: 'Debes elegir la hora de entrega',
+                location: 'Debes indicar tu dirección'
+            },
+
+            cart: {
                 total: 'Monto total',
                 quantity: 'Cantidad total'
             },
@@ -113,7 +131,7 @@ const messages = {
                 noOptions: 'Sin horarios disponibles'
             },
             states: {
-                NEW: 'Nuevo',
+                NEW: 'Ingresada',
                 PREPARING: 'Preparando',
                 READY: 'Listo',
                 ON_THE_WAY: 'En camino',
@@ -121,7 +139,7 @@ const messages = {
             },
             mode: {
                 mode: 'Modo',
-                TAKE_AWAY:'Retiro en local',
+                TAKE_AWAY: 'Retiro en local',
                 DELIVERY: 'Delivery',
                 takeAway: 'Retiro en local',
                 delivery: 'Delivery',
@@ -201,9 +219,19 @@ const messages = {
             destination: 'Destino',
             checkAndConfirm: 'Verifique e confirme',
             myOrder: 'O meu pedido',
+            orderView: 'Pedido #{identifier}',
             emptyOrder: 'seu pedido está vazio',
             schedule: 'Cronograma', //Horario
-            cart:{
+
+            empty: {
+                items: 'Su pedido esta vacío',
+                deliveryMode: 'Debe elegir el modo de envío "take away" o "delivery".',
+                time: 'Debes elegir la hora de entrega',
+                location: 'Debes indicar tu dirección'
+            },
+
+
+            cart: {
                 total: 'Monto total',
                 quantity: 'Cantidad de items'
             },
@@ -219,7 +247,7 @@ const messages = {
             },
             mode: {
                 mode: 'Mode',
-                TAKE_AWAY:'Retiro en local',
+                TAKE_AWAY: 'Retiro en local',
                 DELIVERY: 'Delivery',
                 takeAway: 'Retiro en local',
                 delivery: 'Delivery',

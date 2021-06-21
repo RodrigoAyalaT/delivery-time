@@ -37,7 +37,6 @@ export default {
         now = now.add(this.getDeliveryTime, 'm')
       }
       this.hour = now.format("HH:mm")
-      console.log("setTime", this.hour)
     }
   },
   computed: {

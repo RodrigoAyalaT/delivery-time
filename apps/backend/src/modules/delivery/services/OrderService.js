@@ -20,6 +20,14 @@ export const findOrderByIdentifier = function (identifier) {
     })
 }
 
+export const findOrderByNumber = function (number) {
+    return new Promise((resolve, reject) => {
+        Order.findOne({number: number}).populate('items.product').populate('user').exec((err, res) => (
+            err ? reject(err) : resolve(res)
+        ));
+    })
+}
+
 export const fetchOrders = function () {
     return new Promise((resolve, reject) => {
         Order.find({}).populate('items.product').populate('user').exec((err, res) => (
@@ -122,17 +130,18 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
 
             let state = 'NEW'
             let userId = authUser ? authUser.id : null
-            let sequence = await incrementSequenceNumber('orders')
-            let identifier = randomLetters(3) + sequence
+            let number = await incrementSequenceNumber('orders')
+            let identifier = randomLetters(3) + number
             let {totalQuantity, totalAmount} = await calculateItems(items)
 
             let zone = await pointZone(location.latitude, location.longitude)
             let zoneName = (zone && zone.name) ? zone.name : null
 
             const doc = new Order({
-                identifier,
+                identifier, number,
                 contact, delivery, location, items,
-                state, user: userId,
+                state,
+                user: userId,
                 totalQuantity, totalAmount,
                 zone, zoneName
             })

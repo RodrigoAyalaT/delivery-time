@@ -53,6 +53,7 @@ const OrderSchema = new Schema({
         ], required: true
     },
     identifier: {type: String, required: false, unique: false},
+    number: {type: Number, required: false, unique: false},
     user: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, unique: false},
     totalQuantity: {type: Number, required: true, unique: false},
     totalAmount: {type: Number, required: true, unique: false},

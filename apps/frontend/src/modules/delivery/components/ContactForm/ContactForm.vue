@@ -4,9 +4,14 @@
       <v-form ref="form">
 
         <v-row>
+
+          <v-col cols="12">
+            <h5 class="text-h5">Datos de contacto</h5>
+          </v-col>
+
           <v-col cols="12">
             <v-text-field
-
+                dense
                 prepend-icon="badge"
                 name="name"
                 v-model="form.name"
@@ -23,7 +28,7 @@
 
           <v-col cols="12">
             <v-text-field
-
+                dense
                 prepend-icon="phone"
                 name="phone"
                 v-model="form.phone"
@@ -40,7 +45,7 @@
 
           <v-col cols="12">
             <v-text-field
-
+                dense
                 prepend-icon="email"
                 name="email"
                 v-model="form.email"
@@ -56,6 +61,7 @@
 
           <v-col cols="12">
             <v-textarea
+                dense
                 rows="2"
                 prepend-icon="description"
                 name="observations"

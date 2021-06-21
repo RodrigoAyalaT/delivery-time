@@ -46,9 +46,14 @@ type Order{
     items: [OrderItems]
     state: OrderStateEnum
     identifier: String
+    number: Int
     createdAt: String
     updatedAt: String
     user: User
+    zone: Zone
+    zoneName: String
+    totalQuantity: Float
+    totalAmount: Float
 }
 
 type OrderPaginated{

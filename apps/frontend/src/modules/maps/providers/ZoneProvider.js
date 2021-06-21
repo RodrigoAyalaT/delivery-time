@@ -17,6 +17,14 @@ class ZoneProvider {
         })
     }
 
+    fetchZonePoint({latitude, longitude}) {
+        return graphqlClient.query({
+            query: require('./gql/zonePoint.graphql'),
+            variables: {latitude, longitude},
+            fetchPolicy: "network-only"
+        })
+    }
+
     fetchZones() {
         return graphqlClient.query({
             query: require('./gql/zoneFetch.graphql'),

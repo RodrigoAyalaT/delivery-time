@@ -1,4 +1,4 @@
-import ShowOrderContact from "./ShowOrderContact";
+import OrderConfirmationContact from "./ShowOrderContact";
 
-export {ShowOrderContact}
-export default ShowOrderContact
+export {OrderConfirmationContact}
+export default OrderConfirmationContact

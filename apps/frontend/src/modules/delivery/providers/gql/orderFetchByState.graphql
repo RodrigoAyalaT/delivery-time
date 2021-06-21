@@ -3,6 +3,7 @@ query orderFetchByState($state:String!){
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{
@@ -37,5 +38,6 @@ query orderFetchByState($state:String!){
             locality
             postalCode
         }
+        zoneName
     }
 }

@@ -45,7 +45,10 @@ export default new Vuex.Store({
                         language: state.customization.language
                     },
                     delivery: {
-                        order: state.delivery.order
+                        order: state.delivery.order,
+                        currentOrderIdentifier: state.delivery.currentOrderIdentifier,
+                        orderHistory: state.delivery.orderHistory,
+                        lastLocation: state.delivery.lastLocation
                     }
                 })
         })

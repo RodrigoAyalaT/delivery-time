@@ -110,7 +110,12 @@
       </v-row>
     </v-col>
 
+    <v-col v-if="zone" cols="12"  sm="8" md="4">
+      <v-alert   class="text-left" dense type="success">Zona: <b>{{zone && zone.name}}</b> </v-alert>
+    </v-col>
+
     <v-col v-if="time && inZone" cols="12">
+
       <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>
     </v-col>
 
@@ -178,11 +183,17 @@ export default {
       }
     }
   },
-   mounted() {
+  created() {
+    this.recoveryLastLocation()
+  },
+  mounted() {
     this.determineActiveHours()
     this.locationIsInZone(this.location)
   },
   methods: {
+    recoveryLastLocation(){
+      this.$store.commit('recoveryLastLocation')
+    },
     determineActiveHours() {
       this.isActiveHours = this.calendarIsActive(this.calendar)
     },

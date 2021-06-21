@@ -99,10 +99,14 @@ export default {
   },
   created() {
     this.determineActiveHours()
+    this.clearLocation()
   },
   methods: {
     determineActiveHours() {
       this.isActiveHours = this.calendarIsActive(this.calendar)
+      if(!this.isActiveHours){
+        this.scheduled()
+      }
     },
     isBusinessHours() {
       return true
@@ -115,6 +119,9 @@ export default {
     },
     setDeliveryTime(val) {
       this.$store.commit('setOrderDeliveryTime', val)
+    },
+    clearLocation(){
+      this.$store.commit('clearLocation')
     }
   }
 }

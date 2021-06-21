@@ -3,6 +3,7 @@ query orderFind($id:ID!){
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{
@@ -37,5 +38,6 @@ query orderFind($id:ID!){
             locality
             postalCode
         }
+        zoneName
     }
 }

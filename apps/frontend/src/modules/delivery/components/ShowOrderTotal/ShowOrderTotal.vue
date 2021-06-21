@@ -4,7 +4,7 @@
       <card-total
           icon="shop"
           :title="$t('delivery.cart.quantity')"
-          :quantity="$store.getters.getQuantityTotal"
+          :quantity="quantity"
       ></card-total>
     </v-col>
 
@@ -12,7 +12,7 @@
       <card-total
           icon="money"
           :title="$t('delivery.cart.total')"
-          :quantity="$store.getters.getAmountTotal"
+          :quantity="total"
           money
       ></card-total>
     </v-col>
@@ -26,8 +26,12 @@
 import CardTotal from "@/modules/delivery/components/CardTotal/CardTotal";
 
 export default {
-  name: "ShowOrderTotal",
-  components: {CardTotal}
+  name: "OrderConfirmationTotal",
+  components: {CardTotal},
+  props: {
+    total: {type: Number},
+    quantity: {type: Number}
+  }
 }
 </script>
 

@@ -3,6 +3,7 @@ query orderFindByIdentifier($identifier:String!){
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{
@@ -37,5 +38,8 @@ query orderFindByIdentifier($identifier:String!){
             locality
             postalCode
         }
+        zoneName
+        totalQuantity
+        totalAmount
     }
 }

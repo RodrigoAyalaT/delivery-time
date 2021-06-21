@@ -4,18 +4,20 @@ export default {
     data() {
         return {
             loadingInZone: false,
-            inZone: null
+            inZone: null,
+            zone: null
         }
     },
     methods: {
         locationIsInZone(location) {
             return new Promise((resolve, reject) => {
-                this.loadingInZone = true
                 if (location.latitude && location.longitude) {
-                    ZoneProvider.fetchZonesPoint({latitude: location.latitude, longitude: location.longitude})
+                    this.loadingInZone = true
+                    ZoneProvider.fetchZonePoint({latitude: location.latitude, longitude: location.longitude})
                         .then(r => {
-                            if (r.data.zonesPoint.length) {
+                            if (r.data.zonePoint) {
                                 this.inZone = true
+                                this.zone = r.data.zonePoint
                                 return resolve(true)
                             } else {
                                 this.inZone = false

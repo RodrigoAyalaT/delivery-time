@@ -5,14 +5,16 @@ class OrderProvider {
     findOrder(id) {
         return graphqlClient.query({
             query: require('./gql/orderFind.graphql'),
-            variables: {id: id}
+            variables: {id: id},
+            fetchPolicy: "network-only"
         })
     }
 
     findOrderByIdentifier(identifier) {
         return graphqlClient.query({
             query: require('./gql/orderFindByIdentifier.graphql'),
-            variables: {identifier: identifier}
+            variables: {identifier: identifier},
+            fetchPolicy: "network-only"
         })
     }
 

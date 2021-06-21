@@ -11,7 +11,9 @@
             <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.takeAway') }}</v-card-title>
             <order-manager-table
                 :orders="takeAwayOrders"
+                :zones="zones"
                 @next="next"
+                @showOrder="showOrder"
             ></order-manager-table>
           </v-card>
         </v-col>
@@ -21,7 +23,10 @@
             <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.delivery') }}</v-card-title>
             <order-manager-table
                 :orders="deliveryOrders"
+                :zones="zones"
+                enable-zone
                 @next="next"
+                @showOrder="showOrder"
             ></order-manager-table>
           </v-card>
         </v-col>
@@ -29,17 +34,30 @@
       </v-row>
 
     </template>
+
+    <simple-dialog
+        v-if="enableShowOrder"
+        v-model="enableShowOrder"
+        @close="enableShowOrder=false"
+        fullscreen
+    >
+      <show-order
+          :identifier="orderIdentifierToShow"
+      ></show-order>
+    </simple-dialog>
   </div>
 </template>
 
 <script>
 import OrderProvider from "@/modules/delivery/providers/OrderProvider";
-import {Loading} from "@dracul/common-frontend"
+import {Loading, SimpleDialog} from "@dracul/common-frontend"
 import OrderManagerTable from "@/modules/delivery/components/OrderManagerTable/OrderManagerTable";
+import ZoneProvider from "@/modules/maps/providers/ZoneProvider";
+import ShowOrder from "@/modules/delivery/components/ShowOrder/ShowOrder";
 
 export default {
   name: "OrderManager",
-  components: {OrderManagerTable, Loading},
+  components: {ShowOrder, OrderManagerTable, Loading, SimpleDialog},
   props: {
     state: {type: String}
   },
@@ -48,9 +66,14 @@ export default {
       loading: false,
       loadingOrder: false,
       orders: [],
+      zones: [],
+
+      orderIdentifierToShow: null,
+      enableShowOrder: false,
     }
   },
   mounted() {
+    this.fetchZones()
     this.fetchOrders()
   },
   computed: {
@@ -62,6 +85,10 @@ export default {
     }
   },
   methods: {
+    showOrder(order) {
+      this.orderIdentifierToShow = order.identifier
+      this.enableShowOrder = true
+    },
     getNextStep(orderState) {
       let index = this.$store.getters.getOrderStates.findIndex(state => state === orderState)
       if (this.$store.getters.getOrderStates.length > (index + 1)) {
@@ -84,6 +111,17 @@ export default {
           })
           .finally(() => {
             this.loadingOrder = false
+          })
+    },
+    fetchZones() {
+      ZoneProvider.fetchZones()
+          .then(r => {
+            this.zones = r.data.zoneFetch
+          })
+          .catch(e => {
+            console.error(e)
+          })
+          .finally(() => {
           })
     },
     fetchOrders() {

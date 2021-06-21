@@ -1,10 +1,26 @@
 import OrderProvider from "@/modules/delivery/providers/OrderProvider";
 
+const TAKE_AWAY = 'TAKE_AWAY'
+const DELIVERY = 'DELIVERY'
+
 export default {
     state: {
         orderStates: ['NEW', 'PREPARING', 'READY', 'ON_THE_WAY', 'DELIVERED'],
         orderError: null,
         orderLoading: false,
+        orderHistory: [], //List of identifiers
+        currentOrderIdentifier: null, //Current identifier order (new->delivered)
+        lastLocation: {
+            address: '',
+            floor: '',
+            apartment: '',
+            latitude: null,
+            longitude: null,
+            country: '',
+            province: '',
+            locality: '',
+            postalCode: ''
+        },
         order: {
             delivery: {
                 mode: null, //TAKE_AWAY|DELIVERY
@@ -32,6 +48,18 @@ export default {
         },
     },
     getters: {
+        isTakeAway(state) {
+            return state.order.delivery.mode == TAKE_AWAY
+        },
+        isDelivery(state) {
+            return state.order.delivery.mode == DELIVERY
+        },
+        getCurrentOrderIdentifier(state) {
+            return state.currentOrderIdentifier
+        },
+        getOrderHistory(state) {
+            return state.orderHistory
+        },
         getOrderStates(state) {
             return state.orderStates
         },
@@ -102,10 +130,48 @@ export default {
                 items: state.order.items.map(item => ({
                     product: item.product.id,
                     quantity: item.quantity,
-                   // amount: item.amount
+                    // amount: item.amount
                 }))
             }
             return order
+        },
+        orderIsReady(state, getters) {
+            //NO ITEMS
+            if (getters.getQuantityTotal == 0) {
+                return false
+            }
+            //NO DELIVERY COMPLETE
+            if (
+                !getters.getOrderDelivery.mode ||
+                !getters.getOrderDelivery.timeMode ||
+                !getters.getOrderDelivery.time
+            ) {
+                return false
+            }
+
+            return true
+        },
+        orderConfirmationErrorMessage(state,getters){
+           let messages = []
+
+            if (getters.getQuantityTotal == 0) {
+                messages.push('delivery.empty.items')
+            }
+
+            if(!getters.getOrderDelivery.mode){
+                messages.push('delivery.empty.deliveryMode')
+            }
+
+            if(!getters.getOrderDelivery.timeMode || !getters.getOrderDelivery.time){
+                messages.push('delivery.empty.time')
+            }
+
+
+            if(getters.isDelivery && !getters.getOrderLocation.address){
+                messages.push('delivery.empty.location')
+            }
+
+            return messages
         }
     },
     actions: {
@@ -115,6 +181,8 @@ export default {
             OrderProvider.createOrder(getters.getOrderForm)
                 .then(r => {
                     console.log("orderCreated", r.data)
+                    commit("setCurrentOrderIdentifier", r.data.orderCreate.identifier)
+                    commit("addOrderToHistory", r.data.orderCreate.identifier)
                 })
                 .catch(e => {
                     commit("setOrderError", e.message)
@@ -125,6 +193,12 @@ export default {
         }
     },
     mutations: {
+        setCurrentOrderIdentifier(state, val) {
+            state.currentOrderIdentifier = val
+        },
+        addOrderToHistory(state, val) {
+            state.orderHistory.push(val)
+        },
         setOrderError(state, val) {
             state.orderError = val
         },
@@ -151,6 +225,24 @@ export default {
         },
         setOrderLocation(state, val) {
             state.order.location = val
+            state.lastLocation = val
+        },
+        clearLocation(state) {
+            state.lastLocation = state.order.location
+            state.order.location = {
+                address: '',
+                floor: '',
+                apartment: '',
+                latitude: null,
+                longitude: null,
+                country: '',
+                province: '',
+                locality: '',
+                postalCode: ''
+            }
+        },
+        recoveryLastLocation(state){
+            state.order.location = state.lastLocation
         },
         clearOrderItems(state) {
             state.order.items = []

@@ -3,6 +3,7 @@ mutation orderUpdate($id: ID!, $input: OrderInput ){
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{
@@ -37,6 +38,9 @@ mutation orderUpdate($id: ID!, $input: OrderInput ){
             locality
             postalCode
         }
+        zoneName
+        totalQuantity
+        totalAmount
     }
 }
 

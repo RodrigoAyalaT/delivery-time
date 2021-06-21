@@ -21,6 +21,8 @@
       :outlined="outlined"
       :clearable="clearable"
       :hide-details="hideDetails"
+      hide-no-data
+      @click:clear="clearFields"
   >
   </v-autocomplete>
 </template>
@@ -57,7 +59,7 @@ export default {
 
   watch: {
     search: function (val) {
-      if (val != "" && val.length >= 3) {
+      if ( (val != "" && val != undefined) && val.length >= 3) {
         this.debounceVar(val)
       } else if(val === ""){
         this.model = null
@@ -73,7 +75,7 @@ export default {
   },
   methods: {
     change(item) {
-      if (item.value) {
+      if (item && item.value) {
         this.$emit('input', item.value.address)
         this.$emit('lat', item.value.lat)
         this.$emit('lng', item.value.lng)
@@ -85,7 +87,8 @@ export default {
       }
     },
     clearFields() {
-      this.$emit('input', null)
+      this.items = []
+      this.$emit('input', '')
       this.$emit('lat', null)
       this.$emit('lng', null)
       this.$emit('country', null)

@@ -6,6 +6,7 @@ query orderPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orde
             id
             state
             identifier
+            number
             createdAt
             updatedAt
             contact{
@@ -40,6 +41,9 @@ query orderPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orde
                 locality
                 postalCode
             }
+            zoneName
+            totalQuantity
+            totalAmount
         }
     }
 }

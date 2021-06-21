@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <cart-button
-        v-if="[2,3].includes(step)"
+        v-if="[2].includes(step)"
         :total="$store.getters.getQuantityTotal"
         @click="showOrder=!showOrder"
     ></cart-button>
@@ -10,8 +10,8 @@
       <!--STEPPER-->
       <v-col cols="12">
         <section id="inicio"></section>
-        <v-stepper v-model="step" non-linear>
-          <v-stepper-header>
+        <v-stepper  v-model="step" non-linear >
+          <v-stepper-header >
 
             <v-stepper-step
                 editable
@@ -57,7 +57,9 @@
       </v-col>
 
 
+
       <v-col cols="12">
+        <section id="initStep" ></section>
         <v-stepper v-model="step">
 
           <v-stepper-content :step="1" class="py-0">
@@ -123,7 +125,7 @@
 
           <v-stepper-content :step="4" class="grey lighten-4">
 
-            <show-order
+            <order-confirmation
                 @editContact="step=3"
                 @editLocation="step=1"
                 @editProducts="step=2"
@@ -182,11 +184,11 @@ import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
 import ProductCategoryProvider from "@/modules/delivery/providers/ProductCategoryProvider";
 import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 import ContactForm from "@/modules/delivery/components/ContactForm/ContactForm";
-import ShowOrder from "@/modules/delivery/components/ShowOrder/ShowOrder";
+import OrderConfirmation from "@/modules/delivery/components/OrderConfirmation/OrderConfirmation";
 
 export default {
   name: "OrderPage",
-  components: {ShowOrder, ContactForm, OrderMode, ProductCard, CartDetail, CartButton, ProductFilters},
+  components: {OrderConfirmation, ContactForm, OrderMode, ProductCard, CartDetail, CartButton, ProductFilters},
   data() {
     return {
       showOrder: false,
@@ -211,12 +213,19 @@ export default {
       } else {
         this.$store.commit('setExtensionMenu', [])
       }
+      this.$vuetify.goTo('#initStep')
+    },
+    '$store.state.delivery.currentOrderIdentifier':{
+      handler(){
+        this.checkOrderIdentifierAndRedirect()
+      }
     }
   },
   beforeDestroy() {
     this.$store.commit('setExtensionMenu', [])
   },
   mounted() {
+    this.checkOrderIdentifierAndRedirect()
     this.fetchCategories()
     this.fetchProducts()
   },
@@ -265,6 +274,11 @@ export default {
     }
   },
   methods: {
+    checkOrderIdentifierAndRedirect(){
+      if(this.$store.getters.getCurrentOrderIdentifier){
+        this.$router.push({name: 'OrderViewPage', params: {identifier: this.$store.getters.getCurrentOrderIdentifier} })
+      }
+    },
     nextStep() {
       this.step++
       this.showOrder = false

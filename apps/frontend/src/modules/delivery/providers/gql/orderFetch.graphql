@@ -3,6 +3,7 @@ query orderFetch{
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{
@@ -37,6 +38,9 @@ query orderFetch{
             locality
             postalCode
         }
+        zoneName
+        totalQuantity
+        totalAmount
     }
 }
 

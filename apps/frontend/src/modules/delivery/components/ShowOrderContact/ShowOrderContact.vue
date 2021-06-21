@@ -1,35 +1,59 @@
 <template>
-  <card-edit @edit="$emit('edit')">
+  <v-card   class="grey--text text--darken-2">
     <v-card-title>
-      {{$t('delivery.contact')}}
+      {{ $t('delivery.contact') }}
     </v-card-title>
-  <v-list>
-    <show-field
-        :value="$store.state.delivery.order.contact.name"
-        :label="$t('delivery.order.labels.name')"
-        icon="badge"
-    />
-    <show-field
-        :value="$store.state.delivery.order.contact.phone"
-        :label="$t('delivery.order.labels.phone')"
-        icon="phone"
-    />
-    <show-field
-        :value="$store.state.delivery.order.contact.email"
-        :label="$t('delivery.order.labels.email')"
-        icon="email"
-    />
-  </v-list>
-  </card-edit>
+    <v-card-text>
+      <v-list>
+        <v-row dense>
+          <v-col cols="12" md="6">
+            <show-field
+                :value="name"
+                :label="$t('delivery.order.labels.name')"
+                icon="badge"
+            />
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <show-field
+                :value="phone"
+                :label="$t('delivery.order.labels.phone')"
+                icon="phone"
+            />
+          </v-col>
+          <v-col cols="12" md="6">
+            <show-field
+                :value="email"
+                :label="$t('delivery.order.labels.email')"
+                icon="email"
+            />
+          </v-col>
+          <v-col cols="12" md="6">
+            <show-field
+                :value="observation"
+                :label="$t('delivery.order.labels.observations')"
+                icon="description"
+            />
+          </v-col>
+        </v-row>
+      </v-list>
+    </v-card-text>
+
+  </v-card>
 </template>
 
 <script>
 import {ShowField} from '@dracul/common-frontend'
-import CardEdit from "@/modules/delivery/components/CardEdit/CardEdit";
 
 export default {
   name: "ShowOrderContact",
-  components: {CardEdit, ShowField},
+  components: {ShowField},
+  props: {
+    name: {type: String},
+    phone: {type: String},
+    email: {type: String},
+    observation: {type: String},
+  }
 }
 </script>
 
