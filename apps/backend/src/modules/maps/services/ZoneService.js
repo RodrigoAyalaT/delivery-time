@@ -16,6 +16,11 @@ export const pointZones = async function (latitude,longitude) {
 }
 
 export const pointZone = async function (latitude,longitude) {
+
+    if(!latitude || !longitude){
+        return Promise.reject(new Error("Latitude and longitude must be provided"))
+    }
+
     return new Promise((resolve, reject) => {
         Zone.findOne(
             { location: { $geoIntersects: { $geometry: { type: "Point", coordinates: [ longitude, latitude ] } } } }

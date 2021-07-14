@@ -25,7 +25,7 @@ export default {
 
                     if (schedule.dayOfWeek == dayOfWeek) {
                         schedule.activeHours.forEach(activeHours => {
-                            if (activeHours.from <= hour && activeHours.to >= hour) {
+                            if (activeHours.from <= hour && activeHours.to > hour) {
                                 result = true
                             }
                         })

@@ -26,7 +26,7 @@
     <v-col v-if="!isActiveHours || isScheduled" cols="12">
       <v-row justify="center" dense>
         <v-col cols="6" sm="8" md="4">
-          <v-alert v-if="!isActiveHours && !isScheduled"
+          <v-alert v-if="!isActiveHours"
                    type="warning"
                    class="text-left"
                    rounded
@@ -99,7 +99,7 @@ export default {
   },
   created() {
     this.determineActiveHours()
-    this.clearLocation()
+    this.setShopLocation()
   },
   methods: {
     determineActiveHours() {
@@ -120,8 +120,9 @@ export default {
     setDeliveryTime(val) {
       this.$store.commit('setOrderDeliveryTime', val)
     },
-    clearLocation(){
+    setShopLocation(){
       this.$store.commit('clearLocation')
+      this.$store.commit('setOrderLocationAddress', this.$store.getters.getSetting('ShopAddress').value)
     }
   }
 }

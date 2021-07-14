@@ -101,9 +101,12 @@ export default {
       this.timeout = setTimeout(() => {
         this.fetchOrder()
             .then(() => {
-              if (this.order.state != 'DELIVERED') {
+              if (this.order.state === 'DELIVERED') {
+                this.$store.dispatch('resetOrder')
+              }else{
                 this.refreshOrder()
               }
+
             })
       }, 30000)
 

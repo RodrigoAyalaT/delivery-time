@@ -81,7 +81,7 @@
                     :items="getOrderItems"
                     @addProduct="addProduct"
                     @removeProduct="removeProduct"
-                    @clearOrder="$store.commit('clearOrder')"
+                    @clearOrder="$store.commit('clearOrderItems')"
                     :quantity-total="$store.getters.getQuantityTotal"
                     :amount-total="$store.getters.getAmountTotal"
 
@@ -164,7 +164,7 @@
           :items="getOrderItems"
           @addProduct="addProduct"
           @removeProduct="removeProduct"
-          @clearOrder="$store.commit('clearOrder')"
+          @clearOrder="$store.commit('clearOrderItems')"
           @next="nextStep"
           :quantity-total="$store.getters.getQuantityTotal"
           :amount-total="$store.getters.getAmountTotal"

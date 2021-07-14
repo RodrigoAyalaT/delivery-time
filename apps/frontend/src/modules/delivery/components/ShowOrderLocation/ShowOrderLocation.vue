@@ -10,7 +10,7 @@
           <template v-if="deliveryMode === 'TAKE_AWAY'">
             <v-col cols="12">
               <show-field
-                  :value="$store.getters.getSetting('ShopAddress').value"
+                  :value="location.address"
                   :label="$t('maps.location.labels.address')"
                   icon="location_on"
               />

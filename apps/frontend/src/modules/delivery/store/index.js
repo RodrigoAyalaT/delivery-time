@@ -190,6 +190,11 @@ export default {
                 .finally(() => {
                     commit("setOrderLoading", false)
                 })
+        },
+        resetOrder({commit}){
+            commit('setCurrentOrderIdentifier',null)
+            commit('clearOrderItems')
+            commit('clearOrderDelivery')
         }
     },
     mutations: {
@@ -205,13 +210,16 @@ export default {
         setOrderLoading(state, val) {
             state.orderLoading = val
         },
-        clearOrder(state) {
-            state.order.items = []
-        },
         setOrderDeliveryMode(state, val) {
             state.order.delivery.time = null
             state.order.delivery.timeMode = null
             state.order.delivery.mode = val
+        },
+
+        clearOrderDelivery(state) {
+            state.order.delivery.time = null
+            state.order.delivery.timeMode = null
+            state.order.delivery.mode = null
         },
 
         setOrderDeliveryTimeMode(state, val) {
@@ -226,6 +234,9 @@ export default {
         setOrderLocation(state, val) {
             state.order.location = val
             state.lastLocation = val
+        },
+        setOrderLocationAddress(state,val){
+          state.order.location.address = val
         },
         clearLocation(state) {
             state.lastLocation = state.order.location

@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     confirmed() {
-      this.$emit('clearOrder')
+      this.$emit('clearOrderItems')
     },
     next() {
       this.$emit('next')

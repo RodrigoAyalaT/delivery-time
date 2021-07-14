@@ -89,18 +89,24 @@ export default {
       this.orderIdentifierToShow = order.identifier
       this.enableShowOrder = true
     },
-    getNextStep(orderState) {
-      let index = this.$store.getters.getOrderStates.findIndex(state => state === orderState)
-      if (this.$store.getters.getOrderStates.length > (index + 1)) {
+    getNextStep(order) {
+      let index = this.$store.getters.getOrderStates.findIndex(state => state === order.state)
+
+      //Skip "ON_THE_WAY when is TAKE_AWAY
+      if(order.delivery.mode === 'TAKE_AWAY' && order.state === 'READY'){
+        return this.$store.getters.getOrderStates[index + 2]
+      //Next STEP
+      }else if(this.$store.getters.getOrderStates.length > (index + 1)){
         return this.$store.getters.getOrderStates[index + 1]
       }
-      return orderState
+
+      return order.state
     },
     next(order) {
       this.loadingOrder = true
       OrderProvider.updateOrderState({
         id: order.id,
-        state: this.getNextStep(order.state)
+        state: this.getNextStep(order)
       })
           .then(() => {
             this.fetchOrders()

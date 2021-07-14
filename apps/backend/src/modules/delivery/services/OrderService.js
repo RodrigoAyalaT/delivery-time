@@ -107,8 +107,8 @@ async function calculateItems(items) {
         if (product) {
             item.price = product.price
             item.amount = product.price * item.quantity
-            totalAmount = item.amount
-            totalQuantity = item.quantity
+            totalAmount += item.amount
+            totalQuantity += item.quantity
         } else {
             throw new Error("Product not found")
         }
@@ -133,9 +133,12 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
             let number = await incrementSequenceNumber('orders')
             let identifier = randomLetters(3) + number
             let {totalQuantity, totalAmount} = await calculateItems(items)
+            let zone, zoneName
 
-            let zone = await pointZone(location.latitude, location.longitude)
-            let zoneName = (zone && zone.name) ? zone.name : null
+            if(location.latitude && location.longitude){
+                zone = await pointZone(location.latitude, location.longitude)
+                zoneName = (zone && zone.name) ? zone.name : null
+            }
 
             const doc = new Order({
                 identifier, number,

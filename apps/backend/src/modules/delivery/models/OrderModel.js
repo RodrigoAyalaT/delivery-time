@@ -39,9 +39,9 @@ const OrderSchema = new Schema({
         province: {type: String, required: false, unique: false},
         locality: {type: String, required: false, unique: false},
         postalCode: {type: String, required: false, unique: false},
-        point: {type: pointSchema}
+        point: {type: pointSchema, required: false}
     },
-    zone: {type: mongoose.Schema.Types.ObjectId, ref: "Zone", required: true, unique: false},
+    zone: {type: mongoose.Schema.Types.ObjectId, ref: "Zone", required: false, unique: false},
     zoneName: {type: String, required: false, unique: false},
     state: {
         type: String, enum: [
