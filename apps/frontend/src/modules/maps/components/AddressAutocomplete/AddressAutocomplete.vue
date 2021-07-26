@@ -95,6 +95,7 @@ export default {
       this.$emit('postalCode', null)
       this.$emit('province', null)
       this.$emit('locality', null)
+      this.$emit('clear')
     },
     searchGeo2(val) {
       this.loading = true

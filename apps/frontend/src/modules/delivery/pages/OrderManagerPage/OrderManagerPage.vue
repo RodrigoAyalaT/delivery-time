@@ -23,7 +23,12 @@
           :key="state"
 
       >
-        <order-manager v-if="state === $store.getters.getOrderStates[tabState]" :state="state"></order-manager>
+        <order-manager
+            v-if="state === $store.getters.getOrderStates[tabState]"
+            :state="state"
+        >
+
+        </order-manager>
       </v-tab-item>
     </v-tabs-items>
 
@@ -42,6 +47,9 @@ export default {
       show: true,
       tabState: 0
     }
+  },
+  mounted() {
+    this.$store.dispatch('fetchCategories')
   },
   methods: {
     refresh() {

@@ -23,6 +23,10 @@ query orderFind($id:ID!){
                 description
                 image
                 price
+                category{
+                    id
+                    name
+                }
             }
             quantity
             amount

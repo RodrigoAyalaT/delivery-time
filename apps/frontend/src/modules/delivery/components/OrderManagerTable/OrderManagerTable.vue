@@ -4,9 +4,10 @@
     <tr>
       <th>{{ $t('delivery.order.labels.order') }}</th>
       <th>{{ $t('delivery.order.labels.name') }}</th>
+      <th v-if="mode === 'DELIVERY'">{{ $t('delivery.order.labels.address') }}</th>
       <th v-if="enableZone">{{ $t('maps.zone.zone') }}</th>
       <th>{{ $t('delivery.schedule') }}</th>
-      <th>{{ $t('common.next') }}</th>
+      <th    v-if="state != 'DELIVERED'">{{ $t('common.next') }}</th>
     </tr>
     </thead>
     <tbody>
@@ -18,17 +19,23 @@
 
       </td>
       <td>{{ order.contact.name }}</td>
+      <td>{{ order.location.address }}</td>
       <td v-if="enableZone">
         <v-avatar
             :color="getColorZone(order.zoneName)"
             class="white--text"
-            size="30"  >
+            size="30">
           {{ order.zoneName }}
         </v-avatar>
       </td>
       <td :class="getAlarmColor(order.delivery.time)">{{ order.delivery.time }}</td>
-      <td>
-        <v-btn fab x-small color="indigo" dark @click="$emit('next',order)">
+      <td    v-if="state != 'DELIVERED'">
+        <v-btn
+
+            color="indigo" dark
+            fab x-small
+            @click="$emit('next',order)"
+        >
           <v-icon>play_arrow</v-icon>
         </v-btn>
 
@@ -42,38 +49,41 @@
 
 <script>
 import {Dayjs} from '@dracul/dayjs-frontend'
+
 export default {
   name: "OrderManagerTable",
   props: {
+    state: {type: String},
+    mode: {type: String},
     orders: {type: Array, required: true},
     zones: {type: Array},
     enableZone: {type: Boolean, default: false}
   },
   computed: {
-    getColorZone(){
+    getColorZone() {
       return zoneName => {
-        if(this.zones && this.zones.length){
+        if (this.zones && this.zones.length) {
           let zone = this.zones.find(zone => zone.name == zoneName)
           return zone.color
-        }else{
+        } else {
           return 'primary'
         }
       }
     },
-    getAlarmColor(){
+    getAlarmColor() {
       return hour => {
-        let now  = Dayjs()
-        let dhour = Dayjs(hour,"HH:mm")
+        let now = Dayjs()
+        let dhour = Dayjs(hour, "HH:mm")
 
-        let dangerHour = now.add(10,'minute')
-        if(dangerHour.isAfter(dhour)){
-         // console.log("DANGER",now.format("YYYY-MM-DD HH:mm"), dangerHour.format("YYYY-MM-DD HH:mm"))
+        let dangerHour = now.add(10, 'minute')
+        if (dangerHour.isAfter(dhour)) {
+          // console.log("DANGER",now.format("YYYY-MM-DD HH:mm"), dangerHour.format("YYYY-MM-DD HH:mm"))
           return 'red'
         }
 
-        let warnHour = now.add(25,'m')
-        if(warnHour.isAfter(dhour)){
-         // console.log("WARNING",now.format("YYYY-MM-DD HH:mm"), warnHour.format("YYYY-MM-DD HH:mm"))
+        let warnHour = now.add(25, 'm')
+        if (warnHour.isAfter(dhour)) {
+          // console.log("WARNING",now.format("YYYY-MM-DD HH:mm"), warnHour.format("YYYY-MM-DD HH:mm"))
           return 'yellow'
         }
 

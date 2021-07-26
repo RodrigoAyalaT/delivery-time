@@ -12,6 +12,7 @@
               :apartment-sm-col="6"
               :floor-sm-col="6"
               :map-sm-col="12"
+              @clear="clear"
           ></location-form>
         </v-col>
 
@@ -28,7 +29,9 @@
         </v-col>
 
         <!--#[EN ZONA] => TRUE -->
-        <v-col v-else-if="inZone === true && loadingInZone === false" cols="12" sm="8" md="4">
+        <v-col v-else-if="inZone === true && loadingInZone === false"
+               cols="12" sm="8" md="4"
+        >
           <schedule-as-son-as-posible-time
               :calendar="calendar"
               v-model="time"
@@ -37,7 +40,9 @@
         </v-col>
 
         <!--#[FUERA  ZONA] => FALSE -->
-        <v-col v-else-if="inZone === false && loadingInZone === false" cols="6" sm="8" md="4">
+        <v-col v-else-if="inZone === false && loadingInZone === false"
+               cols="12" sm="8" md="4"
+        >
           <v-alert
               type="warning"
               class="text-left"
@@ -71,8 +76,11 @@
         </v-col>
 
         <!--#[EN ZONA] => TRUE -->
-        <v-col v-else-if="inZone === true && loadingInZone === false" cols="12" sm="8" md="4">
-          <v-alert v-if="!isActiveHours && !isScheduled"
+        <v-col v-else-if="inZone === true && loadingInZone === false"
+               cols="12" sm="8" md="4"
+        >
+          <!--#[EN ZONA] => FUERA DE HORA -->
+          <v-alert v-if="!isActiveHours"
                    type="warning"
                    class="text-left"
                    rounded
@@ -86,7 +94,9 @@
         </v-col>
 
         <!--#[FUERA  ZONA] => FALSE -->
-        <v-col v-else-if="inZone === false && loadingInZone === false" cols="6" sm="8" md="4">
+        <v-col v-else-if="inZone === false && loadingInZone === false"
+               cols="12" sm="8" md="4"
+        >
           <v-alert
               type="warning"
               class="text-left"
@@ -110,9 +120,12 @@
       </v-row>
     </v-col>
 
+    <!--VISUALIZAR ZONA-->
+    <!--
     <v-col v-if="zone" cols="12"  sm="8" md="4">
       <v-alert   class="text-left" dense type="success">Zona: <b>{{zone && zone.name}}</b> </v-alert>
     </v-col>
+    -->
 
     <v-col v-if="time && inZone" cols="12">
 
@@ -191,6 +204,9 @@ export default {
     this.locationIsInZone(this.location)
   },
   methods: {
+    clear(){
+      this.clearZone()
+    },
     recoveryLastLocation(){
       this.$store.commit('recoveryLastLocation')
     },

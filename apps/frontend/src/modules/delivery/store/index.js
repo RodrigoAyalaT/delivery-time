@@ -1,10 +1,12 @@
 import OrderProvider from "@/modules/delivery/providers/OrderProvider";
+import ProductCategoryProvider from "@/modules/delivery/providers/ProductCategoryProvider";
 
 const TAKE_AWAY = 'TAKE_AWAY'
 const DELIVERY = 'DELIVERY'
 
 export default {
     state: {
+        categories: [],
         orderStates: ['NEW', 'PREPARING', 'READY', 'ON_THE_WAY', 'DELIVERED'],
         orderError: null,
         orderLoading: false,
@@ -48,6 +50,9 @@ export default {
         },
     },
     getters: {
+        getCategories(state) {
+            return state.categories
+        },
         isTakeAway(state) {
             return state.order.delivery.mode == TAKE_AWAY
         },
@@ -175,6 +180,11 @@ export default {
         }
     },
     actions: {
+        fetchCategories({commit}) {
+            ProductCategoryProvider.fetchProductCategories().then(r => {
+                commit("setCategories", r.data.productCategoryFetch)
+            })
+        },
         createOrder({commit, getters}) {
             commit("setOrderLoading", true)
             commit("setOrderError", null)
@@ -198,6 +208,9 @@ export default {
         }
     },
     mutations: {
+        setCategories(state, val) {
+            state.categories = val
+        },
         setCurrentOrderIdentifier(state, val) {
             state.currentOrderIdentifier = val
         },

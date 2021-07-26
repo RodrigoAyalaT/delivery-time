@@ -9,6 +9,10 @@ export default {
         }
     },
     methods: {
+        clearZone(){
+            this.zone = null
+            this.inZone = null
+        },
         locationIsInZone(location) {
             return new Promise((resolve, reject) => {
                 if (location.latitude && location.longitude) {
@@ -26,6 +30,9 @@ export default {
                         })
                         .catch(e => reject(e))
                         .finally(() => this.loadingInZone = false)
+                }else {
+                    this.clearZone()
+                    return resolve(false)
                 }
             })
 

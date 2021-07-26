@@ -3,7 +3,7 @@
 
     <v-col v-if="isActiveHours" cols="12">
       <v-row justify="center" dense>
-        <v-col cols="6" sm="8" md="2">
+        <v-col cols="6" sm="4" md="2">
           <card-button
               :selected="isAsSonAsPosible"
               :title="$t('delivery.mode.asSonAsPosible')"
@@ -11,7 +11,7 @@
               @click="asSonAsPosible"
           ></card-button>
         </v-col>
-        <v-col cols="6" sm="8" md="2">
+        <v-col cols="6" sm="4" md="2">
           <card-button
               :selected="isScheduled"
               :title="$t('delivery.mode.scheduledWithdrawal')"
@@ -25,7 +25,7 @@
 
     <v-col v-if="!isActiveHours || isScheduled" cols="12">
       <v-row justify="center" dense>
-        <v-col cols="6" sm="8" md="4">
+        <v-col cols="12" sm="8" md="4">
           <v-alert v-if="!isActiveHours"
                    type="warning"
                    class="text-left"

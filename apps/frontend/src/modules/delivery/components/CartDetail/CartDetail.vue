@@ -1,55 +1,71 @@
 <template>
   <v-card flat>
     <h6 class="text-h6 grey--text text--darken-2">
-      {{$t('delivery.myOrder')}}
+      {{ $t('delivery.myOrder') }}
     </h6>
     <v-divider class="mb-3"></v-divider>
 
     <v-card-text v-if="items.length == 0" class="pa-0">
-      {{$t('delivery.emptyOrder')}}
+      {{ $t('delivery.emptyOrder') }}
     </v-card-text>
 
     <v-card-text class="pa-0">
-      <v-list class="px-0">
-        <template v-for="(item,index) in items">
-          <v-list-item ripple class="px-1" :key="item.product.id">
-            <v-list-item-avatar class="my-0">
-              <img :src="item.product.image"/>
-            </v-list-item-avatar>
-            <v-list-item-content class="py-0">
-              <v-list-item-title v-html="item.product.name"></v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action class="my-0">
-              <v-chip class="primary onPrimary--text font-weight-bold">x{{ item.quantity }}</v-chip>
-            </v-list-item-action>
-            <v-list-item-action class="my-0">
-              <v-btn small icon @click="$emit('addProduct',item.product)">
-                <v-icon>add</v-icon>
-              </v-btn>
-              <v-btn small icon @click="$emit('removeProduct',item.product)">
-                <v-icon>remove</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-          <v-divider :key="index"></v-divider>
-        </template>
-      </v-list>
+      <template v-for="category in getCategories">
+        <div v-if="hasCategoryItems(category)" :key="category.id">
+          <h6 class="subtitle-1">{{ category.name }}</h6>
+          <v-list class="px-0">
 
+
+            <template v-for="(item,index) in getItemsByCategory(category)">
+              <v-list-item ripple class="px-1" :key="item.product.id">
+                <v-list-item-avatar class="my-0">
+                  <img :src="item.product.image"/>
+                </v-list-item-avatar>
+                <v-list-item-content class="py-0">
+                  <v-list-item-title v-html="item.product.name"></v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-action class="my-0">
+                  <v-chip class="primary onPrimary--text font-weight-bold">x{{ item.quantity }}</v-chip>
+                </v-list-item-action>
+                <v-list-item-action class="my-0">
+                  <v-btn small icon @click="$emit('addProduct',item.product)">
+                    <v-icon>add</v-icon>
+                  </v-btn>
+                  <v-btn small icon @click="$emit('removeProduct',item.product)">
+                    <v-icon>remove</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </v-list-item>
+              <v-divider :key="index"></v-divider>
+            </template>
+          </v-list>
+        </div>
+      </template>
     </v-card-text>
 
-    <v-card-text v-if="quantityTotal" class="py-0 text-right">
-      <v-list class="py-0">
-        <v-list-item class="my-0">
-          <v-list-item-subtitle>{{ $t('delivery.cart.quantity') }}:</v-list-item-subtitle>
+    <v-card-text v-if="quantityTotal" class="py-1 text-right">
+      <v-row>
+        <v-col cols="8">
+          <h6 class="text-h6">
+            {{ $t('delivery.cart.quantity') }}:
+          </h6>
+        </v-col>
+        <v-col cols="4">
+          <h6 class="text-h6 text-center green--text text--darken-2">{{ quantityTotal }}</h6>
+        </v-col>
 
-          <v-list-item-title>x{{ quantityTotal }}</v-list-item-title>
-        </v-list-item>
+        <v-col cols="8">
+          <h6 class="text-h6">
+            {{ $t('delivery.cart.total') }}:
+          </h6>
+        </v-col>
+        <v-col cols="4">
+          <h6 class="text-h6 text-center green--text text--darken-2"> ${{ amountTotal }}</h6>
+        </v-col>
 
-        <v-list-item class="my-0">
-          <v-list-item-subtitle>{{ $t('delivery.cart.total') }}:</v-list-item-subtitle>
-          <v-list-item-title>${{ amountTotal }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
+
+      </v-row>
+
     </v-card-text>
     <v-card-actions v-if="showActions">
       <v-spacer></v-spacer>
@@ -95,6 +111,21 @@ export default {
     quantityTotal: {type: Number, default: 0},
     amountTotal: {type: Number, default: 0},
     showActions: {type: Boolean, default: false}
+  },
+  computed: {
+    getCategories() {
+      return this.$store.getters.getCategories
+    },
+    getItemsByCategory() {
+      return category => {
+        return this.items.filter(i => i.product.category.id === category.id)
+      }
+    },
+    hasCategoryItems() {
+      return category => {
+        return this.items.some(i => i.product.category.id === category.id)
+      }
+    }
   },
   methods: {
     confirmed() {

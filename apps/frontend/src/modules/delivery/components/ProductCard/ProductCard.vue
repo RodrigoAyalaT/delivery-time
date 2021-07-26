@@ -1,6 +1,6 @@
 <template>
   <v-card v-on:mouseover="elevation = 10" v-on:mouseleave="elevation = 2"  :elevation="elevation">
-    <v-img height="120" :src="product.image"></v-img>
+    <v-img eager height="120" :src="product.image"></v-img>
 
     <v-card-title class="pt-1">
       {{ product.name }}

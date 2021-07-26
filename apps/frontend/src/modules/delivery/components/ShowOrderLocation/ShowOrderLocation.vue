@@ -73,7 +73,7 @@ import {ShowField} from '@dracul/common-frontend'
 import {Dayjs} from "@dracul/dayjs-frontend"
 
 export default {
-  name: "OrderConfirmationLocation",
+  name: "ShowOrderLocation",
   props: {
     deliveryMode: {
       type: String,

@@ -101,12 +101,7 @@ export default {
       this.timeout = setTimeout(() => {
         this.fetchOrder()
             .then(() => {
-              if (this.order.state === 'DELIVERED') {
-                this.$store.dispatch('resetOrder')
-              }else{
                 this.refreshOrder()
-              }
-
             })
       }, 30000)
 
@@ -119,6 +114,9 @@ export default {
           OrderProvider.findOrderByIdentifier(this.identifier)
               .then(r => {
                 this.order = r.data.orderFindByIdentifier
+                if (this.order.state === 'DELIVERED') {
+                  this.$store.dispatch('resetOrder')
+                }
                 resolve(this.order)
               })
               .catch(e => {

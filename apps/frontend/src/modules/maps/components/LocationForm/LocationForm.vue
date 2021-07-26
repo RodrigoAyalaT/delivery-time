@@ -15,6 +15,7 @@
             @postalCode="(val) => (form.postalCode = val)"
             @province="(val) => (form.province = val)"
             @locality="(val) => (form.locality = val)"
+            @clear="$emit('clear')"
         ></address-autocomplete>
       </v-col>
 

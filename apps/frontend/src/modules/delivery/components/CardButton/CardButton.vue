@@ -11,7 +11,12 @@
         x-large
     >{{ icon }}
     </v-icon>
-    <v-card-title class="justify-center noSelect">{{ title }}</v-card-title>
+    <v-card-title
+        class="justify-center noSelect"
+        :class="getTitleClass"
+    >
+      {{ title }}
+    </v-card-title>
   </v-card>
 </template>
 
@@ -28,6 +33,13 @@ export default {
     selected: {type: Boolean, default: false}
   },
   computed: {
+    getTitleClass(){
+      if(this.$vuetify.breakpoint.smAndUp){
+        return 'h6'
+      }else{
+        return 'subtitle-2'
+      }
+    },
     getCardClass() {
       if (this.selected) {
         return this.textColorSelected + ' ' + this.backgroundColorSelected

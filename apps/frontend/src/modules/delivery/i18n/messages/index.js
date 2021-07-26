@@ -8,7 +8,7 @@ const messages = {
             orderView: 'Order #{identifier}',
             emptyOrder: 'Your order is empty',
             schedule: 'Schedule', //Horario
-
+            noPendingOrders: '',
             empty: {
                 items: 'Your order is empty',
                 deliveryMode: 'You must choose the delivery mode "take away" or "delivery".',

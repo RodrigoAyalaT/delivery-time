@@ -26,7 +26,7 @@
 import CardTotal from "@/modules/delivery/components/CardTotal/CardTotal";
 
 export default {
-  name: "OrderConfirmationTotal",
+  name: "ShowOrderTotal",
   components: {CardTotal},
   props: {
     total: {type: Number},

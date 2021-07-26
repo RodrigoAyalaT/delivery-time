@@ -6,19 +6,30 @@
     <template v-if="orders">
       <v-row>
 
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="5">
           <v-card>
             <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.takeAway') }}</v-card-title>
-            <order-manager-table
-                :orders="takeAwayOrders"
-                :zones="zones"
-                @next="next"
-                @showOrder="showOrder"
-            ></order-manager-table>
+
+            <template v-if="takeAwayOrders.length">
+              <order-manager-table
+                  :orders="takeAwayOrders"
+                  :zones="zones"
+                  @next="next"
+                  @showOrder="showOrder"
+                  :state="state"
+                  mode="TAKE_AWAY"
+              ></order-manager-table>
+            </template>
+
+            <template v-else>
+              <v-alert type="info">Sin ordenes pendientes</v-alert>
+            </template>
+
+
           </v-card>
         </v-col>
 
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="7">
           <v-card>
             <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.delivery') }}</v-card-title>
             <order-manager-table
@@ -27,6 +38,8 @@
                 enable-zone
                 @next="next"
                 @showOrder="showOrder"
+                :state="state"
+                mode="DELIVERY"
             ></order-manager-table>
           </v-card>
         </v-col>

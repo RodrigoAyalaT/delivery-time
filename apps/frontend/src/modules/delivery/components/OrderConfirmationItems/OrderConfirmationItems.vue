@@ -7,22 +7,10 @@
   >
     <v-card-title>{{ $t('delivery.product.products') }}</v-card-title>
     <v-card-text>
-      <v-row dense justify="center">
-        <v-col cols="12" sm="6" md="6">
-          <v-row dense>
-            <v-col v-for="item in $store.state.delivery.order.items"
-                   :key="item.product.id"
-                   cols="12"
-            >
-              <product-card-item
-                  :product="item.product"
-                  :quantity="$store.getters.getQuantity(item.product)"
-              ></product-card-item>
-            </v-col>
-          </v-row>
-
+      <v-row justify="center">
+        <v-col cols="12" sm="8" md="6">
+          <order-items :items="$store.state.delivery.order.items"></order-items>
         </v-col>
-
       </v-row>
     </v-card-text>
     <v-btn v-if="hover"
@@ -38,11 +26,11 @@
 </template>
 
 <script>
-import ProductCardItem from "@/modules/delivery/components/ProductCardItem/ProductCardItem";
+import OrderItems from "@/modules/delivery/components/OrderItems/OrderItems";
 
 export default {
   name: "OrderConfirmationItems",
-  components: {ProductCardItem},
+  components: {OrderItems},
   data() {
     return {
       hover: false,

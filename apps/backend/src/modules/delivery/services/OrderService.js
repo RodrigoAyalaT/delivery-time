@@ -6,7 +6,7 @@ import {pointZone} from "../../maps/services/ZoneService";
 
 export const findOrder = function (id) {
     return new Promise((resolve, reject) => {
-        Order.findOne({_id: id}).populate('items.product').populate('user').exec((err, res) => (
+        Order.findOne({_id: id}).populate('items.product').populate('items.product.category').populate('user').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -14,7 +14,15 @@ export const findOrder = function (id) {
 
 export const findOrderByIdentifier = function (identifier) {
     return new Promise((resolve, reject) => {
-        Order.findOne({identifier: identifier}).populate('items.product').populate('user').exec((err, res) => (
+        Order.findOne({identifier: identifier})
+            .populate({
+                path: 'items.product',
+                populate: {
+                    path: 'category',
+                    model: 'ProductCategory',
+                }
+            })
+            .populate('user').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -22,7 +30,7 @@ export const findOrderByIdentifier = function (identifier) {
 
 export const findOrderByNumber = function (number) {
     return new Promise((resolve, reject) => {
-        Order.findOne({number: number}).populate('items.product').populate('user').exec((err, res) => (
+        Order.findOne({number: number}).populate('items.product').populate('items.product.category').populate('user').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -135,7 +143,7 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
             let {totalQuantity, totalAmount} = await calculateItems(items)
             let zone, zoneName
 
-            if(location.latitude && location.longitude){
+            if (location.latitude && location.longitude) {
                 zone = await pointZone(location.latitude, location.longitude)
                 zoneName = (zone && zone.name) ? zone.name : null
             }

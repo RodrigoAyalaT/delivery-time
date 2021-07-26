@@ -1,7 +1,9 @@
 <template>
 
   <v-row v-if="!$store.getters.isSettingsReady"
-         dense class="py-1 px-0" justify="center" align="center"
+         dense
+         class="py-1 px-0"
+         justify="center" align="center"
   >
 
     <v-col cols="6" sm="4" md="4">
@@ -10,7 +12,10 @@
   </v-row>
 
   <v-row v-else
-         dense class="py-1 px-0" justify="center" align="center"
+         dense
+         class="py-1 px-0"
+         justify="center"
+         align="center"
   >
 
     <v-col cols="6" sm="4" md="2">
@@ -31,6 +36,7 @@
       ></card-button>
     </v-col>
 
+    <!--TAKE_AWAY-->
     <v-col cols="12"
            v-if="isTakeAway"
            class="text-center px-0"
@@ -43,6 +49,7 @@
       ></order-mode-take-away>
     </v-col>
 
+    <!--DELIVERY-->
     <v-col cols="12"
            v-if="isDelivery"
            class="text-center px-0"

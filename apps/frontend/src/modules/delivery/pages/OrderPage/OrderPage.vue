@@ -136,17 +136,11 @@
 
       </v-col>
 
-      <!--LOCATION-->
-
-
-      <!--CONTACT-->
-
-
     </v-row>
 
     <!--NAVIGATION CART DETAIL-->
     <v-navigation-drawer
-        width="320"
+        width="340"
         temporary
         v-model="showOrder"
         right fixed
@@ -181,7 +175,6 @@ import ProductFilters from "@/modules/delivery/components/ProductFilters/Product
 import CartButton from "@/modules/delivery/components/CartButton/CartButton";
 import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
 import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
-import ProductCategoryProvider from "@/modules/delivery/providers/ProductCategoryProvider";
 import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 import ContactForm from "@/modules/delivery/components/ContactForm/ContactForm";
 import OrderConfirmation from "@/modules/delivery/components/OrderConfirmation/OrderConfirmation";
@@ -226,7 +219,7 @@ export default {
   },
   mounted() {
     this.checkOrderIdentifierAndRedirect()
-    this.fetchCategories()
+    this.$store.dispatch('fetchCategories')
     this.fetchProducts()
   },
   computed: {
@@ -239,7 +232,7 @@ export default {
       }
     },
     getCategoriesMenu() {
-      return this.categories.map(category => {
+      return this.$store.getters.getCategories.map(category => {
         return category.name
       })
     },
@@ -263,9 +256,9 @@ export default {
     },
     getCategories() {
       if (this.filters.category) {
-        return this.categories.filter(c => c.id === this.filters.category)
+        return this.$store.getters.getCategories.filter(c => c.id === this.filters.category)
       }
-      return this.categories
+      return this.$store.getters.getCategories
     },
     getProductsByCategory() {
       return category => {
@@ -288,11 +281,6 @@ export default {
     },
     removeProduct(product) {
       this.$store.commit('removeOrderItem', product)
-    },
-    fetchCategories() {
-      ProductCategoryProvider.fetchProductCategories().then(r => {
-        this.categories = r.data.productCategoryFetch
-      })
     },
     fetchProducts() {
       ProductProvider.fetchProductsFiltered(this.filters).then(r => {
