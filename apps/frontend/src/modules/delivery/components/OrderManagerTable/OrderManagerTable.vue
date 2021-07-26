@@ -19,7 +19,7 @@
 
       </td>
       <td>{{ order.contact.name }}</td>
-      <td>{{ order.location.address }}</td>
+      <td v-if="mode === 'DELIVERY'">{{ order.location.address }}</td>
       <td v-if="enableZone">
         <v-avatar
             :color="getColorZone(order.zoneName)"
