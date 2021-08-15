@@ -1,0 +1,9 @@
+type OrderGroupByState{
+    state: String
+    count: Int
+}
+
+type Query {
+    orderGroupByState(date: String): [OrderGroupByState]
+    orderFetchByState(state:String!, date: String): [Order]
+}

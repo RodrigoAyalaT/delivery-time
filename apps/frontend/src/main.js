@@ -5,7 +5,7 @@ import store from './store'
 import i18n from './i18n'
 import router from "./router";
 import 'animate.css/animate.min.css'
-
+import './assets/css/main.css'
 import checkView from 'vue-check-view'
 Vue.use(checkView)
 

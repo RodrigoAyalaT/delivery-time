@@ -11,7 +11,6 @@
         <app-bar-user-menu/>
       </template>
 
-
       <router-view></router-view>
     </layout>
 </template>

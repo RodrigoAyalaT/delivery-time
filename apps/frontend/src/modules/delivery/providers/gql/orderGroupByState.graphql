@@ -1,0 +1,6 @@
+query orderGroupByState($date:String){
+    orderGroupByState(date:$date){
+        state
+        count
+    }
+}

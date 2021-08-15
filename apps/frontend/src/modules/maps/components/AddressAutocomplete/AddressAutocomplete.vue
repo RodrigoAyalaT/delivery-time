@@ -83,7 +83,7 @@ export default {
         this.$emit('postalCode', item.value.postalCode)
         this.$emit('province', item.value.province)
         this.$emit('locality', item.value.locality)
-
+        this.$emit('change')
       }
     },
     clearFields() {

@@ -16,6 +16,7 @@
             @province="(val) => (form.province = val)"
             @locality="(val) => (form.locality = val)"
             @clear="$emit('clear')"
+            @change="forceRerenderLocationMap"
         ></address-autocomplete>
       </v-col>
 
@@ -155,6 +156,7 @@
       <v-col v-if="enableMap" cols="12" :sm="mapSmCol">
         <location-map
             v-if="form.latitude && form.longitude"
+            :key="locationMapKey"
             v-model="form"
             :height="mapHeight"
         ></location-map>
@@ -216,6 +218,11 @@ export default {
     enableStreetView: {type: Boolean, default: false},
     enableZone: {type: Boolean, default: false},
   },
+  data(){
+    return {
+      locationMapKey: 0
+    }
+  },
   computed: {
     form: {
       get() {
@@ -237,12 +244,12 @@ export default {
   methods: {
     validate() {
       return this.$refs.form.validate()
+    },
+    forceRerenderLocationMap(){
+      this.locationMapKey++
     }
-
   },
-  data() {
-    return {}
-  }
+
 }
 </script>
 

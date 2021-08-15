@@ -36,11 +36,7 @@ export default {
             if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
             return fetchOrders()
         },
-        orderFetchByState: (_, {state}, {user,rbac}) => {
-            if (!user) throw new AuthenticationError("Unauthenticated")
-            if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
-            return fetchOrdersByState(state)
-        },
+
         orderPaginate: (_, {pageNumber, itemsPerPage, search, orderBy, orderDesc}, {user,rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")
             if(!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")

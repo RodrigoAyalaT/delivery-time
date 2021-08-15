@@ -1,3 +1,7 @@
 .foo{
     color:red;
 }
+
+html{
+    overflow-y: auto;
+}

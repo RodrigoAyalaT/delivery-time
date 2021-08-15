@@ -65,7 +65,7 @@ type OrderPaginated{
 type Query {
     orderFind(id:ID!): Order
     orderFindByIdentifier(identifier:String!): Order
-    orderFetchByState(state:String!): [Order]
+
     orderFetch: [Order]
     orderPaginate( pageNumber: Int, itemsPerPage: Int, search: String, orderBy: String, orderDesc: Boolean): OrderPaginated
 

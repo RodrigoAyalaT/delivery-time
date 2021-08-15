@@ -44,13 +44,7 @@ export const fetchOrders = function () {
     })
 }
 
-export const fetchOrdersByState = function (state) {
-    return new Promise((resolve, reject) => {
-        Order.find({state: state}).populate('items.product').populate('user').exec((err, res) => (
-            err ? reject(err) : resolve(res)
-        ));
-    })
-}
+
 
 export const paginateOrders = function (pageNumber = 1, itemsPerPage = 5, search = null, orderBy = null, orderDesc = false) {
 

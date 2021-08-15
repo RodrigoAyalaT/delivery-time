@@ -80,7 +80,6 @@ export default {
       loadingOrder: false,
       orders: [],
       zones: [],
-
       orderIdentifierToShow: null,
       enableShowOrder: false,
     }
