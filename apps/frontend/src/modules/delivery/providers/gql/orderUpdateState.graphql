@@ -37,6 +37,10 @@ mutation orderUpdateState($id: ID!, $state: OrderStateEnum! ){
             locality
             postalCode
         }
+        deliveryUser{
+            id
+            username
+        }
     }
 }
 

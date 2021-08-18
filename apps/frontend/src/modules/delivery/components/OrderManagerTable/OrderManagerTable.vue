@@ -7,16 +7,16 @@
       <th v-if="mode === 'DELIVERY'">{{ $t('delivery.order.labels.address') }}</th>
       <th v-if="enableZone">{{ $t('maps.zone.zone') }}</th>
       <th>{{ $t('delivery.schedule') }}</th>
-      <th    v-if="state != 'DELIVERED'">{{ $t('common.next') }}</th>
+      <th v-if="state != 'DELIVERED'">{{ $t('common.next') }}</th>
     </tr>
     </thead>
     <tbody>
     <tr v-for="order in orders" :key="order.identifier">
       <td>
-        <v-btn text small class="indigo--text" @click="$emit('showOrder', order)">
-          #{{ order.number }}
-        </v-btn>
-
+        <order-menu :order="order"
+                    :items="order.items"
+                    @showOrder="$emit('showOrder', order)"
+        ></order-menu>
       </td>
       <td>{{ order.contact.name }}</td>
       <td v-if="mode === 'DELIVERY'">{{ order.location.address }}</td>
@@ -29,16 +29,8 @@
         </v-avatar>
       </td>
       <td :class="getAlarmColor(order.delivery.time)">{{ order.delivery.time }}</td>
-      <td    v-if="state != 'DELIVERED'">
-        <v-btn
-
-            color="indigo" dark
-            fab x-small
-            @click="$emit('next',order)"
-        >
-          <v-icon>play_arrow</v-icon>
-        </v-btn>
-
+      <td v-if="state != 'DELIVERED'">
+        <order-next-state :order="order" @next="$emit('next', order)"/>
       </td>
     </tr>
     </tbody>
@@ -50,8 +42,12 @@
 <script>
 import {Dayjs} from '@dracul/dayjs-frontend'
 
+import OrderNextState from "@/modules/delivery/components/OrderNextState/OrderNextState";
+import OrderMenu from "@/modules/delivery/components/OrderMenu/OrderMenu";
+
 export default {
   name: "OrderManagerTable",
+  components: {OrderMenu, OrderNextState},
   props: {
     state: {type: String},
     mode: {type: String},

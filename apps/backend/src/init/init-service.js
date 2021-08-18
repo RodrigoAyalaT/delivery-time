@@ -14,7 +14,7 @@ import {initPermissionsCustomization} from '@dracul/customize-backend'
 import {initCustomization} from './custom/initCustomization'
 import {initSettings} from './custom/initSettings'
 import {initCalendar} from './custom/initCalendar'
-import operatorRole from './custom/initOperatorRole'
+import repartidorRole from './custom/initRepartidorRole'
 
 import {
     permissions as notiPermissions
@@ -50,14 +50,14 @@ const initService = async () => {
     await InitService.initPermissions(modulesPermissions)
 
     await InitService.initAdminRole()
-    await InitService.initOperatorRole()
-    await InitService.initSupervisorRole()
+    //await InitService.initOperatorRole()
+    //await InitService.initSupervisorRole()
 
-    await InitService.initRoles([operatorRole])
+    await InitService.initRoles([repartidorRole])
 
     await InitService.initRootUser()
-    await InitService.initSupervisorUser()
-    await InitService.initOperatorUser()
+    //await InitService.initSupervisorUser()
+   // await InitService.initOperatorUser()
 
     await initCustomization()
 }

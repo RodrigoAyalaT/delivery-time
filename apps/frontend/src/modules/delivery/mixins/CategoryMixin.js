@@ -13,7 +13,9 @@ export default {
         },
         hasCategoryItems() {
             return category => {
-                return this.items.some(i => i.product.category.id === category.id)
+                if (category && category.id) {
+                    return this.items.some(i => i.product.category.id === category.id)
+                }
             }
         }
     },

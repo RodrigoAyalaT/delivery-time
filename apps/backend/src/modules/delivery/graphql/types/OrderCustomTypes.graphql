@@ -7,3 +7,9 @@ type Query {
     orderGroupByState(date: String): [OrderGroupByState]
     orderFetchByState(state:String!, date: String): [Order]
 }
+
+
+type Mutation {
+    orderUpdateDeliveryUser(orderId: ID!, userId: ID!): Order
+
+}

@@ -1,9 +1,8 @@
-mutation orderUpdate($id: ID!, $input: OrderInput ){
-    orderUpdate(id: $id, input: $input){
+mutation orderUpdateDeliveryUser($orderId: ID!, $userId: ID! ){
+    orderUpdateDeliveryUser(orderId: $orderId, userId: $userId){
         id
         state
         identifier
-        number
         createdAt
         updatedAt
         contact{
@@ -38,9 +37,6 @@ mutation orderUpdate($id: ID!, $input: OrderInput ){
             locality
             postalCode
         }
-        zoneName
-        totalQuantity
-        totalAmount
         deliveryUser{
             id
             username

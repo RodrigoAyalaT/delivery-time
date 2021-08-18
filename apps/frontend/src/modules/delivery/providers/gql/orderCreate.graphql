@@ -41,6 +41,10 @@ mutation orderCreate($input: OrderInput){
         zoneName
         totalQuantity
         totalAmount
+        deliveryUser{
+            id
+            username
+        }
     }
 }
 

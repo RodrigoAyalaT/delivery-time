@@ -43,6 +43,11 @@ const settings = [
         value: 'Arcos 3182, CABA',
         label: {en: 'Shop address', es: 'Dirección del local', pt: 'Endereço das instalações'}
     },
+    {
+        key: 'MinimumQuantity',
+        value: '6',
+        label: {en: 'Minimum quantity', es: 'Cantidad minima', pt: 'Cantidad minima'}
+    },
 ]
 
 export const initSettings = async function () {

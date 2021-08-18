@@ -17,15 +17,9 @@
         <show-order-state :state="order.state"/>
       </v-col>
 
-      <v-col cols="12" sm="10" md="8">
-
-        <show-order-items
-            :items="order.items"
-        />
-
-      </v-col>
 
       <v-col cols="12" sm="10" md="8">
+
         <v-row>
           <v-col cols="12" md="12">
             <show-order-contact
@@ -44,9 +38,14 @@
           </v-col>
 
         </v-row>
+
       </v-col>
 
-
+      <v-col cols="12" sm="10" md="8">
+        <show-order-items
+            :items="order.items"
+        />
+      </v-col>
 
       <v-col cols="12" sm="10" md="8">
         <show-order-total

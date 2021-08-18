@@ -43,5 +43,11 @@ query orderFind($id:ID!){
             postalCode
         }
         zoneName
+        totalQuantity
+        totalAmount
+        deliveryUser{
+            id
+            username
+        }
     }
 }

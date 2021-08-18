@@ -54,6 +54,7 @@ type Order{
     zoneName: String
     totalQuantity: Float
     totalAmount: Float
+    deliveryUser: User
 }
 
 type OrderPaginated{
@@ -108,6 +109,7 @@ input OrderLocationInput{
     province: String
     locality: String
     postalCode: String
+
 }
 
 type OrderDelete{

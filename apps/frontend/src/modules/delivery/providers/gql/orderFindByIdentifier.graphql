@@ -45,5 +45,9 @@ query orderFindByIdentifier($identifier:String!){
         zoneName
         totalQuantity
         totalAmount
+        deliveryUser{
+            id
+            username
+        }
     }
 }

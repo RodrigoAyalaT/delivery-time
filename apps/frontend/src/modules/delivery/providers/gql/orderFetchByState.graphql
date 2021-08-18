@@ -23,6 +23,10 @@ query orderFetchByState($state:String!){
                 description
                 image
                 price
+                category{
+                    id
+                    name
+                }
             }
             quantity
             amount
@@ -39,5 +43,11 @@ query orderFetchByState($state:String!){
             postalCode
         }
         zoneName
+        totalQuantity
+        totalAmount
+        deliveryUser{
+            id
+            username
+        }
     }
 }

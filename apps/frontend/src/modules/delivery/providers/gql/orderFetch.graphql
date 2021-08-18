@@ -41,6 +41,10 @@ query orderFetch{
         zoneName
         totalQuantity
         totalAmount
+        deliveryUser{
+            id
+            username
+        }
     }
 }
 

@@ -57,6 +57,7 @@ const OrderSchema = new Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, unique: false},
     totalQuantity: {type: Number, required: true, unique: false},
     totalAmount: {type: Number, required: true, unique: false},
+    deliveryUser: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, unique: false}
 
 }, {timestamps: true});
 

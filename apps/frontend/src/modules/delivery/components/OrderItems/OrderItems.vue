@@ -1,28 +1,40 @@
 <template>
-  <div >
-    <v-row dense v-for="category in getItemsCategories"  :key="category.id">
-      <h6 class="subtitle-1">{{ category.name }}</h6>
-      <v-col v-for="item in getItemsByCategory(category)"
-             :key="item.product.id"
-             cols="12"
-      >
-        <product-card-item
-            :product="item.product"
-            :quantity="item.quantity"
-        ></product-card-item>
-      </v-col>
+  <div>
+    <v-list v-for="category in getItemsCategories" :key="category.id">
 
-    </v-row>
+      <v-list-item>
+        <v-list-item-title>
+          {{ category.name }}
+        </v-list-item-title>
+      </v-list-item>
+      <v-divider></v-divider>
+
+      <v-list-item v-for="item in getItemsByCategory(category)"
+                   :key="item.product.id">
+        <v-list-item-avatar height="30" width="30">
+          <img :src="item.product.image"/>
+        </v-list-item-avatar>
+        <v-list-item-title>
+          {{ item.product.name }}
+        </v-list-item-title>
+
+        <v-list-item-avatar>
+          <v-chip class="primary onPrimary--text font-weight-bold">
+            <span>x{{ item.quantity }}</span>
+          </v-chip>
+        </v-list-item-avatar>
+
+      </v-list-item>
+
+    </v-list>
   </div>
 </template>
 
 <script>
 import CategoryMixin from "@/modules/delivery/mixins/CategoryMixin";
-import ProductCardItem from "@/modules/delivery/components/ProductCardItem/ProductCardItem";
 
 export default {
   name: "OrderItems",
-  components: {ProductCardItem},
   props: {
     items: {type: Array}
   },

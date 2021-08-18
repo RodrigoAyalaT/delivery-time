@@ -6,7 +6,7 @@ import {pointZone} from "../../maps/services/ZoneService";
 
 export const findOrder = function (id) {
     return new Promise((resolve, reject) => {
-        Order.findOne({_id: id}).populate('items.product').populate('items.product.category').populate('user').exec((err, res) => (
+        Order.findOne({_id: id}).populate('items.product').populate('items.product.category').populate('user').populate('deliveryUser').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -22,7 +22,7 @@ export const findOrderByIdentifier = function (identifier) {
                     model: 'ProductCategory',
                 }
             })
-            .populate('user').exec((err, res) => (
+            .populate('user').populate('deliveryUser').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -30,7 +30,7 @@ export const findOrderByIdentifier = function (identifier) {
 
 export const findOrderByNumber = function (number) {
     return new Promise((resolve, reject) => {
-        Order.findOne({number: number}).populate('items.product').populate('items.product.category').populate('user').exec((err, res) => (
+        Order.findOne({number: number}).populate('items.product').populate('items.product.category').populate('user').populate('deliveryUser').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -38,7 +38,7 @@ export const findOrderByNumber = function (number) {
 
 export const fetchOrders = function () {
     return new Promise((resolve, reject) => {
-        Order.find({}).populate('items.product').populate('user').exec((err, res) => (
+        Order.find({}).populate('items.product').populate('user').populate('deliveryUser').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -73,7 +73,7 @@ export const paginateOrders = function (pageNumber = 1, itemsPerPage = 5, search
     }
 
     let query = qs(search)
-    let populate = ['items.product', 'user']
+    let populate = ['items.product', 'user', 'deliveryUser']
     let sort = getSort(orderBy, orderDesc)
     let params = {page: pageNumber, limit: itemsPerPage, populate, sort}
 
@@ -162,7 +162,7 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
                     return rejects(error)
                 }
 
-                return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
+                return doc.populate('items.product').populate('user').populate('deliveryUser').execPopulate(() => resolve(doc))
             }))
         } catch (e) {
             return rejects(e)
@@ -186,29 +186,11 @@ export const updateOrder = async function (authUser, id, {contact, delivery, loc
                     return rejects(error)
                 }
 
-                return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
+                return doc.populate('items.product').populate('user').populate('deliveryUser').execPopulate(() => resolve(doc))
             })
     })
 }
 
-export const updateOrderState = async function (authUser, id, state) {
-    return new Promise((resolve, rejects) => {
-        Order.findOneAndUpdate({_id: id},
-            {state},
-            {new: true, runValidators: true, context: 'query'},
-            (error, doc) => {
-
-                if (error) {
-                    if (error.name == "ValidationError") {
-                        return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
-                    }
-                    return rejects(error)
-                }
-
-                return doc.populate('items.product').populate('user').execPopulate(() => resolve(doc))
-            })
-    })
-}
 
 export const deleteOrder = function (id) {
     return new Promise((resolve, rejects) => {

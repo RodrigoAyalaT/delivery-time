@@ -33,7 +33,8 @@ import {
     ORDER_CREATE,
     ORDER_DELETE,
     ORDER_SHOW,
-    ORDER_UPDATE
+    ORDER_UPDATE,
+    MY_DELIVERY_ORDERS
 } from '../../modules/delivery/permissions/Order'
 
 import {
@@ -85,6 +86,7 @@ export default [
     ORDER_DELETE,
     ORDER_SHOW,
     ORDER_UPDATE,
+    MY_DELIVERY_ORDERS,
 
     ZONE_CREATE,
     ZONE_DELETE,
