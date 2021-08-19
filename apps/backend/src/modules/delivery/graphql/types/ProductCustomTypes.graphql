@@ -5,5 +5,5 @@ input ProductFilterInput{
 }
 
 type Query {
-    productFetchFiltered(filters:ProductFilterInput): [Product]
+    productFetchFiltered(filters:[String]): [Product]
 }

@@ -15,7 +15,7 @@
         </v-btn>
       </template>
 
-      <v-card>
+      <v-card class="pb-1">
         <v-list>
           <v-list-item>
             <v-list-item-content>
@@ -53,7 +53,7 @@
               <v-checkbox
                   hide-details
 
-                  color="purple"
+                  color="green"
               ></v-checkbox>
             </v-list-item-action>
           </v-list-item>
