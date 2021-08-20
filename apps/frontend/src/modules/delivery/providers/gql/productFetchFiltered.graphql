@@ -1,4 +1,4 @@
-query productFetchFiltered($filters:[String]){
+query productFetchFiltered($filters:ProductFilterInput){
     productFetchFiltered(filters:$filters){
         id
         name

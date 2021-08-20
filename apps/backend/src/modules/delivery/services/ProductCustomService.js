@@ -3,7 +3,7 @@ import Ingredient from './../models/IngredientModel'
 import {fetchIngredientFiltered} from './IngredientCustomService'
 
 
-export const fetchProductFiltered = async function (filters) {
+export const fetchProductFilteredMulti = async function (filters) {
     return new Promise(async (resolve, reject) => {
 
         let find = {}
@@ -28,7 +28,7 @@ export const fetchProductFiltered = async function (filters) {
     })
 }
 
-export const fetchProductFilteredOld = async function (filters) {
+export const fetchProductFiltered = async function (filters) {
     return new Promise((resolve, reject) => {
 
         let find = {}

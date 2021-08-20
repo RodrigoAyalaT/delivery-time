@@ -184,11 +184,11 @@
           :items="getOrderItems"
           @addProduct="addProduct"
           @removeProduct="removeProduct"
-          @clearOrder="$store.commit('clearOrderItems')"
           @next="nextStep"
           :quantity-total="$store.getters.getQuantityTotal"
           :amount-total="$store.getters.getAmountTotal"
           show-actions
+          @close="showOrder = false"
       ></cart-detail>
     </v-navigation-drawer>
 
@@ -215,7 +215,11 @@ export default {
       step: 1,
       products: [],
       categories: [],
-      filters: [],
+      filters: {
+        name: null,
+        ingredients: [],
+        category: null
+      },
       loading: false
     }
   },

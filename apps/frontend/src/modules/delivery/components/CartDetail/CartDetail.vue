@@ -68,13 +68,19 @@
 
     </v-card-text>
     <v-card-actions v-if="showActions">
+      <v-btn
+          text color="red"
+          v-if="quantityTotal > 0 ? true : false"
+          @click="showCancel=true"
+      >
+        VACIAR
+      </v-btn>
       <v-spacer></v-spacer>
       <v-btn
           text color="grey"
-          :disabled="quantityTotal?false:true"
-          @click="showCancel=true"
+          @click="$emit('close')"
       >
-        {{ $t('common.cancel') }}
+        {{ $t('common.close') }}
       </v-btn>
       <v-btn
           class="primary"
@@ -87,8 +93,8 @@
     <confirm-dialog
         v-model="showCancel"
         @confirmed="confirmed"
-        title="Cancelar Orden"
-        description="Esta seguro de cancelar su orden?"
+        title="Vaciar Orden"
+        description="Esta seguro de vaciar su orden?"
     >
 
     </confirm-dialog>
@@ -129,7 +135,7 @@ export default {
   },
   methods: {
     confirmed() {
-      this.$emit('clearOrderItems')
+      this.$store.dispatch('clearOrderItems')
     },
     next() {
       this.$emit('next')
