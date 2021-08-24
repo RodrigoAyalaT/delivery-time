@@ -24,12 +24,12 @@
                   src="@/assets/img/Cocidas-1.jpg"
                   class="white--text d-flex align-center"
               >
-                  <div>
-                    <h4 class="text-h4 font-weight-bold"> HORNEADAS</h4>
-                    <p class="mb-0">
-                      No queres hacer nada, solo entrarle a morir a unas empandas <b>tremendas</b>... Hacé tu pedido!
-                    </p>
-                  </div>
+                <div>
+                  <h4 class="text-h4 font-weight-bold"> HORNEADAS</h4>
+                  <p class="mb-0">
+                    No queres hacer nada, solo entrarle a morir a unas empandas <b>tremendas</b>... Hacé tu pedido!
+                  </p>
+                </div>
               </v-img>
             </v-card>
           </v-col>
@@ -65,5 +65,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

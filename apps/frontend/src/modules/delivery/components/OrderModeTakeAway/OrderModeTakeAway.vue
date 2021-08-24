@@ -43,7 +43,7 @@
 
     <v-col v-if="isActiveHours && isAsSonAsPosible" cols="12">
       <v-row justify="center" dense>
-        <v-col cols="6" sm="8" md="4">
+        <v-col cols="12" sm="8" md="4">
         <schedule-as-son-as-posible-time v-model="time" :calendar="calendar"></schedule-as-son-as-posible-time>
         </v-col>
       </v-row>

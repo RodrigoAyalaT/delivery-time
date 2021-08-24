@@ -49,6 +49,7 @@ const messages = {
                 editing: 'Editing Product',
                 deleting: 'Deleting Product',
                 showing: 'Showing Product',
+                search: 'Search...',
                 labels: {
                     name: 'Name',
                     description: 'Description',
@@ -156,6 +157,7 @@ const messages = {
                 editing: 'Modificando Product',
                 deleting: 'Eliminando Product',
                 showing: 'Detalles de Product',
+                search: 'Buscar...',
                 labels: {
                     name: 'Nombre',
                     description: 'Descripción',
@@ -264,6 +266,7 @@ const messages = {
                 editing: 'Edição Product',
                 deleting: 'Apagando Product',
                 showing: 'Detalhes do Product',
+                search: 'Search...',
                 labels: {
                     name: 'Nome',
                     description: 'Descripción',

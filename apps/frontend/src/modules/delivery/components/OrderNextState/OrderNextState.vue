@@ -2,7 +2,7 @@
 
   <v-row align="center">
 
-    <template v-if="order.state === 'READY'">
+    <template v-if="order.state === 'READY' && order.delivery.mode === 'DELIVERY'">
       <v-col class="flex-grow-1">
         <user-combobox
             v-model="user"

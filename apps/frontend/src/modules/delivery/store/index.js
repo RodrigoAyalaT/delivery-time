@@ -205,6 +205,9 @@ export default {
             commit('setCurrentOrderIdentifier',null)
             commit('clearOrderItems')
             commit('clearOrderDelivery')
+        },
+        clearOrderItems({commit}){
+            commit('clearOrderItems')
         }
     },
     mutations: {
