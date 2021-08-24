@@ -1,5 +1,6 @@
 require('dotenv').config();
 import {DefaultLogger} from "@dracul/logger-backend";
+
 DefaultLogger.info("Starting APP")
 
 
@@ -12,17 +13,26 @@ mongoConnect()
 import {ApolloServer, GraphQLExtension} from 'apollo-server-express'
 import {resolvers, typeDefs} from './modules-merge'
 import path from 'path'
+
+//import jwtMiddleware from './modules/base/middleware/jwtMiddleware'
+
 import {jwtMiddleware, corsMiddleware, rbacMiddleware, sessionMiddleware} from '@dracul/user-backend'
-import {ResponseTimeMiddleware,RequestMiddleware, GqlErrorLog, GqlResponseLog} from '@dracul/logger-backend'
+import {ResponseTimeMiddleware, RequestMiddleware, GqlErrorLog, GqlResponseLog} from '@dracul/logger-backend'
 import {TimeoutMiddleware} from "./middlewares/TimeoutMiddleware";
 
 const app = express();
 
 
-
 app.use(corsMiddleware)
 app.use(express.json())
 app.use(jwtMiddleware)
+
+app.use(function (err, req, res, next) {
+    if(err && err.name === 'UnauthorizedError'){
+        DefaultLogger.warn(err.message)
+    }
+    next()
+});
 
 app.use(RequestMiddleware)
 app.use(ResponseTimeMiddleware)
@@ -74,10 +84,9 @@ app.get('/status', function (req, res) {
 
 //Web Static Files for Production
 app.use('/', express.static('web', {index: "index.html"}));
-app.use('*',function (request, response) {
+app.use('*', function (request, response) {
     response.sendFile(path.resolve(__dirname, 'web/index.html'));
 });
-
 
 
 //initialize permissions, roles, users, customs, seeds
