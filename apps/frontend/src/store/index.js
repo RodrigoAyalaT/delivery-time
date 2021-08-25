@@ -48,7 +48,8 @@ export default new Vuex.Store({
                         order: state.delivery.order,
                         currentOrderIdentifier: state.delivery.currentOrderIdentifier,
                         orderHistory: state.delivery.orderHistory,
-                        lastLocation: state.delivery.lastLocation
+                        lastLocation: state.delivery.lastLocation,
+                        locationHistory: state.delivery.locationHistory
                     }
                 })
         })

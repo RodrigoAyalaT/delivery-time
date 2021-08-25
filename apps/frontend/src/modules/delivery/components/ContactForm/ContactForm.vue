@@ -22,6 +22,7 @@
                 color="secondary"
                 :rules="required"
                 @keyup="stateSubmitButton"
+                required class="required"
             ></v-text-field>
           </v-col>
 
@@ -39,6 +40,7 @@
                 color="secondary"
                 :rules="phoneRules"
                 @keyup="stateSubmitButton"
+                required class="required"
             ></v-text-field>
           </v-col>
 
@@ -56,6 +58,7 @@
                 color="secondary"
                 :rules="emailRules"
                 @keyup="stateSubmitButton"
+                required class="required"
             ></v-text-field>
           </v-col>
 

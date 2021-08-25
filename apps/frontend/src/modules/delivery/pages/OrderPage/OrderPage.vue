@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pa-0">
     <cart-button
         v-if="[2].includes(step)"
         :total="$store.getters.getQuantityTotal"
@@ -8,7 +8,7 @@
     <v-row>
 
       <!--STEPPER-->
-      <v-col cols="12">
+      <v-col cols="12"  class="pa-0" >
         <section id="inicio"></section>
         <v-stepper v-model="step" non-linear>
           <v-stepper-header>
@@ -149,7 +149,7 @@
             <contact-form @next="nextStep"></contact-form>
           </v-stepper-content>
 
-          <v-stepper-content :step="4" class="grey lighten-4">
+          <v-stepper-content :step="4" class="grey lighten-4 px-0">
 
             <order-confirmation
                 @editContact="step=3"
@@ -166,16 +166,16 @@
 
     <!--NAVIGATION CART DETAIL-->
     <v-navigation-drawer
-        width="340"
+        width="325"
         temporary
         v-model="showOrder"
         right fixed
-        class="py-2 pl-2"
+        class="py-2 pl-2 pr-3"
     >
       <v-btn
           icon
           x-small fab
-          absolute :style="{top: '0.5%', right: '1%'}"
+          absolute :style="{top: '0.5%', right: '3%'}"
           @click="showOrder = false"
       >
         <v-icon>close</v-icon>

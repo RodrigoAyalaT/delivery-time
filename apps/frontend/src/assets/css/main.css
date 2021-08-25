@@ -5,3 +5,8 @@
 html{
     overflow-y: auto;
 }
+
+.required .v-label::after {
+    content: " *";
+    color: red;
+}

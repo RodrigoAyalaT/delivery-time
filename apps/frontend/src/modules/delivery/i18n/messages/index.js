@@ -3,7 +3,8 @@ const messages = {
         delivery: {
             contact: 'Contact',
             destination: 'Destination',
-            checkAndConfirm: 'Check and confirm',
+            checkAndConfirm: 'Order confirmation',
+            checkAndConfirmDescription: 'Please, check that your data and order are correct',
             myOrder: 'My order',
             orderView: 'Order #{identifier}',
             emptyOrder: 'Your order is empty',
@@ -111,7 +112,8 @@ const messages = {
         delivery: {
             contact: 'Contacto',
             destination: 'Destino',
-            checkAndConfirm: 'Verificar y confirmar pedido',
+            checkAndConfirm: 'Confirmación de pedido',
+            checkAndConfirmDescription: 'Por favor, revisá que tus datos y pedido esten bien',
             myOrder: 'Mi pedido',
             orderView: 'Orden #{identifier}',
             emptyOrder: 'Su pedido esta vacío',
@@ -219,7 +221,8 @@ const messages = {
         delivery: {
             contact: 'Contato',
             destination: 'Destino',
-            checkAndConfirm: 'Verifique e confirme',
+            checkAndConfirm: 'Confirmación de pedido',
+            checkAndConfirmDescription: 'Por favor, revisá que tus datos y pedido esten bien',
             myOrder: 'O meu pedido',
             orderView: 'Pedido #{identifier}',
             emptyOrder: 'seu pedido está vazio',

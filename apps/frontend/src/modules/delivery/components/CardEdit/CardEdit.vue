@@ -1,18 +1,17 @@
 <template>
   <v-card
       :class="getCardClass"
-      :elevation="hover ? 10 : 1"
+      :elevation="hover ? 1 : 0"
       v-on="$listeners"
       @mouseenter="hover=true"
       @mouseleave="hover=false"
+      flat
   >
-    <v-card-text>
       <slot></slot>
-    </v-card-text>
-    <v-btn v-if="hover"
-           color="primary" class="onPrimary--text"
-           x-small fab
-           absolute :style="{top: '3%', right: '1%'}"
+    <v-btn
+           color="primary"
+           x-small icon
+           absolute :style="{top: '5px', right: '5px'}"
            @click="$emit('edit')"
     >
       <v-icon>edit</v-icon>

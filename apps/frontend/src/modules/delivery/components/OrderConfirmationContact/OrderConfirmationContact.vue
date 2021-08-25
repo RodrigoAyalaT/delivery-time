@@ -3,10 +3,9 @@
     <v-card-title>
       {{$t('delivery.contact')}}
     </v-card-title>
-  <v-list>
     <v-row dense>
 
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="4">
         <show-field
             :value="$store.state.delivery.order.contact.name"
             :label="$t('delivery.order.labels.name')"
@@ -14,7 +13,7 @@
         />
       </v-col>
 
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="4">
         <show-field
             :value="$store.state.delivery.order.contact.phone"
             :label="$t('delivery.order.labels.phone')"
@@ -22,7 +21,7 @@
         />
       </v-col>
 
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="4">
         <show-field
             :value="$store.state.delivery.order.contact.email"
             :label="$t('delivery.order.labels.email')"
@@ -30,7 +29,7 @@
         />
       </v-col>
 
-      <v-col cols="12" md="6">
+      <v-col v-if="$store.state.delivery.order.contact.observation" cols="12" md="12">
         <show-field
             :value="$store.state.delivery.order.contact.observation"
             :label="$t('delivery.order.labels.observations')"
@@ -40,10 +39,9 @@
 
     </v-row>
 
+<v-divider></v-divider>
 
 
-
-  </v-list>
   </card-edit>
 </template>
 
