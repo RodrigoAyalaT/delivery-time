@@ -36,7 +36,7 @@ export const orderGroupByState = async function (date) {
 export const fetchOrdersByState = function (state, date) {
     return new Promise((resolve, reject) => {
 
-        let now = date ? dayjs(date).startOf('day') : dayjs().startOf('day')
+        let now = date ? dayjs(date).startOf('day') : dayjs().subtract(16, 'hour')
 
         let query = {state: state}
 

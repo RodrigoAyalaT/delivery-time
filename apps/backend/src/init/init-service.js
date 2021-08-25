@@ -15,6 +15,7 @@ import {initCustomization} from './custom/initCustomization'
 import {initSettings} from './custom/initSettings'
 import {initCalendar} from './custom/initCalendar'
 import repartidorRole from './custom/initRepartidorRole'
+import mostradorRole from './custom/initMostradorRole'
 
 import {
     permissions as notiPermissions
@@ -53,7 +54,7 @@ const initService = async () => {
     //await InitService.initOperatorRole()
     //await InitService.initSupervisorRole()
 
-    await InitService.initRoles([repartidorRole])
+    await InitService.initRoles([repartidorRole, mostradorRole])
 
     await InitService.initRootUser()
     //await InitService.initSupervisorUser()

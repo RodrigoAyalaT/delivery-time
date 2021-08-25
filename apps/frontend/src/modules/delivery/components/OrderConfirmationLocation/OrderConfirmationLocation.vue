@@ -4,60 +4,58 @@
       {{ $t('delivery.mode.' + $store.state.delivery.order.delivery.mode) }}
     </v-card-title>
 
-    <v-list >
-      <v-row dense>
-        <template v-if="$store.state.delivery.order.delivery.mode === 'TAKE_AWAY'">
-          <v-col cols="12">
-            <show-field
-                :value="$store.state.delivery.order.location.address"
-                :label="$t('maps.location.labels.address')"
-                icon="location_on"
-            />
-          </v-col>
-        </template>
+    <v-row dense>
+      <template v-if="$store.state.delivery.order.delivery.mode === 'TAKE_AWAY'">
+        <v-col cols="12">
+          <show-field
+              :value="$store.state.delivery.order.location.address"
+              :label="$t('maps.location.labels.address')"
+              icon="location_on"
+          />
+        </v-col>
+      </template>
 
-        <template v-if="$store.state.delivery.order.delivery.mode === 'DELIVERY'">
-          <v-col cols="12" md="7">
-            <show-field
-                :value="$store.state.delivery.order.location.address"
-                :label="$t('maps.location.labels.address')"
-                icon="location_on"
-            />
-          </v-col>
+      <template v-if="$store.state.delivery.order.delivery.mode === 'DELIVERY'">
+        <v-col cols="12" md="7">
+          <show-field
+              :value="$store.state.delivery.order.location.address"
+              :label="$t('maps.location.labels.address')"
+              icon="location_on"
+          />
+        </v-col>
 
-          <v-col cols="12" md="5">
-            <v-row no-gutters>
-              <v-col cols="5">
-                <show-field
-                    :value="$store.state.delivery.order.location.floor"
-                    :label="$t('maps.location.labels.floor')"
-                    icon="apartment"
-                />
-              </v-col>
-              <v-col cols="7">
-                <show-field
-                    :value="$store.state.delivery.order.location.apartment"
-                    :label="$t('maps.location.labels.apartment')"
-                    icon="meeting_room"
-                />
-              </v-col>
+        <v-col cols="12" md="5">
+          <v-row no-gutters>
+            <v-col cols="5">
+              <show-field
+                  :value="$store.state.delivery.order.location.floor"
+                  :label="$t('maps.location.labels.floor')"
+                  icon="apartment"
+              />
+            </v-col>
+            <v-col cols="7">
+              <show-field
+                  :value="$store.state.delivery.order.location.apartment"
+                  :label="$t('maps.location.labels.apartment')"
+                  icon="meeting_room"
+              />
+            </v-col>
 
-            </v-row>
-          </v-col>
+          </v-row>
+        </v-col>
 
-        </template>
+      </template>
 
-      </v-row>
+      <v-col cols="12">
+        <show-field
+            :value="getTime"
+            :label="$t('delivery.schedule')"
+            icon="alarm"
+        />
+      </v-col>
+    </v-row>
 
-
-      <show-field
-          :value="getTime"
-          :label="$t('delivery.schedule')"
-          icon="alarm"
-      />
-
-    </v-list>
-
+    <v-divider></v-divider>
   </card-edit>
 </template>
 

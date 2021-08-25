@@ -4,6 +4,7 @@ import ProductCategoryProvider from "@/modules/delivery/providers/ProductCategor
 const TAKE_AWAY = 'TAKE_AWAY'
 const DELIVERY = 'DELIVERY'
 
+
 export default {
     state: {
         categories: [],
@@ -23,6 +24,7 @@ export default {
             locality: '',
             postalCode: ''
         },
+        locationHistory: [],
         order: {
             delivery: {
                 mode: null, //TAKE_AWAY|DELIVERY
@@ -54,10 +56,10 @@ export default {
             return state.categories
         },
         isTakeAway(state) {
-            return state.order.delivery.mode == TAKE_AWAY
+            return state.order.delivery.mode === TAKE_AWAY
         },
         isDelivery(state) {
-            return state.order.delivery.mode == DELIVERY
+            return state.order.delivery.mode === DELIVERY
         },
         getCurrentOrderIdentifier(state) {
             return state.currentOrderIdentifier
@@ -70,6 +72,12 @@ export default {
         },
         getOrderLoading(state) {
             return state.orderLoading
+        },
+        hasLocationHistory(state) {
+            return (state.locationHistory.length > 0)
+        },
+        getLocationHistory(state) {
+            return state.locationHistory
         },
         getOrderError(state) {
             return state.orderError
@@ -205,6 +213,7 @@ export default {
             commit('setCurrentOrderIdentifier',null)
             commit('clearOrderItems')
             commit('clearOrderDelivery')
+            commit('clearOrderLocation')
         },
         clearOrderItems({commit}){
             commit('clearOrderItems')
@@ -247,15 +256,11 @@ export default {
         setOrderContact(state, val) {
             state.order.contact = val
         },
-        setOrderLocation(state, val) {
-            state.order.location = val
-            state.lastLocation = val
+        setOrderLocation(state, location) {
+            state.order.location = location
+            state.lastLocation = location
         },
-        setOrderLocationAddress(state,val){
-          state.order.location.address = val
-        },
-        clearLocation(state) {
-            state.lastLocation = state.order.location
+        clearOrderLocation(state) {
             state.order.location = {
                 address: '',
                 floor: '',
@@ -268,8 +273,23 @@ export default {
                 postalCode: ''
             }
         },
+
+        setOrderLocationAddress(state,val){
+          state.order.location.address = val
+        },
+
         recoveryLastLocation(state){
             state.order.location = state.lastLocation
+        },
+        addLocationHistory(state, location){
+          if(location && location.address != ''  && location.latitude != null && location.longitude != null){
+              if(state.locationHistory.some(l=> l.address === location.address)){
+                  state.locationHistory.sort(function(x,y){ return x.address == location.address ? -1 : y.address == location.address ? 1 : 0; });
+              }else{
+                  state.locationHistory.push(Object.assign({},location))
+
+              }
+          }
         },
         clearOrderItems(state) {
             state.order.items = []

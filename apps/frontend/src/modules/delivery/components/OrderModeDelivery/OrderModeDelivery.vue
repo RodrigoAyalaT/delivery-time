@@ -4,7 +4,13 @@
     <v-col cols="12">
       <v-row justify="center" dense>
         <v-col cols="12" sm="8" md="4">
+          <location-history
+              v-if="$store.getters.hasLocationHistory && showLocation === false"
+              @locationSelected="locationSelected"
+              @locationNew="locationNew"
+          ></location-history>
           <location-form
+              v-else
               v-model="location"
               enable-map
               map-height="200px"
@@ -127,7 +133,7 @@
     </v-col>
     -->
 
-    <v-col v-if="time && inZone" cols="12">
+    <v-col v-if="time && location && location.address && showLocation && inZone" cols="12">
 
       <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>
     </v-col>
@@ -143,12 +149,13 @@ import LocationIsInZone from "@/modules/maps/mixins/LocationIsInZone";
 import ScheduleAsSonAsPosibleTime
   from "@/modules/delivery/components/ScheduleAsSonAsPosibleTime/ScheduleAsSonAsPosibleTime";
 import ScheduleTime from "@/modules/delivery/components/ScheduleTime/ScheduleTime";
+import LocationHistory from "@/modules/delivery/components/LocationHistory/LocationHistory";
 
 const AS_SON_AS_POSIBLE = 'AS_SON_AS_POSIBLE'
 const SCHEDULED = 'SCHEDULED'
 export default {
   name: "OrderModeDelivery",
-  components: {ScheduleTime, ScheduleAsSonAsPosibleTime, LocationForm, SubmitButton, Loading},
+  components: {LocationHistory, ScheduleTime, ScheduleAsSonAsPosibleTime, LocationForm, SubmitButton, Loading},
   mixins: [CalendarIsActive, LocationIsInZone],
   props: {
     calendar: {type: Object, required: true}
@@ -156,6 +163,7 @@ export default {
   data() {
     return {
       isActiveHours: null,
+      showLocation: false
     }
   },
   computed: {
@@ -165,6 +173,7 @@ export default {
       },
       set(val) {
         this.$store.commit('setOrderLocation', val)
+        this.$store.commit('addLocationHistory', val)
         this.locationIsInZone(val)
       }
     },
@@ -197,13 +206,21 @@ export default {
     }
   },
   created() {
-    this.recoveryLastLocation()
+    //this.recoveryLastLocation()
   },
   mounted() {
     this.determineActiveHours()
     this.locationIsInZone(this.location)
   },
   methods: {
+    locationSelected(location){
+      this.location = Object.assign({},location)
+      this.showLocation = true
+    },
+    locationNew(){
+      this.$store.commit('clearOrderLocation')
+      this.showLocation = true
+    },
     clear(){
       this.clearZone()
     },

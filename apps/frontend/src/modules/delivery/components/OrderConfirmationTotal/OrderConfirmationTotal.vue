@@ -1,14 +1,14 @@
 <template>
   <v-row no-gutters >
-    <v-col cols="12" class="mb-3">
+    <v-col cols="12">
       <card-total
           icon="shop"
           :title="$t('delivery.cart.quantity')"
           :quantity="$store.getters.getQuantityTotal"
       ></card-total>
+      <v-divider></v-divider>
     </v-col>
-
-    <v-col cols="12" class="mb-3">
+    <v-col cols="12">
       <card-total
           icon="money"
           :title="$t('delivery.cart.total')"
