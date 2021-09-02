@@ -9,6 +9,7 @@
   >
       <slot></slot>
     <v-btn
+           v-if="hover"
            color="primary"
            x-small icon
            absolute :style="{top: '5px', right: '5px'}"

@@ -11,7 +11,8 @@ export default {
   name: "LocationMap",
   props: {
     value: {type: Object},
-    height: {type: String, default: '300px'}
+    height: {type: String, default: '300px'},
+    zoom: {type: Number, default: 16}
   },
   computed: {
     location: {
@@ -41,7 +42,7 @@ export default {
   methods: {
     initMap() {
       this.map = new this.google.maps.Map(this.$refs.map, {
-        zoom: 15,
+        zoom: this.zoom,
         center: this.getLatLng,
         mapTypeId: 'terrain'
       });

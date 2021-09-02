@@ -3,7 +3,7 @@
 
     <v-col v-if="isActiveHours" cols="12">
       <v-row justify="center" dense>
-        <v-col cols="6" sm="4" md="2">
+        <v-col cols="6">
           <card-button
               :selected="isAsSonAsPosible"
               :title="$t('delivery.mode.asSonAsPosible')"
@@ -11,7 +11,7 @@
               @click="asSonAsPosible"
           ></card-button>
         </v-col>
-        <v-col cols="6" sm="4" md="2">
+        <v-col cols="6">
           <card-button
               :selected="isScheduled"
               :title="$t('delivery.mode.scheduledWithdrawal')"
@@ -25,8 +25,8 @@
 
     <v-col v-if="!isActiveHours || isScheduled" cols="12">
       <v-row justify="center" dense>
-        <v-col cols="12" sm="8" md="4">
-          <v-alert v-if="!isActiveHours"
+        <v-col cols="12">
+          <v-alert v-if="!isActiveHours && !bar"
                    type="warning"
                    class="text-left"
                    rounded
@@ -43,7 +43,7 @@
 
     <v-col v-if="isActiveHours && isAsSonAsPosible" cols="12">
       <v-row justify="center" dense>
-        <v-col cols="12" sm="8" md="4">
+        <v-col cols="12">
         <schedule-as-son-as-posible-time v-model="time" :calendar="calendar"></schedule-as-son-as-posible-time>
         </v-col>
       </v-row>
@@ -71,7 +71,8 @@ export default {
   components: {ScheduleAsSonAsPosibleTime, ScheduleTime, CardButton, SubmitButton},
   mixins: [CalendarIsActive],
   props: {
-    calendar: {type: Object, required: true}
+    calendar: {type: Object, required: true},
+    bar: {type: Boolean, default: false}
   },
   data() {
     return {

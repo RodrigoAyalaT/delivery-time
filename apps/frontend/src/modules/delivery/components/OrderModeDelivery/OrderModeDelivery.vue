@@ -3,16 +3,16 @@
 
     <v-col cols="12">
       <v-row justify="center" dense>
-        <v-col cols="12" sm="8" md="4">
+        <v-col cols="12" >
           <location-history
-              v-if="$store.getters.hasLocationHistory && showLocation === false"
+              v-if="!bar && $store.getters.hasLocationHistory && showLocation === false && !location.address"
               @locationSelected="locationSelected"
               @locationNew="locationNew"
           ></location-history>
           <location-form
               v-else
               v-model="location"
-              enable-map
+              :enable-map="!bar"
               map-height="200px"
               :address-sm-col="12"
               :apartment-sm-col="6"
@@ -30,13 +30,13 @@
       <v-row justify="center" dense>
 
         <!--#[EN ZONA] => LOADING -->
-        <v-col v-if="loadingInZone" cols="12" sm="8" md="4">
+        <v-col v-if="loadingInZone" cols="12">
           <loading :text="$t('maps.zone.determiningZone')"></loading>
         </v-col>
 
         <!--#[EN ZONA] => TRUE -->
         <v-col v-else-if="inZone === true && loadingInZone === false"
-               cols="12" sm="8" md="4"
+               cols="12"
         >
           <schedule-as-son-as-posible-time
               :calendar="calendar"
@@ -47,7 +47,7 @@
 
         <!--#[FUERA  ZONA] => FALSE -->
         <v-col v-else-if="inZone === false && loadingInZone === false"
-               cols="12" sm="8" md="4"
+               cols="12"
         >
           <v-alert
               type="warning"
@@ -60,6 +60,7 @@
             {{ getMessageOutOfZone }}
           </v-alert>
           <v-btn
+              v-if="!bar"
               class="green white--text"
               :href="getWhatsappLink"
               target="_blank"
@@ -77,16 +78,16 @@
       <v-row justify="center" dense>
 
         <!--#[EN ZONA] => LOADING -->
-        <v-col v-if="loadingInZone" cols="12" sm="8" md="4">
+        <v-col v-if="loadingInZone" cols="12">
           <loading text="maps.zone.determiningZone"></loading>
         </v-col>
 
         <!--#[EN ZONA] => TRUE -->
         <v-col v-else-if="inZone === true && loadingInZone === false"
-               cols="12" sm="8" md="4"
+               cols="12"
         >
           <!--#[EN ZONA] => FUERA DE HORA -->
-          <v-alert v-if="!isActiveHours"
+          <v-alert v-if="!isActiveHours && !bar"
                    type="warning"
                    class="text-left"
                    rounded
@@ -101,7 +102,7 @@
 
         <!--#[FUERA  ZONA] => FALSE -->
         <v-col v-else-if="inZone === false && loadingInZone === false"
-               cols="12" sm="8" md="4"
+               cols="12"
         >
           <v-alert
               type="warning"
@@ -114,6 +115,7 @@
             {{ getMessageOutOfZone }}
           </v-alert>
           <v-btn
+              v-if="!bar"
               class="green white--text"
               :href="getWhatsappLink"
               target="_blank"
@@ -158,7 +160,8 @@ export default {
   components: {LocationHistory, ScheduleTime, ScheduleAsSonAsPosibleTime, LocationForm, SubmitButton, Loading},
   mixins: [CalendarIsActive, LocationIsInZone],
   props: {
-    calendar: {type: Object, required: true}
+    calendar: {type: Object, required: true},
+    bar: {type: Boolean, default: false}
   },
   data() {
     return {
@@ -172,6 +175,7 @@ export default {
         return this.$store.getters.getOrderLocation
       },
       set(val) {
+        this.showLocation = true
         this.$store.commit('setOrderLocation', val)
         this.$store.commit('addLocationHistory', val)
         this.locationIsInZone(val)

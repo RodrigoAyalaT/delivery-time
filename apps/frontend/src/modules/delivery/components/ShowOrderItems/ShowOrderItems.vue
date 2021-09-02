@@ -4,13 +4,8 @@
   >
     <v-card-title>{{ $t('delivery.product.products') }}</v-card-title>
     <v-card-text>
-
-      <v-row dense justify="center">
-        <v-col cols="12" sm="6" md="6">
           <!--RENDER ITEMS GROUP BY CATEGORY-->
           <order-items :items="items"></order-items>
-        </v-col>
-      </v-row>
     </v-card-text>
   </v-card>
 

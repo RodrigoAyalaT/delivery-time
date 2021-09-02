@@ -1,9 +1,24 @@
 <template>
+  <v-btn
+      v-if="small"
+      :class="getCardClass"
+      v-on="$listeners"
+      width="100%"
+  >
+    <v-icon
+        :class="getIconClass"
+        left
+    >{{ icon }}
+    </v-icon>
+
+    {{ title }}
+  </v-btn>
   <v-card
+      v-else
       :class="getCardClass"
       :elevation="selected ? 8 : 1"
       class="text-center"
-      v-on="$listeners"
+
   >
     <v-icon
         class="mt-4"
@@ -30,13 +45,14 @@ export default {
     backgroundColor: {type: String, default: "white"},
     textColorSelected: {type: String, default: "onPrimary--text"},
     backgroundColorSelected: {type: String, default: "primary"},
-    selected: {type: Boolean, default: false}
+    selected: {type: Boolean, default: false},
+    small: {type: Boolean, default: false}
   },
   computed: {
-    getTitleClass(){
-      if(this.$vuetify.breakpoint.smAndUp){
+    getTitleClass() {
+      if (this.$vuetify.breakpoint.smAndUp) {
         return 'h6'
-      }else{
+      } else {
         return 'subtitle-2'
       }
     },

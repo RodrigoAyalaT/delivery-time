@@ -59,7 +59,7 @@ export default {
 
   watch: {
     search: function (val) {
-      if ( (val != "" && val != undefined) && val.length >= 3) {
+      if ( (val != "" && val != undefined) && val != this.value && val.length >= 3) {
         this.debounceVar(val)
       } else if(val === ""){
         this.model = null

@@ -20,6 +20,10 @@ services:
       APP_PORT: 5000
       APP_API_URL: "http://localhost:8060"
       APP_WEB_URL: "http://localhost:8060"
+      GOOGLE_COUNTRY: "AR"
+      GOOGLE_LOCALITIES: "Vicente+Lopez|CABA"
+      GOOGLE_BOUNDS: "-34.51262,-58.55092|-34.58323,-58.40761"
+      GOOGLE_ADDRESS_SUFFIX:
       SMTP_HOST: "smtp.xxxx.com.ar"
       SMTP_PORT: 25
       SMTP_SECURE: "false"

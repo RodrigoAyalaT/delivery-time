@@ -23,7 +23,23 @@
       </v-col>
     </template>
 
-    <template v-else>
+    <template v-else-if="(order.state === 'ON_THE_WAY' || order.state === 'DELIVERED') && order.delivery.mode === 'DELIVERY'">
+      <v-col class="flex-grow-1">
+        {{ (order.deliveryUser && order.deliveryUser.username) ? order.deliveryUser.username : ''}}
+      </v-col>
+      <v-col v-if="order.state != 'DELIVERED'" class="flex-grow-0 flex-shrink-1">
+        <v-btn
+            color="indigo" dark
+            fab x-small
+            @click="next"
+            :loading="loading"
+        >
+          <v-icon>check</v-icon>
+        </v-btn>
+      </v-col>
+    </template>
+
+    <template v-else-if="order.state != 'DELIVERED'">
       <v-col class="flex-grow-1">
         <v-btn
             color="indigo" dark

@@ -8,7 +8,7 @@
               clearable
               @click:clear="onClear"
               prepend-inner-icon="search"
-              append-outer-icon="inventory"
+              append-icon="inventory"
               name="name"
               v-model="filters.name"
               :label="$t('delivery.product.search')"
@@ -16,7 +16,7 @@
               color="secondary"
               solo
               hide-details
-              @click:append-outer="on.click"
+              @click:append="on.click"
               @keyup.enter="$emit('input',filters)"
           ></v-text-field>
         </template>
@@ -36,7 +36,7 @@
       </v-menu>
     </v-col>
 
-    <v-col cols="12" class="py-0">
+    <v-col cols="12" class="pt-1 pb-0">
       <v-chip
           v-for="(ingredientId,i) in filters.ingredients" :key="i"
           close

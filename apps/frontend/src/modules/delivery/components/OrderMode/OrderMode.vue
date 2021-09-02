@@ -6,7 +6,7 @@
          justify="center" align="center"
   >
 
-    <v-col cols="6" sm="4" md="4">
+    <v-col cols="12">
       <loading ></loading>
     </v-col>
   </v-row>
@@ -18,21 +18,23 @@
          align="center"
   >
 
-    <v-col cols="6" sm="4" md="2">
+    <v-col cols="6">
       <card-button
           :selected="isTakeAway"
           :title="$t('delivery.mode.takeAway')"
           icon="store"
           @click="takeAway"
+          :small="small"
       ></card-button>
     </v-col>
 
-    <v-col cols="6" sm="4" md="2">
+    <v-col cols="6">
       <card-button
           :selected="isDelivery"
           :title="$t('delivery.mode.delivery')"
           icon="delivery_dining"
           @click="delivery"
+          :small="small"
       ></card-button>
     </v-col>
 
@@ -46,6 +48,7 @@
           v-if="calendar"
           :calendar="calendar"
           @confirm="$emit('confirm')"
+          :bar="bar"
       ></order-mode-take-away>
     </v-col>
 
@@ -59,6 +62,7 @@
           v-if="calendar"
           :calendar="calendar"
           @confirm="$emit('confirm')"
+          :bar="bar"
       ></order-mode-delivery>
     </v-col>
 
@@ -78,6 +82,10 @@ const DELIVERY = 'DELIVERY'
 export default {
   name: "OrderMode",
   components: {OrderModeDelivery, CardButton, OrderModeTakeAway, Loading},
+  props: {
+    small: {type: Boolean, default: false},
+    bar: {type: Boolean, default: false}
+  },
   data() {
     return {
       calendar: null,

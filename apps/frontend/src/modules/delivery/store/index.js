@@ -229,6 +229,7 @@ export default {
         addOrderToHistory(state, val) {
             state.orderHistory.push(val)
         },
+
         setOrderError(state, val) {
             state.orderError = val
         },
@@ -290,6 +291,12 @@ export default {
 
               }
           }
+        },
+        removeOrderToHistory(state, location) {
+            let index = state.locationHistory.findIndex(l => l.address === location.address)
+            if(index != -1){
+                state.locationHistory.splice(index, 1)
+            }
         },
         clearOrderItems(state) {
             state.order.items = []

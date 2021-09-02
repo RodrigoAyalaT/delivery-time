@@ -9,7 +9,8 @@ const messages = {
             categories: "Categories",
             ingredients: "Ingredients",
             orders: "Orders",
-            settings: "Settings"
+            settings: "Settings",
+            orderBar: "Order bar"
         }
     },
     es: {
@@ -21,7 +22,8 @@ const messages = {
             categories: "Categorias",
             ingredients: "Ingredientes",
             orders: "Pedidos",
-            settings: "Ajustes"
+            settings: "Ajustes",
+            orderBar: "Mostrador"
         }
     },
     pt: {
@@ -33,7 +35,8 @@ const messages = {
             categories: "Categorias",
             ingredients: "Ingredientes",
             orders: "Pedidos",
-            settings: "Definições"
+            settings: "Definições",
+            orderBar: "Mostrador"
         }
     }
 }

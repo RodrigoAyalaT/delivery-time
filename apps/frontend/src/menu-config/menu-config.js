@@ -6,7 +6,18 @@ export default [
         link: { name: "home" },
         panel: false
     },
-
+    {
+        icon: 'table_bar',
+        text: 'menu.orderBar',
+        link: {name: "OrderBarPage"},
+        permission: 'ORDER_SHOW'
+    },
+    {
+        icon: 'tag',
+        text: 'menu.orders',
+        link: {name: "OrderManagerPage"},
+        permission: 'ORDER_SHOW'
+    },
     {
         icon: 'person',
         text: 'Gestion',
@@ -33,12 +44,7 @@ export default [
                 panel: false,
                 permission: 'INGREDIENT_SHOW'
             },
-            {
-                icon: 'tag',
-                text: 'menu.orders',
-                link: {name: "OrderManagerPage"},
-                permission: 'ORDER_SHOW'
-            },
+
             {
                 icon: 'settings',
                 text: 'menu.settings',

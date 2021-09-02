@@ -18,7 +18,7 @@ const messages = {
             },
 
             cart: {
-                total: 'Total price',
+                total: 'Total',
                 quantity: 'Items quantity'
             },
             scheduleTime: {
@@ -127,7 +127,7 @@ const messages = {
             },
 
             cart: {
-                total: 'Monto total',
+                total: 'Total',
                 quantity: 'Cantidad total'
             },
             scheduleTime: {
