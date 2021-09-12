@@ -24,7 +24,7 @@
           :title="$t('delivery.mode.takeAway')"
           icon="store"
           @click="takeAway"
-          :small="small"
+          :dense="dense"
       ></card-button>
     </v-col>
 
@@ -34,7 +34,7 @@
           :title="$t('delivery.mode.delivery')"
           icon="delivery_dining"
           @click="delivery"
-          :small="small"
+          :dense="dense"
       ></card-button>
     </v-col>
 
@@ -48,7 +48,7 @@
           v-if="calendar"
           :calendar="calendar"
           @confirm="$emit('confirm')"
-          :bar="bar"
+          :dense="dense"
       ></order-mode-take-away>
     </v-col>
 
@@ -62,7 +62,7 @@
           v-if="calendar"
           :calendar="calendar"
           @confirm="$emit('confirm')"
-          :bar="bar"
+          :dense="dense"
       ></order-mode-delivery>
     </v-col>
 
@@ -83,8 +83,7 @@ export default {
   name: "OrderMode",
   components: {OrderModeDelivery, CardButton, OrderModeTakeAway, Loading},
   props: {
-    small: {type: Boolean, default: false},
-    bar: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false}
   },
   data() {
     return {
@@ -108,6 +107,7 @@ export default {
       this.$store.commit('setOrderDeliveryMode', TAKE_AWAY)
     },
     delivery() {
+      this.$store.commit('clearOrderLocation')
       this.$store.commit('setOrderDeliveryMode', DELIVERY)
     },
     fetchCalendar() {

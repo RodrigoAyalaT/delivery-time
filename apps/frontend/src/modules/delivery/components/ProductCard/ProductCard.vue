@@ -1,5 +1,6 @@
 <template>
   <v-card
+
       v-on:mouseover="elevation = 10"
       v-on:mouseleave="elevation = 2"
       :elevation="elevation"
@@ -24,7 +25,7 @@
       <!--REMOVE-->
       <v-btn v-if="editQuantity && quantity > 0"
              fab x-small outlined color="primary"
-             @click="$emit('removeProduct',product)"
+             @click="removeProduct(product)"
       >
         <v-icon>remove</v-icon>
       </v-btn>
@@ -34,12 +35,14 @@
       <v-btn v-if="editQuantity"
              fab x-small
              color="primary"
-             @click="$emit('addProduct',product)"
+             @click="addProduct(product)"
       >
         <v-icon>add</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
+
+
 </template>
 
 <script>
@@ -60,6 +63,14 @@ export default {
     return {
       elevation: 2
     }
+  },
+  methods:{
+    addProduct(product) {
+      this.$store.commit('addOrderItem', product)
+    },
+    removeProduct(product) {
+      this.$store.commit('removeOrderItem', product)
+    },
   }
 }
 </script>

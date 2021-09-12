@@ -2,7 +2,7 @@
   <v-form ref="form">
     <v-row>
 
-      <v-col v-if="!small" cols="12">
+      <v-col v-if="!dense" cols="12">
         <h5 class="text-h5">Datos de contacto</h5>
       </v-col>
 
@@ -24,7 +24,7 @@
       </v-col>
 
 
-      <v-col :cols="small ? 6 : 12" >
+      <v-col :cols="dense ? 6 : 12" >
         <v-text-field
             dense
             prepend-icon="phone"
@@ -42,7 +42,7 @@
       </v-col>
 
 
-      <v-col :cols="small ? 6 : 12" >
+      <v-col :cols="dense ? 6 : 12" >
         <v-text-field
             dense
             prepend-icon="email"
@@ -62,7 +62,7 @@
       <v-col cols="12">
         <v-textarea
             dense
-            :rows="small ? 1 : 2"
+            :rows="dense ? 1 : 2"
             prepend-icon="description"
             name="observations"
             v-model="form.observations"
@@ -71,6 +71,7 @@
             :error="hasInputErrors('observations')"
             :error-messages="getInputErrors('observations')"
             color="secondary"
+            hide-details
         ></v-textarea>
       </v-col>
 
@@ -99,7 +100,7 @@ export default {
   components: {SubmitButton},
   props: {
     nextButton: {type: Boolean, default: false},
-    small: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false}
   },
   data() {
     return {

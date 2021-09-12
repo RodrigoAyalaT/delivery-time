@@ -9,15 +9,16 @@
               :title="$t('delivery.mode.asSonAsPosible')"
               icon="bolt"
               @click="asSonAsPosible"
+              :dense="dense"
           ></card-button>
         </v-col>
         <v-col cols="6">
           <card-button
               :selected="isScheduled"
               :title="$t('delivery.mode.scheduledWithdrawal')"
-
               icon="schedule"
               @click="scheduled"
+              :dense="dense"
           ></card-button>
         </v-col>
       </v-row>
@@ -26,7 +27,7 @@
     <v-col v-if="!isActiveHours || isScheduled" cols="12">
       <v-row justify="center" dense>
         <v-col cols="12">
-          <v-alert v-if="!isActiveHours && !bar"
+          <v-alert v-if="!isActiveHours && !dense"
                    type="warning"
                    class="text-left"
                    rounded
@@ -72,7 +73,7 @@ export default {
   mixins: [CalendarIsActive],
   props: {
     calendar: {type: Object, required: true},
-    bar: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false}
   },
   data() {
     return {
@@ -122,7 +123,7 @@ export default {
       this.$store.commit('setOrderDeliveryTime', val)
     },
     setShopLocation(){
-      this.$store.commit('clearLocation')
+      this.$store.commit('clearOrderLocation')
       this.$store.commit('setOrderLocationAddress', this.$store.getters.getSetting('ShopAddress').value)
     }
   }

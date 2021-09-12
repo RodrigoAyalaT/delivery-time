@@ -5,14 +5,14 @@
       <v-row justify="center" dense>
         <v-col cols="12" >
           <location-history
-              v-if="!bar && $store.getters.hasLocationHistory && showLocation === false && !location.address"
+              v-if="!dense && $store.getters.hasLocationHistory && showLocation === false && !location.address"
               @locationSelected="locationSelected"
               @locationNew="locationNew"
           ></location-history>
           <location-form
               v-else
               v-model="location"
-              :enable-map="!bar"
+              :enable-map="!dense"
               map-height="200px"
               :address-sm-col="12"
               :apartment-sm-col="6"
@@ -60,7 +60,7 @@
             {{ getMessageOutOfZone }}
           </v-alert>
           <v-btn
-              v-if="!bar"
+              v-if="!dense"
               class="green white--text"
               :href="getWhatsappLink"
               target="_blank"
@@ -87,7 +87,7 @@
                cols="12"
         >
           <!--#[EN ZONA] => FUERA DE HORA -->
-          <v-alert v-if="!isActiveHours && !bar"
+          <v-alert v-if="!isActiveHours && !dense"
                    type="warning"
                    class="text-left"
                    rounded
@@ -115,7 +115,7 @@
             {{ getMessageOutOfZone }}
           </v-alert>
           <v-btn
-              v-if="!bar"
+              v-if="!dense"
               class="green white--text"
               :href="getWhatsappLink"
               target="_blank"
@@ -161,7 +161,7 @@ export default {
   mixins: [CalendarIsActive, LocationIsInZone],
   props: {
     calendar: {type: Object, required: true},
-    bar: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false}
   },
   data() {
     return {

@@ -4,7 +4,12 @@
       <sidebar-menu :nav="menu" v-on:closeDrawer="drawer = false"></sidebar-menu>
     </v-navigation-drawer>
 
-    <v-app-bar app fixed extended elevation="0" color="primary" :clipped-left="clipped"
+    <v-app-bar app
+               fixed
+               :extended="!!($store.state.extensionMenu && $store.state.extensionMenu.length)"
+               elevation="0"
+               color="primary"
+               :clipped-left="clipped"
     src="@/assets/img/AppBarMini.png"
     >
       <template v-slot:img="{ props }">

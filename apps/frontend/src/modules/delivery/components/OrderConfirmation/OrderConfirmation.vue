@@ -50,10 +50,11 @@
 
             <!--CREATE ORDER-->
             <v-btn
-                @click="$store.dispatch('createOrder')"
+                @click="confirmOrder"
                 :disabled="!$store.getters.orderIsReady"
                 color="green white--text"
                 x-large
+                :loading="loading"
             >
               <v-icon large left>done</v-icon>
               <span class="font-weight-bold"
@@ -80,6 +81,24 @@ import OrderConfirmationTotal from "@/modules/delivery/components/OrderConfirmat
 export default {
   name: "OrderConfirmation",
   components: {OrderConfirmationTotal, OrderConfirmationItems, OrderConfirmationLocation, OrderConfirmationContact},
+  data() {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    confirmOrder() {
+      this.loading = true
+      this.$store.dispatch('createOrder')
+          .then((orderIdentifier) => {
+            this.$emit('orderCreated',orderIdentifier)
+          })
+          .catch(e => {
+            console.error("OrderConfirmation Error", e)
+          })
+          .finally(() => this.loading = false)
+    }
+  }
 }
 </script>
 

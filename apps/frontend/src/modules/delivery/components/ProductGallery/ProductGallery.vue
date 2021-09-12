@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pt-0">
   <v-row>
-    <v-col cols="12" sm="4" md="3" style="border-right: 1px solid lightgray" >
+    <v-col v-if="!dense" cols="12" sm="4" md="3" style="border-right: 1px solid lightgray" >
 
       <v-row class="py-0 " >
         <!--FILTER-->
@@ -20,8 +20,6 @@
         >
           <cart-detail
               :items="getOrderItems"
-              @addProduct="addProduct"
-              @removeProduct="removeProduct"
               @clearOrder="$store.commit('clearOrderItems')"
               :quantity-total="$store.getters.getQuantityTotal"
               :amount-total="$store.getters.getAmountTotal"
@@ -34,7 +32,7 @@
     </v-col>
 
     <!--PRODUCTS-->
-    <v-col cols="12" sm="8" md="9" class="pt-0">
+    <v-col cols="12" sm="8" :md="dense?12:9" class="pt-0">
 
       <loading v-if="loading"></loading>
 
@@ -45,11 +43,12 @@
       </template>
 
       <template v-else>
-        <v-row v-for="category in getCategories" :key="category.id">
+        <v-row :dense="dense" v-for="category in getCategories" :key="category.id">
 
-          <v-col cols="12" class="my-2">
+          <v-col cols="12" :class="{'my-2': !dense }">
             <section :id="category.name">
-              <h5 class="text-h5 grey--text text--darken-3">{{ category.name }}</h5>
+              <h6 v-if="dense" class="text-h6 grey--text text--darken-3">{{ category.name }}</h6>
+              <h5 v-else class="text-h5 grey--text text--darken-3">{{ category.name }}</h5>
             </section>
             <v-divider></v-divider>
           </v-col>
@@ -57,13 +56,19 @@
                  :key="product.id"
                  cols="12" sm="6" md="6" lg="6"
           >
-            <product-card
+            <product-card-dense
+                v-if="dense"
                 :product="product"
                 :quantity="$store.getters.getQuantity(product)"
-                @addProduct="addProduct"
-                @removeProduct="removeProduct"
                 edit-quantity
-            ></product-card>
+            />
+
+            <product-card
+                v-else
+                :product="product"
+                :quantity="$store.getters.getQuantity(product)"
+                edit-quantity
+            />
           </v-col>
         </v-row>
       </template>
@@ -79,12 +84,16 @@
 import ProductProvider from "@/modules/delivery/providers/ProductProvider";
 import ProductFilters from "@/modules/delivery/components/ProductFilters/ProductFilters";
 import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
-import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
 import {Loading} from "@dracul/common-frontend"
+import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
+import ProductCardDense from "@/modules/delivery/components/ProductCardDense/ProductCarDense";
 
 export default {
   name: "ProductGallery",
-  components: {ProductCard, CartDetail, ProductFilters,Loading},
+  components: {ProductCardDense, ProductCard, CartDetail, ProductFilters,Loading},
+  props: {
+    dense: {type: Boolean, default: false}
+  },
   data() {
     return {
       products: [],
@@ -138,12 +147,7 @@ export default {
     }
   },
   methods: {
-    addProduct(product) {
-      this.$store.commit('addOrderItem', product)
-    },
-    removeProduct(product) {
-      this.$store.commit('removeOrderItem', product)
-    },
+
     fetchProducts() {
       this.loading = true
       ProductProvider.fetchProductsFiltered(this.filters)

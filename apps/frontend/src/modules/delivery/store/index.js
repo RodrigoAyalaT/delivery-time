@@ -164,23 +164,23 @@ export default {
 
             return true
         },
-        orderConfirmationErrorMessage(state,getters){
-           let messages = []
+        orderConfirmationErrorMessage(state, getters) {
+            let messages = []
 
             if (getters.getQuantityTotal == 0) {
                 messages.push('delivery.empty.items')
             }
 
-            if(!getters.getOrderDelivery.mode){
+            if (!getters.getOrderDelivery.mode) {
                 messages.push('delivery.empty.deliveryMode')
             }
 
-            if(!getters.getOrderDelivery.timeMode || !getters.getOrderDelivery.time){
+            if (!getters.getOrderDelivery.timeMode || !getters.getOrderDelivery.time) {
                 messages.push('delivery.empty.time')
             }
 
 
-            if(getters.isDelivery && !getters.getOrderLocation.address){
+            if (getters.isDelivery && !getters.getOrderLocation.address) {
                 messages.push('delivery.empty.location')
             }
 
@@ -194,28 +194,34 @@ export default {
             })
         },
         createOrder({commit, getters}) {
-            commit("setOrderLoading", true)
-            commit("setOrderError", null)
-            OrderProvider.createOrder(getters.getOrderForm)
-                .then(r => {
-                    console.log("orderCreated", r.data)
-                    commit("setCurrentOrderIdentifier", r.data.orderCreate.identifier)
-                    commit("addOrderToHistory", r.data.orderCreate.identifier)
-                })
-                .catch(e => {
-                    commit("setOrderError", e.message)
-                })
-                .finally(() => {
-                    commit("setOrderLoading", false)
-                })
+            return new Promise((resolve, reject) => {
+                commit("setOrderLoading", true)
+                commit("setOrderError", null)
+                OrderProvider.createOrder(getters.getOrderForm)
+                    .then(r => {
+                        console.log("orderCreated", r.data)
+                        commit("setCurrentOrderIdentifier", r.data.orderCreate.identifier)
+                        commit("addOrderToHistory", r.data.orderCreate.identifier)
+                        commit("clearOrderItems")
+                        resolve(r.data.orderCreate.identifier)
+                    })
+                    .catch(e => {
+                        commit("setOrderError", e.message)
+                        reject()
+                    })
+                    .finally(() => {
+                        commit("setOrderLoading", false)
+                    })
+            })
+
         },
-        resetOrder({commit}){
-            commit('setCurrentOrderIdentifier',null)
+        resetOrder({commit}) {
+            commit('setCurrentOrderIdentifier', null)
             commit('clearOrderItems')
             commit('clearOrderDelivery')
             commit('clearOrderLocation')
         },
-        clearOrderItems({commit}){
+        clearOrderItems({commit}) {
             commit('clearOrderItems')
         }
     },
@@ -275,34 +281,49 @@ export default {
             }
         },
 
-        setOrderLocationAddress(state,val){
-          state.order.location.address = val
+        setOrderLocationAddress(state, val) {
+            state.order.location.address = val
         },
 
-        recoveryLastLocation(state){
+        recoveryLastLocation(state) {
             state.order.location = state.lastLocation
         },
-        addLocationHistory(state, location){
-          if(location && location.address != ''  && location.latitude != null && location.longitude != null){
-              if(state.locationHistory.some(l=> l.address === location.address)){
-                  state.locationHistory.sort(function(x,y){ return x.address == location.address ? -1 : y.address == location.address ? 1 : 0; });
-              }else{
-                  state.locationHistory.push(Object.assign({},location))
+        addLocationHistory(state, location) {
+            if (location && location.address != '' && location.latitude != null && location.longitude != null) {
+                if (state.locationHistory.some(l => l.address === location.address)) {
+                    state.locationHistory.sort(function (x, y) {
+                        return x.address == location.address ? -1 : y.address == location.address ? 1 : 0;
+                    });
+                } else {
+                    state.locationHistory.push(Object.assign({}, location))
 
-              }
-          }
+                }
+            }
         },
         removeOrderToHistory(state, location) {
             let index = state.locationHistory.findIndex(l => l.address === location.address)
-            if(index != -1){
+            if (index != -1) {
                 state.locationHistory.splice(index, 1)
             }
         },
         clearOrderItems(state) {
             state.order.items = []
         },
+        clearOrderContact(state) {
+            state.order.contact = {
+                name: null,
+                phone: null,
+                email: null,
+                observations: null
+            }
+        },
         setOrderItems(state, val) {
             state.order.items = val
+        },
+        changeOrderItemQuantity(state, {product, quantity}) {
+            let item = state.order.items.find(p => p.product.id === product.id)
+            item.quantity = quantity
+            item.amount = item.quantity ? product.price * item.quantity : 0
         },
         addOrderItem(state, product) {
             let item = state.order.items.find(p => p.product.id === product.id)

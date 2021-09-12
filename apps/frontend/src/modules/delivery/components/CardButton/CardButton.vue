@@ -1,6 +1,6 @@
 <template>
   <v-btn
-      v-if="small"
+      v-if="dense"
       :class="getCardClass"
       v-on="$listeners"
       width="100%"
@@ -18,7 +18,7 @@
       :class="getCardClass"
       :elevation="selected ? 8 : 1"
       class="text-center"
-
+      v-on="$listeners"
   >
     <v-icon
         class="mt-4"
@@ -46,7 +46,7 @@ export default {
     textColorSelected: {type: String, default: "onPrimary--text"},
     backgroundColorSelected: {type: String, default: "primary"},
     selected: {type: Boolean, default: false},
-    small: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false}
   },
   computed: {
     getTitleClass() {
