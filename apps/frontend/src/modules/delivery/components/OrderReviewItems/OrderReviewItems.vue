@@ -17,7 +17,7 @@ import OrderItems from "@/modules/delivery/components/OrderItems/OrderItems";
 import CardEdit from "@/modules/delivery/components/CardEdit/CardEdit";
 
 export default {
-  name: "OrderConfirmationItems",
+  name: "OrderReviewItems",
   components: {OrderItems, CardEdit},
   data() {
     return {

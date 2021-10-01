@@ -1,4 +1,4 @@
-import OrderConfirmation from "./OrderConfirmation";
+import OrderConfimation from "./OrderConfimation";
 
-export {OrderConfirmation}
-export default OrderConfirmation
+export {OrderConfimation}
+export default OrderConfimation

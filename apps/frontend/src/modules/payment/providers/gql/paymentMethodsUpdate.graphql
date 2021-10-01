@@ -1,0 +1,32 @@
+mutation paymentMethodsUpdate($input: PaymentMethodsInput){
+    paymentMethodsUpdate(input: $input){
+        id
+        title
+        cash{
+            identifier
+            label
+            enable
+            discount
+            info
+        }
+        bankTransfer{
+            identifier
+            label
+            enable
+            discount
+            info
+            cbu
+            alias
+        }
+        mercadoPagoTransfer{
+            identifier
+            label
+            enable
+            discount
+            info
+            cbu
+            alias
+        }
+    }
+}
+

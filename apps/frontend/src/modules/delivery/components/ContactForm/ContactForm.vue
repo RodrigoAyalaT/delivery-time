@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form">
+  <v-form ref="form" v-model="valid" lazy-validation>
     <v-row>
 
       <v-col v-if="!dense" cols="12">
@@ -18,7 +18,6 @@
             :error-messages="getInputErrors('name')"
             color="secondary"
             :rules="required"
-            @keyup="stateSubmitButton"
             required class="required"
         ></v-text-field>
       </v-col>
@@ -36,7 +35,6 @@
             :error-messages="getInputErrors('phone')"
             color="secondary"
             :rules="phoneRules"
-            @keyup="stateSubmitButton"
             required class="required"
         ></v-text-field>
       </v-col>
@@ -54,7 +52,6 @@
             :error-messages="getInputErrors('email')"
             color="secondary"
             :rules="emailRules"
-            @keyup="stateSubmitButton"
             required class="required"
         ></v-text-field>
       </v-col>
@@ -82,7 +79,7 @@
         <submit-button
             text="common.next"
             @click="submitContact"
-            :disabled="submitDisabled"
+            :disabled="!this.isValid"
         ></submit-button>
       </v-col>
 
@@ -105,6 +102,7 @@ export default {
   data() {
     return {
       submitDisabled: true,
+      valid: false
     }
   },
   computed: {
@@ -125,29 +123,21 @@ export default {
     phoneRules() {
       return [
         v => !!v || this.$t('user.validation.required'),
-        v => /^[0-9]+$/i.test(v) || !v || this.$t('user.validation.number')
+        v => /^[0-9]+$/i.test(v) || !v || this.$t('user.validation.number'),
+        v => v.length >= 8 || !v || 'Minimo 8',
       ]
     },
-  },
-  mounted() {
-    this.stateSubmitButton()
+    isValid() {
+      return (this.valid && this.form.name != '' && this.form.email != '' && this.form.phone != '')
+    }
   },
   methods: {
     submitContact() {
-      if (this.validate()) {
+      if (this.isValid) {
         this.$emit('next')
       }
     },
-    stateSubmitButton() {
-      if (this.validate()) {
-        this.submitDisabled = false
-      } else {
-        this.submitDisabled = true
-      }
-    },
-    validate() {
-      return this.$refs.form.validate()
-    }
+
   },
 }
 </script>

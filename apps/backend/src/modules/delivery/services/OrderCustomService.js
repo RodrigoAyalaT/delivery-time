@@ -33,6 +33,39 @@ export const orderGroupByState = async function (date) {
     })
 }
 
+export const orderGroupByUser = async function (date) {
+    return new Promise((resolve, rejects) => {
+
+        let now = date ? dayjs(date).startOf('day') : dayjs().startOf('day')
+        console.log(now)
+        Order.aggregate([
+                {
+                    $match: {
+                        $or: [
+                            {state: {$eq: 'DELIVERED'}},
+                            {updatedAt: {$gte: now.toDate()} }
+                        ]
+
+                    }
+                },
+                {
+                    $group: {
+                        _id: "$deliveryUser",
+                        deliveryUser: {$last: "$deliveryUser"},
+                        count: {$sum: 1},
+                        amount: {$sum:"$totalAmount"}
+                    }
+                }
+            ],
+            (error, rows) => {
+                console.log("rows", rows)
+                if (error) return rejects(error)
+                if(rows.length) return resolve(rows)
+                return resolve([])
+            })
+    })
+}
+
 export const fetchOrdersByState = function (state, date) {
     return new Promise((resolve, reject) => {
 

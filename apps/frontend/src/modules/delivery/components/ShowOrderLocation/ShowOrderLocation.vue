@@ -1,23 +1,61 @@
 <template>
   <v-card   class="grey--text text--darken-2">
     <v-card-title>
-      {{ $t('delivery.mode.' + deliveryMode) }}
+      {{ $t('delivery.mode.deliveryMode') }}
+
     </v-card-title>
 
     <v-card-text>
       <v-list>
         <v-row dense>
           <template v-if="deliveryMode === 'TAKE_AWAY'">
-            <v-col cols="12">
+
+            <v-col cols="12" md="4">
+              <show-field
+                  :value="$t('delivery.mode.method.'+$store.state.delivery.order.delivery.mode)"
+                  :label="$t('delivery.mode.deliveryMode')"
+                  icon="room_service"
+              />
+            </v-col>
+
+            <v-col cols="12" md="4">
               <show-field
                   :value="location.address"
                   :label="$t('maps.location.labels.address')"
                   icon="location_on"
               />
             </v-col>
+
+            <v-col cols="12" md="4">
+              <show-field
+                  :value="getTime"
+                  :label="$t('delivery.schedule')"
+                  icon="alarm"
+              />
+
+            </v-col>
+
           </template>
 
           <template v-if="deliveryMode === 'DELIVERY'">
+
+            <v-col cols="12" md="4">
+              <show-field
+                  :value="$t('delivery.mode.method.'+$store.state.delivery.order.delivery.mode)"
+                  :label="$t('delivery.mode.deliveryMode')"
+                  icon="room_service"
+              />
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <show-field
+                  :value="getTime"
+                  :label="$t('delivery.schedule')"
+                  icon="alarm"
+              />
+
+            </v-col>
+
             <v-col cols="12" md="7">
               <show-field
                   :value="location.address"
@@ -48,14 +86,7 @@
 
           </template>
 
-          <v-col>
-            <show-field
-                :value="getTime"
-                :label="$t('delivery.schedule')"
-                icon="alarm"
-            />
 
-          </v-col>
 
         </v-row>
       </v-list>

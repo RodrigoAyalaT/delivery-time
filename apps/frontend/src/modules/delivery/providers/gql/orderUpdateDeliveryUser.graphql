@@ -37,6 +37,12 @@ mutation orderUpdateDeliveryUser($orderId: ID!, $userId: ID! ){
             locality
             postalCode
         }
+        payment{
+            method
+            transactionId
+            receiptFile
+            confirmed
+        }
         deliveryUser{
             id
             username

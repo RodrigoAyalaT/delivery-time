@@ -38,6 +38,12 @@ mutation orderUpdate($id: ID!, $input: OrderInput ){
             locality
             postalCode
         }
+        payment{
+            method
+            transactionId
+            receiptFile
+            confirmed
+        }
         zoneName
         totalQuantity
         totalAmount

@@ -50,7 +50,7 @@ import {ShowField} from '@dracul/common-frontend'
 import CardEdit from "@/modules/delivery/components/CardEdit/CardEdit";
 
 export default {
-  name: "OrderConfirmationContact",
+  name: "OrderReviewContact",
   components: {CardEdit, ShowField},
 }
 </script>

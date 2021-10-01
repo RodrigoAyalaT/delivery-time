@@ -124,13 +124,18 @@ async function calculateItems(items) {
 
 }
 
-export const createOrder = function (authUser, {contact, delivery, location, items}) {
+export const createOrder = function (authUser, {contact, delivery, location, items, payment}) {
 
     return new Promise(async (resolve, rejects) => {
 
         try {
 
             let state = 'NEW'
+
+            if(payment && /TRANSFER/.test(payment.method)){
+                state = 'PENDING_RECEIPT'
+            }
+
             let userId = authUser ? authUser.id : null
             let number = await incrementSequenceNumber('orders')
             let identifier = randomLetters(3) + number
@@ -148,7 +153,7 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
                 state,
                 user: userId,
                 totalQuantity, totalAmount,
-                zone, zoneName
+                zone, zoneName, payment
             })
 
             doc.id = doc._id;
@@ -172,10 +177,10 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
     })
 }
 
-export const updateOrder = async function (authUser, id, {contact, delivery, location, items, state}) {
+export const updateOrder = async function (authUser, id, {contact, delivery, location, items, state, payment}) {
     return new Promise((resolve, rejects) => {
         Order.findOneAndUpdate({_id: id},
-            {contact, delivery, location, items, state},
+            {contact, delivery, location, items, state, payment},
             {new: true, runValidators: true, context: 'query'},
             (error, doc) => {
 

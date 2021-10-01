@@ -6,6 +6,7 @@ import baseMessages from '../modules/base/i18n/messages'
 import deliveryMessages from '../modules/delivery/i18n/messages'
 import mapsMessages from '../modules/maps/i18n/messages'
 import calendarMessages from '../modules/calendar/i18n/messages'
+import paymentMessages from '../modules/payment/i18n/messages'
 import menuMessages from '../menu-config/menu-i18n'
 import {i18nMessages as i18nMessagesCommon} from '@dracul/common-frontend'
 import {i18nMessages as i18nMessagesSettings} from '@dracul/settings-frontend'
@@ -17,6 +18,7 @@ const messages = merge.all([
     baseMessages,
     i18nMessagesSettings,
     deliveryMessages,
+    paymentMessages,
     mapsMessages,
     calendarMessages,
     menuMessages,

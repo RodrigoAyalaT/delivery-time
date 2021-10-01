@@ -10,7 +10,7 @@
     </v-card>
     <v-divider class="my-3"></v-divider>
     <v-btn
-        @click="$store.commit('setCurrentOrderIdentifier',null)"
+        @click="$store.dispatch('resetOrder')"
     >
       Reiniciar orden
     </v-btn>

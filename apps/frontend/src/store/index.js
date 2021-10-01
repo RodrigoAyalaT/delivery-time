@@ -7,6 +7,7 @@ import {SettingsModuleStore} from '@dracul/settings-frontend'
 
 import BaseModuleStore from '../modules/base/storage/BaseModuleStore'
 import DeliveryModuleStore from '../modules/delivery/store'
+import PaymentModuleStore from '../modules/payment/store'
 
 Vue.use(Vuex)
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         user: UserModuleStore,
         base: BaseModuleStore,
         delivery: DeliveryModuleStore,
+        payment: PaymentModuleStore,
         customization: CustomizationStore
     },
     plugins: [

@@ -44,6 +44,15 @@ class OrderProvider {
             })
     }
 
+    fetchOrderGroupByUser(date) {
+        return graphqlClient.query(
+            {
+                query: require('./gql/orderGroupByUser.graphql'),
+                variables: {date: date},
+                fetchPolicy: "network-only"
+            })
+    }
+
     paginateOrders(pageNumber, itemsPerPage, search = null, orderBy = null, orderDesc = false) {
         return graphqlClient.query({
             query: require('./gql/orderPaginate.graphql'),

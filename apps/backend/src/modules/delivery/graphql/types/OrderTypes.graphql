@@ -1,9 +1,16 @@
 enum OrderStateEnum{
+    PENDING_RECEIPT,
     NEW,
     PREPARING,
     READY,
     ON_THE_WAY,
     DELIVERED
+}
+
+enum OrderPaymentMethodEnum{
+    CASH,
+    BANK_TRANSFER,
+    MP_TRANSFER,
 }
 
 type OrderContact{
@@ -37,6 +44,13 @@ type OrderLocation{
     postalCode: String
 }
 
+type OrderPayment{
+    method: OrderPaymentMethodEnum
+    transactionId: String
+    receiptFile: String
+    confirmed: Boolean
+}
+
 
 type Order{
     id: ID!
@@ -44,6 +58,7 @@ type Order{
     location: OrderLocation
     delivery: OrderDelivery!
     items: [OrderItems]
+    payment: OrderPayment
     state: OrderStateEnum
     identifier: String
     number: Int
@@ -77,6 +92,7 @@ input OrderInput{
     contact: OrderContactInput!
     location: OrderLocationInput
     delivery: OrderDeliveryInput!
+    payment: OrderPaymentInput
     items: [OrderItemsInput!]
 }
 
@@ -111,6 +127,14 @@ input OrderLocationInput{
     postalCode: String
 
 }
+
+input OrderPaymentInput{
+    method: OrderPaymentMethodEnum
+    transactionId: String
+    receiptFile: String
+    confirmed: Boolean
+}
+
 
 type OrderDelete{
     id: ID!

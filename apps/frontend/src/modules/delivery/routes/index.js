@@ -9,6 +9,7 @@ import IngredientManagementPage from '../pages/IngredientManagementPage'
 import ProductCategoryManagementPage from '../pages/ProductCategoryManagementPage'
 
 import ProductCustomManagementPage from '../pages/ProductCustomManagementPage'
+import OrderCashRegisterPage from '../pages/OrderCashRegisterPage'
 
 const routes = [
    // {name: 'root', path: '/', redirect: OrderPage},
@@ -22,6 +23,7 @@ const routes = [
     {name: 'OrderViewPage', path: '/order/:identifier', component: OrderViewPage},
     {name: 'OrderResetPage', path: '/order-reset', component: OrderResetPage},
     {name: 'OrderManagerPage', path: '/order-manager', component: OrderManagerPage},
+    {name: 'OrderCashRegisterPage', path: '/order-cash-register', component: OrderCashRegisterPage},
 ]
 
 export default routes;

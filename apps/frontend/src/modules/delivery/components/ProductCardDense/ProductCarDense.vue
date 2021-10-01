@@ -11,9 +11,9 @@
       </div>
 
       <div class="title text-left flex-grow-1 pl-3">
-          <v-clamp autoresize :max-lines="1">
+        <v-clamp autoresize :max-lines="1">
           {{ product.name.charAt(0).toUpperCase() + product.name.toLowerCase().substring(1) }}
-          </v-clamp>
+        </v-clamp>
       </div>
 
       <div>
@@ -23,10 +23,18 @@
               :items="getQuantityItems"
               solo single-line
               hide-details
-              class="centered-input"
+              class="centered-input text-center"
               v-model="localQuantity"
-              :style="{width: '75px'}"
-          ></v-select>
+              :style="{width: '50px'}"
+              :append-icon="null"
+          >
+
+            <template v-slot:selection="{ item }">
+              <span class="d-flex justify-center" style="width: 100%;">
+                {{ item }}
+              </span>
+            </template>
+          </v-select>
         </v-card-actions>
       </div>
     </div>
@@ -46,16 +54,16 @@ export default {
     quantity: Number,
     editQuantity: {type: Boolean, default: false},
   },
-  computed:{
-    getQuantityItems(){
-      return Array.from({length:36},(v,k)=>k+1)
+  computed: {
+    getQuantityItems() {
+      return [0, ...Array.from({length: 36}, (v, k) => k + 1)]
     },
-    localQuantity:{
-      get(){
+    localQuantity: {
+      get() {
         return this.quantity
       },
-      set(val){
-        this.$store.commit('changeOrderItemQuantity',{product: this.product,quantity: val})
+      set(val) {
+        this.$store.commit('changeOrderItemQuantity', {product: this.product, quantity: val})
       }
     }
   },
@@ -64,7 +72,7 @@ export default {
       elevation: 2
     }
   },
-  methods:{
+  methods: {
     addProduct(product) {
       this.$store.commit('addOrderItem', product)
     },
@@ -76,7 +84,5 @@ export default {
 </script>
 
 <style scoped>
-.centered-input >>> input {
-  text-align: center
-}
+
 </style>

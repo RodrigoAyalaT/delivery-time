@@ -3,8 +3,16 @@ type OrderGroupByState{
     count: Int
 }
 
+type OrderGroupByUser{
+    deliveryUser: String
+    count: Int
+    amount: Float
+}
+
+
 type Query {
     orderGroupByState(date: String): [OrderGroupByState]
+    orderGroupByUser(date: String): [OrderGroupByUser]
     orderFetchByState(state:String!, date: String): [Order]
 }
 

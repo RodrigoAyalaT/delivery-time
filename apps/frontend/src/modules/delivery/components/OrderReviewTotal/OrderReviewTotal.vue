@@ -1,6 +1,6 @@
 <template>
   <v-row no-gutters >
-    <v-col cols="12">
+    <v-col cols="12" v-if="enableTotalQuantity">
       <card-total
           icon="shop"
           :title="$t('delivery.cart.quantity')"
@@ -26,8 +26,11 @@
 import CardTotal from "@/modules/delivery/components/CardTotal/CardTotal";
 
 export default {
-  name: "OrderConfirmationTotal",
-  components: {CardTotal}
+  name: "OrderReviewTotal",
+  components: {CardTotal},
+  props: {
+    enableTotalQuantity: {type: Boolean, default: false}
+  }
 }
 </script>
 

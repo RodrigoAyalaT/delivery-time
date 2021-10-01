@@ -49,6 +49,15 @@
                 editable
                 complete-icon="done"
             >
+              Pago
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+            <v-stepper-step
+                :step="5"
+                editable
+                complete-icon="price_check"
+            >
               Confirmar
             </v-stepper-step>
 
@@ -86,11 +95,16 @@
           </v-stepper-content>
 
           <v-stepper-content :step="4" class="grey lighten-4 px-0">
+            <order-payment @next="nextStep"></order-payment>
+          </v-stepper-content>
 
-            <order-confirmation
-                @editContact="step=3"
+          <v-stepper-content :step="5" class="grey lighten-4 px-0">
+            <order-review
                 @editLocation="step=1"
                 @editProducts="step=2"
+                @editContact="step=3"
+                @editPayment="step=4"
+                @confirm="step=5"
             />
           </v-stepper-content>
 
@@ -135,13 +149,16 @@ import CartButton from "@/modules/delivery/components/CartButton/CartButton";
 import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
 import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 import ContactForm from "@/modules/delivery/components/ContactForm/ContactForm";
-import OrderConfirmation from "@/modules/delivery/components/OrderConfirmation/OrderConfirmation";
 import ProductGallery from "@/modules/delivery/components/ProductGallery/ProductGallery";
+import OrderReview from "@/modules/delivery/components/OrderReview/OrderReview";
+import OrderPayment from "@/modules/delivery/components/OrderPayment/OrderPayment";
 
 export default {
   name: "OrderPage",
   components: {
-    ProductGallery, OrderConfirmation, ContactForm, OrderMode, CartDetail, CartButton},
+    OrderPayment,
+    OrderReview,
+    ProductGallery, ContactForm, OrderMode, CartDetail, CartButton},
   data() {
     return {
       showOrder: false,
@@ -174,6 +191,7 @@ export default {
     this.$store.commit('setExtensionMenu', [])
   },
   mounted() {
+    this.$store.dispatch('fetchCategories')
     this.checkOrderIdentifierAndRedirect()
   },
   computed: {

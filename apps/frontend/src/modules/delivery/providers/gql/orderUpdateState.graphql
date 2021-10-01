@@ -37,6 +37,12 @@ mutation orderUpdateState($id: ID!, $state: OrderStateEnum! ){
             locality
             postalCode
         }
+        payment{
+            method
+            transactionId
+            receiptFile
+            confirmed
+        }
         deliveryUser{
             id
             username

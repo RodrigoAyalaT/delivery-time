@@ -17,6 +17,12 @@
         <show-order-state :state="order.state"/>
       </v-col>
 
+      <v-col v-if="$store.getters.getOrderPayment.method != 'CASH'" cols="12" sm="10" md="8">
+        <v-card>
+          <order-payment-receipt-file></order-payment-receipt-file>
+        </v-card>
+      </v-col>
+
 
       <v-col cols="12" sm="10" md="8">
 
@@ -66,10 +72,12 @@ import ShowOrderItems from "@/modules/delivery/components/ShowOrderItems/ShowOrd
 import OrderProvider from "@/modules/delivery/providers/OrderProvider";
 import {Loading} from "@dracul/common-frontend"
 import ShowOrderState from "@/modules/delivery/components/ShowOrderState/ShowOrderState";
+import OrderPaymentReceiptFile from "@/modules/delivery/components/OrderPaymentReceiptFile/OrderPaymentReceiptFile";
 
 export default {
   name: "ShowOrder",
   components: {
+    OrderPaymentReceiptFile,
     ShowOrderState,
     Loading,
     ShowOrderItems,

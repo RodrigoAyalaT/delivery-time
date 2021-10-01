@@ -21,6 +21,8 @@
       :outlined="outlined"
       :clearable="clearable"
       :hide-details="hideDetails"
+      :persistent-hint="!!hint"
+      :hint="hint"
       hide-no-data
       @click:clear="clearFields"
   >
@@ -44,6 +46,7 @@ export default {
     solo: {type: Boolean, default: false},
     outlined: {type: Boolean, default: false},
     hideDetails: {type: Boolean, default: false},
+    hint:  {type: String},
   },
   data() {
     return {

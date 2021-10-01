@@ -50,7 +50,7 @@
       </v-row>
     </v-col>
 
-    <v-col v-if="time" cols="12">
+    <v-col v-if="!dense && time" cols="12">
       <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>
     </v-col>
 

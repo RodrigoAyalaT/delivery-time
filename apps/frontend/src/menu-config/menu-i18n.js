@@ -10,7 +10,10 @@ const messages = {
             ingredients: "Ingredients",
             orders: "Orders",
             settings: "Settings",
-            orderBar: "Order bar"
+            orderBar: "Order bar",
+            orderCashRegister: "orderCashRegister",
+           restartOrder: "restartOrder",
+            paymentMethods: 'paymentMethods'
         }
     },
     es: {
@@ -23,7 +26,10 @@ const messages = {
             ingredients: "Ingredientes",
             orders: "Pedidos",
             settings: "Ajustes",
-            orderBar: "Mostrador"
+            orderBar: "Mostrador",
+            orderCashRegister: "Arqueo de caja",
+            restartOrder: "Reiniciar Orden",
+            paymentMethods: 'Métodos de pago'
         }
     },
     pt: {
@@ -36,7 +42,10 @@ const messages = {
             ingredients: "Ingredientes",
             orders: "Pedidos",
             settings: "Definições",
-            orderBar: "Mostrador"
+            orderBar: "Mostrador",
+            orderCashRegister: "orderCashRegister",
+            restartOrder: "restartOrder",
+            paymentMethods: 'paymentMethods'
         }
     }
 }

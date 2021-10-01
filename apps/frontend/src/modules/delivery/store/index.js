@@ -8,7 +8,7 @@ const DELIVERY = 'DELIVERY'
 export default {
     state: {
         categories: [],
-        orderStates: ['NEW', 'PREPARING', 'READY', 'ON_THE_WAY', 'DELIVERED'],
+        orderStates: ['PENDING_RECEIPT', 'NEW', 'PREPARING', 'READY', 'ON_THE_WAY', 'DELIVERED'],
         orderError: null,
         orderLoading: false,
         orderHistory: [], //List of identifiers
@@ -32,10 +32,10 @@ export default {
                 time: null,
             },
             contact: {
-                name: null,
-                phone: null,
-                email: null,
-                observations: null
+                name: '',
+                phone: '',
+                email: '',
+                observations: ''
             },
             location: {
                 address: '',
@@ -47,6 +47,12 @@ export default {
                 province: '',
                 locality: '',
                 postalCode: ''
+            },
+            payment: {
+                method: 'CASH',
+                receiptFile: null,
+                transactionId: null,
+                confirmed: false
             },
             items: []
         },
@@ -100,7 +106,9 @@ export default {
         getDeliveryTime(state) {
             return state.order.delivery.time
         },
-
+        getOrderPayment(state) {
+            return state.order.payment
+        },
         getQuantity: (state) => (product) => {
             if (product) {
                 let item = state.order.items.find(p => p.product.id === product.id)
@@ -140,6 +148,7 @@ export default {
                 delivery: state.order.delivery,
                 contact: state.order.contact,
                 location: state.order.location,
+                payment: state.order.payment,
                 items: state.order.items.map(item => ({
                     product: item.product.id,
                     quantity: item.quantity,
@@ -158,6 +167,15 @@ export default {
                 !getters.getOrderDelivery.mode ||
                 !getters.getOrderDelivery.timeMode ||
                 !getters.getOrderDelivery.time
+            ) {
+                return false
+            }
+
+            //NO CONTACT DATA
+            if (
+                !getters.getOrderContact.name ||
+                !getters.getOrderContact.phone ||
+                !getters.getOrderContact.email
             ) {
                 return false
             }
@@ -182,6 +200,20 @@ export default {
 
             if (getters.isDelivery && !getters.getOrderLocation.address) {
                 messages.push('delivery.empty.location')
+            }
+
+            if (
+                !getters.getOrderContact.name ||
+                !getters.getOrderContact.phone ||
+                !getters.getOrderContact.email
+            ) {
+                messages.push('delivery.empty.contact')
+            }
+
+            if (
+                !getters.getOrderPayment.method
+            ) {
+                messages.push('delivery.empty.paymentMethod')
             }
 
             return messages
@@ -220,6 +252,10 @@ export default {
             commit('clearOrderItems')
             commit('clearOrderDelivery')
             commit('clearOrderLocation')
+            commit('clearOrderPayment')
+        },
+        resetOrderContact({commit}) {
+            commit('clearOrderContact')
         },
         clearOrderItems({commit}) {
             commit('clearOrderItems')
@@ -247,7 +283,27 @@ export default {
             state.order.delivery.timeMode = null
             state.order.delivery.mode = val
         },
-
+        setOrderPayment(state, val) {
+            state.order.payment = val
+        },
+        setOrderPaymentMethod(state, val) {
+            state.order.payment.method = val
+        },
+        setOrderPaymentReceiptFile(state, val) {
+            state.order.payment.receiptFile = val
+        },
+        setOrderPaymentTransactionId(state, val) {
+            state.order.payment.transactionId = val
+        },
+        setOrderPaymentConfirmed(state, val) {
+            state.order.payment.confirmed = val
+        },
+        clearOrderPayment(state){
+            state.order.payment.method = 'CASH'
+            state.order.payment.receiptFile = null
+            state.order.payment.transactionId = null
+            state.order.payment.confirmed = false
+        },
         clearOrderDelivery(state) {
             state.order.delivery.time = null
             state.order.delivery.timeMode = null
@@ -311,19 +367,35 @@ export default {
         },
         clearOrderContact(state) {
             state.order.contact = {
-                name: null,
-                phone: null,
-                email: null,
-                observations: null
+                name: '',
+                phone: '',
+                email: '',
+                observations: ''
             }
         },
         setOrderItems(state, val) {
             state.order.items = val
         },
         changeOrderItemQuantity(state, {product, quantity}) {
+
+            if (quantity === 0) {
+                let index = state.order.items.findIndex(p => p.product.id === product.id)
+                state.order.items.splice(index, 1)
+                return
+            }
+
             let item = state.order.items.find(p => p.product.id === product.id)
-            item.quantity = quantity
-            item.amount = item.quantity ? product.price * item.quantity : 0
+            if(item){
+                item.quantity = quantity
+                item.amount = item.quantity ? product.price * item.quantity : 0
+            }else{
+                state.order.items.push({
+                    product: product,
+                    quantity: quantity,
+                    amount: quantity * product.price
+                })
+            }
+
         },
         addOrderItem(state, product) {
             let item = state.order.items.find(p => p.product.id === product.id)

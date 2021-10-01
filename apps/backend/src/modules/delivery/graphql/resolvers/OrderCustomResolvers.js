@@ -1,5 +1,5 @@
 import {
-    orderGroupByState, fetchOrdersByState, updateOrderDeliveryUser, updateOrderState
+    orderGroupByState, fetchOrdersByState, updateOrderDeliveryUser, updateOrderState, orderGroupByUser
 } from '../../services/OrderCustomService'
 
 import {AuthenticationError, ForbiddenError} from "apollo-server-express";
@@ -16,6 +16,11 @@ export default {
             if (!user) throw new AuthenticationError("Unauthenticated")
             if (!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
             return orderGroupByState(date)
+        },
+        orderGroupByUser: (_, {date}, {user, rbac}) => {
+            if (!user) throw new AuthenticationError("Unauthenticated")
+            if (!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
+            return orderGroupByUser(date)
         },
         orderFetchByState: (_, {state, date}, {user, rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")

@@ -1,5 +1,5 @@
 <template>
-  <v-card   class="grey--text text--darken-2">
+  <v-card class="grey--text text--darken-2">
     <v-card-title>Estado</v-card-title>
     <v-card-text class="text-center">
       <h4 class="text-h4 primary--text">

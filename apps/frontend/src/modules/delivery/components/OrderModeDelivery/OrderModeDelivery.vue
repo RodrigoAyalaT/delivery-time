@@ -19,6 +19,7 @@
               :floor-sm-col="6"
               :map-sm-col="12"
               @clear="clear"
+              address-hint="Calle + altura +  localidad. Ej: 	Arcos 3182 caba"
           ></location-form>
         </v-col>
 
@@ -135,7 +136,7 @@
     </v-col>
     -->
 
-    <v-col v-if="time && location && location.address && showLocation && inZone" cols="12">
+    <v-col v-if="!dense && time && location && location.address && showLocation && inZone" cols="12">
 
       <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>
     </v-col>

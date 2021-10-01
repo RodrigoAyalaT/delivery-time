@@ -1,21 +1,59 @@
 <template>
   <card-edit v-if="$store.getters.isSettingsReady" @edit="$emit('edit')">
     <v-card-title>
-      {{ $t('delivery.mode.' + $store.state.delivery.order.delivery.mode) }}
+      {{ $t('delivery.mode.deliveryMode') }}
     </v-card-title>
 
     <v-row dense>
+
+
       <template v-if="$store.state.delivery.order.delivery.mode === 'TAKE_AWAY'">
-        <v-col cols="12">
+
+        <v-col cols="12" md="4">
+          <show-field
+              :value="$t('delivery.mode.method.'+$store.state.delivery.order.delivery.mode)"
+              :label="$t('delivery.mode.deliveryMode')"
+              icon="room_service"
+          />
+        </v-col>
+
+        <v-col cols="12" md="4">
           <show-field
               :value="$store.state.delivery.order.location.address"
               :label="$t('maps.location.labels.address')"
               icon="location_on"
           />
         </v-col>
+
+        <v-col cols="12" md="4">
+          <show-field
+              :value="getTime"
+              :label="$t('delivery.schedule')"
+              icon="alarm"
+          />
+        </v-col>
+
       </template>
 
       <template v-if="$store.state.delivery.order.delivery.mode === 'DELIVERY'">
+
+        <v-col cols="12" md="4">
+          <show-field
+              :value="$t('delivery.mode.method.'+$store.state.delivery.order.delivery.mode)"
+              :label="$t('delivery.mode.deliveryMode')"
+              icon="delivery_dining"
+          />
+        </v-col>
+
+        <v-col cols="12" md="4">
+          <show-field
+              :value="getTime"
+              :label="$t('delivery.schedule')"
+              icon="alarm"
+          />
+        </v-col>
+
+
         <v-col cols="12" md="7">
           <show-field
               :value="$store.state.delivery.order.location.address"
@@ -44,15 +82,11 @@
           </v-row>
         </v-col>
 
+
+
       </template>
 
-      <v-col cols="12">
-        <show-field
-            :value="getTime"
-            :label="$t('delivery.schedule')"
-            icon="alarm"
-        />
-      </v-col>
+
     </v-row>
 
     <v-divider></v-divider>
@@ -65,7 +99,7 @@ import CardEdit from "@/modules/delivery/components/CardEdit/CardEdit";
 import {Dayjs} from "@dracul/dayjs-frontend"
 
 export default {
-  name: "OrderConfirmationLocation",
+  name: "OrderReviewLocation",
   components: {CardEdit, ShowField},
   computed: {
     getDeliveryIntervalTime() {

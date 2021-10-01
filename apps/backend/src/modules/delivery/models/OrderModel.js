@@ -45,12 +45,26 @@ const OrderSchema = new Schema({
     zoneName: {type: String, required: false, unique: false},
     state: {
         type: String, enum: [
+            'PENDING_RECEIPT',
             'NEW',
             'PREPARING',
             'READY',
             'ON_THE_WAY',
             'DELIVERED',
         ], required: true
+    },
+    payment: {
+        method: {
+            type: String,
+            enum: [
+                'CASH',
+                'BANK_TRANSFER',
+                'MP_TRANSFER',
+            ], required: false
+        },
+        receiptFile: {type: String, required: false, unique: false},
+        transactionId: {type: String, required: false, unique: false},
+        confirmed: {type: Boolean, required: false, unique: false, default: false},
     },
     identifier: {type: String, required: false, unique: false},
     number: {type: Number, required: false, unique: false},

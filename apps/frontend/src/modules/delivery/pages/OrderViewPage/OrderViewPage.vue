@@ -10,6 +10,9 @@ import ShowOrder from "@/modules/delivery/components/ShowOrder/ShowOrder";
 export default {
   name: "CurrentOrderPage",
   components: {ShowOrder},
+  mounted() {
+    this.$store.dispatch('fetchCategories')
+  },
   computed: {
     getOrderIdentifier() {
       return this.$route.params.identifier
