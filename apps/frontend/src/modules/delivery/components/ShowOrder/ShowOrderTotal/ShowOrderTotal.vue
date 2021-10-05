@@ -1,12 +1,12 @@
 <template>
   <v-row no-gutters >
-    <v-col cols="12" class="mb-3">
+    <!--<v-col cols="12" class="mb-3">
       <card-total
           icon="shop"
           :title="$t('delivery.cart.quantity')"
           :quantity="quantity"
       ></card-total>
-    </v-col>
+    </v-col>-->
 
     <v-col cols="12" class="mb-3">
       <card-total
