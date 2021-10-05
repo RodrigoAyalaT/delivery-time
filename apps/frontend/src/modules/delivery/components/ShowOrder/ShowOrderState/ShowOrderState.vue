@@ -19,7 +19,7 @@
       </v-col>
       <v-col cols="12">
         <v-card-text class="text-center pb-0  align-self-center">
-          <p>{{ $t('delivery.statesDescription.' + state) }}</p>
+          <v-alert dense text :icon="false" type="info">{{ $t('delivery.statesDescription.' + state) }}</v-alert>
         </v-card-text>
       </v-col>
     </v-row>

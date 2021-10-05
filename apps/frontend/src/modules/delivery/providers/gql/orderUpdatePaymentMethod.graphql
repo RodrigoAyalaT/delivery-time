@@ -15,6 +15,7 @@ mutation orderUpdatePaymentMethod($orderId: ID!, $paymentMethod: String! ){
             mode
             timeMode
             time
+            cost
         }
         items{
             product{

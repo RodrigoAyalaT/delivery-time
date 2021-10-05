@@ -32,6 +32,7 @@ export default {
                 mode: null, //TAKE_AWAY|DELIVERY
                 timeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED
                 time: null,
+                cost: 0
             },
             contact: {
                 name: '',
@@ -117,6 +118,9 @@ export default {
         getDeliveryTime(state) {
             return state.order.delivery.time
         },
+        getDeliveryCost(state) {
+            return state.order.delivery.cost
+        },
         getOrderPayment(state) {
             return state.order.payment
         },
@@ -146,13 +150,19 @@ export default {
             }
 
         },
-        getAmountTotal(state) {
+        getAmountProducts(state) {
             if (state.order.items && state.order.items.length) {
                 return state.order.items.reduce((a, v) => a + v.amount, 0)
             } else {
                 return 0
             }
-
+        },
+        getAmountTotal(state) {
+            if (state.order.items && state.order.items.length) {
+                return state.order.items.reduce((a, v) => a + v.amount, 0) + state.order.delivery.cost
+            } else {
+                return 0
+            }
         },
         getOrderForm(state) {
             let order = {
@@ -363,6 +373,7 @@ export default {
         setOrderDeliveryMode(state, val) {
             state.order.delivery.time = null
             state.order.delivery.timeMode = null
+            state.order.delivery.cost = 0
             state.order.delivery.mode = val
         },
         setOrderId(state, id) {
@@ -402,6 +413,7 @@ export default {
             state.order.delivery.time = null
             state.order.delivery.timeMode = null
             state.order.delivery.mode = null
+            state.order.delivery.cost = 0
         },
 
         setOrderDeliveryTimeMode(state, val) {
@@ -412,6 +424,9 @@ export default {
         },
         setOrderContact(state, val) {
             state.order.contact = val
+        },
+        setOrderDeliveryCost(state, val) {
+            state.order.delivery.cost = val
         },
         setOrderLocation(state, location) {
             state.order.location = location

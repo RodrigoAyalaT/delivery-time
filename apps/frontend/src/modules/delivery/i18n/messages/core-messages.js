@@ -17,10 +17,7 @@ const messages = {
             emptyOrder: 'Your order is empty',
             schedule: 'Schedule', //Horario
             noPendingOrders: '',
-            cart: {
-                total: 'Total',
-                quantity: 'Items quantity'
-            },
+
             scheduleTime: {
                 noOptions: 'No schedules available'
             },
@@ -45,10 +42,7 @@ const messages = {
             orderView: 'Orden #{identifier}',
             emptyOrder: 'Su pedido esta vacío',
             schedule: 'Horario', //Horario
-            cart: {
-                total: 'Total',
-                quantity: 'Cantidad total'
-            },
+
             scheduleTime: {
                 noOptions: 'Sin horarios disponibles'
             },
@@ -74,10 +68,7 @@ const messages = {
             emptyOrder: 'seu pedido está vazio',
             schedule: 'Cronograma', //Horario
 
-            cart: {
-                total: 'Monto total',
-                quantity: 'Cantidad de items'
-            },
+
             scheduleTime: {
                 noOptions: 'Sem horários disponíveis'
             },

@@ -7,6 +7,7 @@ import ingredientMessages from './ingredient-messages'
 import categoryMessages from './category-messages'
 import orderMessages from './order-messages'
 import paymentMessages from './payment-messages'
+import cartMessages from './cart-messages'
 import merge from 'deepmerge'
 
 const messages = merge.all([
@@ -18,7 +19,8 @@ const messages = merge.all([
     ingredientMessages,
     categoryMessages,
     orderMessages,
-    paymentMessages
+    paymentMessages,
+    cartMessages
 ])
 
 export default messages

@@ -19,6 +19,7 @@ const OrderSchema = new Schema({
         mode: {type: String, required: true, unique: false}, //TAKE_AWAY|DELIVERY
         timeMode: {type: String, required: true, unique: false}, //AS_SON_AS_POSIBLE|SCHEDULED
         time: {type: String, required: true, unique: false},
+        cost: {type: Number, unique: false, default: 0},
     },
     items: [
         {

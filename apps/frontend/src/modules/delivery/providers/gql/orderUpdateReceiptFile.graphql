@@ -15,6 +15,7 @@ mutation orderUpdateReceiptFile($orderId: ID!, $receiptFile: String! ){
             mode
             timeMode
             time
+            cost
         }
         items{
             product{

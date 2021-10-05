@@ -15,6 +15,7 @@ mutation orderUpdateDeliveryUser($orderId: ID!, $userId: ID! ){
             mode
             timeMode
             time
+            cost
         }
         items{
             product{

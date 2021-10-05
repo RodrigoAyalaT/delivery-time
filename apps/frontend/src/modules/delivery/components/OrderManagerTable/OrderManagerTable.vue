@@ -13,6 +13,7 @@
     <tbody>
     <tr v-for="order in orders" :key="order.identifier">
       <td>
+
         <order-menu :order="order"
                     :items="order.items"
                     @showOrder="$emit('showOrder', order)"
