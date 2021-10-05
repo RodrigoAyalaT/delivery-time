@@ -44,7 +44,10 @@
 
       <template v-else>
         <v-row :dense="dense" v-for="category in getCategories" :key="category.id">
-
+          <div v-if="$vuetify.breakpoint.smAndUp"
+              :style="{position: 'absolute', top: '10px', right: '10px'}">
+            <gallery-view-buttons></gallery-view-buttons>
+          </div>
           <v-col cols="12" :class="{'my-2': !dense }">
             <section :id="category.name">
               <h6 v-if="dense" class="text-h6 grey--text text--darken-3">{{ category.name }}</h6>
@@ -54,7 +57,7 @@
           </v-col>
           <v-col v-for="product in getProductsByCategory(category)"
                  :key="product.id"
-                 cols="12" sm="6" md="6" lg="6"
+                 cols="12" :sm="$store.getters.getGalleryView"
           >
             <product-card-dense
                 v-if="dense"
@@ -87,10 +90,11 @@ import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
 import {Loading} from "@dracul/common-frontend"
 import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
 import ProductCardDense from "@/modules/delivery/components/ProductCardDense/ProductCarDense";
+import GalleryViewButtons from "@/modules/delivery/components/GalleryViewButtons/GalleryViewButtons";
 
 export default {
   name: "ProductGallery",
-  components: {ProductCardDense, ProductCard, CartDetail, ProductFilters,Loading},
+  components: {GalleryViewButtons, ProductCardDense, ProductCard, CartDetail, ProductFilters,Loading},
   props: {
     dense: {type: Boolean, default: false}
   },

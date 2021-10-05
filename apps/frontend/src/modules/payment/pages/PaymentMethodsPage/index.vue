@@ -14,9 +14,7 @@ import PaymentMethodsForm from "@/modules/payment/pages/PaymentMethodsPage/Payme
 export default {
   name: "Method",
   components: {PaymentMethodsForm},
-  methods: {
 
-  }
 }
 </script>
 

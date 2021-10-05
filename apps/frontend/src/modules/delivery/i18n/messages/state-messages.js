@@ -9,6 +9,14 @@ const messages = {
                 DELIVERED: 'Delivered',
                 PENDING_RECEIPT: 'Pending receipt'
             },
+            statesDescription: {
+                NEW: '',
+                PREPARING: '',
+                READY: '',
+                ON_THE_WAY: '',
+                DELIVERED: '',
+                PENDING_RECEIPT: ''
+            },
         }
     },
     es: {
@@ -21,6 +29,14 @@ const messages = {
                 DELIVERED: 'Entregado',
                 PENDING_RECEIPT: 'Pendiente comprobante'
             },
+            statesDescription: {
+                NEW: 'Su orden ha sido registrada y pronto se estará preparando',
+                PREPARING: 'Su orden se esta preparando',
+                READY: 'Su orden esta lista',
+                ON_THE_WAY: 'Su orden esta en camino',
+                DELIVERED: 'Su orden ha sido entregada',
+                PENDING_RECEIPT: 'Su orden requiere adjuntar comprobante'
+            },
         }
     },
     pt: {
@@ -32,6 +48,14 @@ const messages = {
                 ON_THE_WAY: 'En camino',
                 DELIVERED: 'Entregado',
                 PENDING_RECEIPT: 'Pending receipt'
+            },
+            statesDescription: {
+                NEW: '',
+                PREPARING: '',
+                READY: '',
+                ON_THE_WAY: '',
+                DELIVERED: '',
+                PENDING_RECEIPT: ''
             },
         }
     }

@@ -18,6 +18,10 @@
          align="center"
   >
 
+    <v-col cols="12"  class="text-left">
+      <h3>¿Como quisieras recibir tu pedido?</h3>
+    </v-col>
+
     <v-col cols="6">
       <card-button
           :selected="isTakeAway"

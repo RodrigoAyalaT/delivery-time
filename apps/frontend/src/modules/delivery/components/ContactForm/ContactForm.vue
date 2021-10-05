@@ -2,8 +2,8 @@
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-row>
 
-      <v-col v-if="!dense" cols="12">
-        <h5 class="text-h5">Datos de contacto</h5>
+      <v-col v-if="!dense" cols="12" class="text-left">
+        <h3 class="">¿Como te contactamos?</h3>
       </v-col>
 
       <v-col cols="12">

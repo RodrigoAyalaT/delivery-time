@@ -47,6 +47,7 @@ export default new Vuex.Store({
                         language: state.customization.language
                     },
                     delivery: {
+                        galleryView: state.delivery.galleryView,
                         order: state.delivery.order,
                         currentOrderIdentifier: state.delivery.currentOrderIdentifier,
                         orderHistory: state.delivery.orderHistory,

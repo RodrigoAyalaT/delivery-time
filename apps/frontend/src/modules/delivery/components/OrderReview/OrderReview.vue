@@ -64,11 +64,11 @@
 
 <script>
 
-import OrderReviewContact from "@/modules/delivery/components/OrderReviewContact";
-import OrderReviewLocation from "@/modules/delivery/components/OrderReviewLocation";
-import OrderReviewItems from "@/modules/delivery/components/OrderReviewItems";
-import OrderReviewTotal from "@/modules/delivery/components/OrderReviewTotal";
-import OrderReviewPayment from "@/modules/delivery/components/OrderReviewPayment";
+import OrderReviewContact from "@/modules/delivery/components/OrderReview/OrderReviewContact";
+import OrderReviewLocation from "@/modules/delivery/components/OrderReview/OrderReviewLocation";
+import OrderReviewItems from "@/modules/delivery/components/OrderReview/OrderReviewItems";
+import OrderReviewTotal from "@/modules/delivery/components/OrderReview/OrderReviewTotal";
+import OrderReviewPayment from "@/modules/delivery/components/OrderReview/OrderReviewPayment";
 import OrderConfirmation from "@/modules/delivery/components/OrderConfirmation/OrderConfirmation";
 
 export default {

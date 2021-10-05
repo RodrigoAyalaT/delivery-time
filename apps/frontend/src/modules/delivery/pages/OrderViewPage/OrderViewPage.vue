@@ -1,7 +1,6 @@
 <template>
   <v-container v-if="getOrderIdentifier" fluid class="grey lighten-4">
     <show-order :identifier="getOrderIdentifier"></show-order>
-
   </v-container>
 </template>
 

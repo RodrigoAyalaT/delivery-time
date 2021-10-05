@@ -3,6 +3,7 @@ mutation orderUpdateDeliveryUser($orderId: ID!, $userId: ID! ){
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{

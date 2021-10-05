@@ -24,7 +24,7 @@ const messages = {
                     TAKE_AWAY: 'Retiro en local',
                     DELIVERY: 'Delivery',
                 },
-                deliveryMode: 'Modo de entrega',
+                deliveryMode: 'Entrega',
                 mode: 'Modo',
                 takeAway: 'Retiro en local',
                 delivery: 'Delivery',

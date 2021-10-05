@@ -1,50 +1,78 @@
 <template>
-  <v-card class="grey--text text--darken-2">
-    <template v-if="getComprobante">
-      <v-card-title>Comprobante de transferencia</v-card-title>
-      <v-card-text class="text-center">
-        <object v-if="isPdf"
-                :data="getComprobante"
-                type="application/pdf" width="300"
-                height="200"
-        >
-          <a :href="getComprobante">comprobante.pdf</a>
-        </object>
-        <v-img v-else max-width="300" max-height="200" contain :src="getComprobante"/>
-      </v-card-text>
+  <v-card height="100%">
+    <v-card-title class="py-2">Pago</v-card-title>
+    <v-row>
 
-    </template>
+      <v-col cols="12">
+        <payment-data
+            :payment-method="$store.getters.getOrderPayment.method"
+            :amount="$store.getters.getAmountTotal"
+        ></payment-data>
+      </v-col>
 
-    <template v-else>
-      <v-card-title>Adjuntar comprobante de transferencia</v-card-title>
-      <v-card-text class="text-center">
-      <file-upload-express @fileUploaded="onFileUploaded" ></file-upload-express>
-      <span class="subtitle-1">Adjuntar comprobante</span>
-      </v-card-text>
-      <v-card-text>
-       <!-- Prefiero pagar en efectivo <v-btn>Cambiar a metodo de pago efectivo</v-btn>-->
-      </v-card-text>
-    </template>
+      <v-col cols="12" class="text-center">
+        <upload-receipt auto-submit @fileUploaded="onFileUploaded" />
+      </v-col>
 
+      <v-col cols="12" class="text-right pr-6">
+        <span>Prefiero pagar en </span>
+        <span
+            class="blue--text text--darken-4 text-lowercase"
+            :style="{cursor:'pointer'}"
+            @click="showConfirmDialog()"
+        > efectivo</span>
+      </v-col>
+
+    </v-row>
+
+    <confirm-dialog
+        v-model="confirmDialog"
+        description="¿Esta seguro de cambiar el método de pago a efectivo?"
+        @confirmed="changePaymentMethod"
+    ></confirm-dialog>
   </v-card>
+
+
 </template>
 
 <script>
-import {FileUploadExpress} from "@dracul/media-frontend"
+import {ConfirmDialog} from "@dracul/common-frontend"
+import PaymentData from "@/modules/payment/components/PaymentData/PaymentData";
+import UploadReceipt from "@/modules/payment/components/UploadReceipt/UploadReceipt";
+
 export default {
   name: "OrderPaymentReceiptFile",
-  components: {FileUploadExpress},
-  computed:{
-    getComprobante(){
-       return this.$store.getters.getOrderPayment.receiptFile
+  components: {UploadReceipt, PaymentData, ConfirmDialog},
+  computed: {
+    getComprobante() {
+      return this.$store.getters.getOrderPayment.receiptFile
     },
-    isPdf(){
+    isPdf() {
       return /\.pdf/.test(this.getComprobante)
     }
   },
   methods: {
-    onFileUploaded(val){
-      this.$store.commit('setOrderPaymentReceiptFile',val.url)
+    onFileUploaded(file) {
+      this.$store.dispatch('updateOrderReceiptFile', file.url)
+          .then(order => {
+            this.$emit('orderModified', order)
+          })
+    },
+    showConfirmDialog() {
+      this.confirmDialog = true
+    },
+    changePaymentMethod() {
+      this.$store.dispatch('updateOrderPaymentMethod', this.methodToChange)
+          .then(order => {
+            this.$emit('orderModified', order)
+          })
+    },
+  },
+  data() {
+    return {
+      confirmDialog: false,
+      methodToChange: 'CASH',
+      loading: false
     }
   }
 }

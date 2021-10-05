@@ -1,25 +1,22 @@
 <template>
-  <card-edit v-if="$store.getters.isSettingsReady" @edit="$emit('edit')">
-    <v-card-title>
-      {{ $t('delivery.mode.deliveryMode') }}
+  <v-card :flat="flat">
+    <v-card-title v-if="title" class="py-2">
+      {{ $t(title) }}
     </v-card-title>
 
-    <v-row dense>
-
-
-      <template v-if="$store.state.delivery.order.delivery.mode === 'TAKE_AWAY'">
-
+    <v-row no-gutters>
+      <template v-if="order.delivery.mode === 'TAKE_AWAY'">
         <v-col cols="12" md="4">
           <show-field
-              :value="$t('delivery.mode.method.'+$store.state.delivery.order.delivery.mode)"
+              :value="$t('delivery.mode.method.'+order.delivery.mode)"
               :label="$t('delivery.mode.deliveryMode')"
-              icon="room_service"
+              icon="store"
           />
         </v-col>
 
         <v-col cols="12" md="4">
           <show-field
-              :value="$store.state.delivery.order.location.address"
+              :value="order.location.address"
               :label="$t('maps.location.labels.address')"
               icon="location_on"
           />
@@ -35,11 +32,11 @@
 
       </template>
 
-      <template v-if="$store.state.delivery.order.delivery.mode === 'DELIVERY'">
+      <template v-if="order.delivery.mode === 'DELIVERY'">
 
         <v-col cols="12" md="4">
           <show-field
-              :value="$t('delivery.mode.method.'+$store.state.delivery.order.delivery.mode)"
+              :value="$t('delivery.mode.method.'+order.delivery.mode)"
               :label="$t('delivery.mode.deliveryMode')"
               icon="delivery_dining"
           />
@@ -56,7 +53,7 @@
 
         <v-col cols="12" md="7">
           <show-field
-              :value="$store.state.delivery.order.location.address"
+              :value="order.location.address"
               :label="$t('maps.location.labels.address')"
               icon="location_on"
           />
@@ -66,14 +63,14 @@
           <v-row no-gutters>
             <v-col cols="5">
               <show-field
-                  :value="$store.state.delivery.order.location.floor"
+                  :value="order.location.floor"
                   :label="$t('maps.location.labels.floor')"
                   icon="apartment"
               />
             </v-col>
             <v-col cols="7">
               <show-field
-                  :value="$store.state.delivery.order.location.apartment"
+                  :value="order.location.apartment"
                   :label="$t('maps.location.labels.apartment')"
                   icon="meeting_room"
               />
@@ -83,36 +80,39 @@
         </v-col>
 
 
-
       </template>
 
-
     </v-row>
-
-    <v-divider></v-divider>
-  </card-edit>
+    <v-divider v-if="divider"></v-divider>
+  </v-card>
 </template>
 
 <script>
+import {Dayjs} from "@dracul/dayjs-frontend";
 import {ShowField} from '@dracul/common-frontend'
-import CardEdit from "@/modules/delivery/components/CardEdit/CardEdit";
-import {Dayjs} from "@dracul/dayjs-frontend"
 
 export default {
-  name: "OrderReviewLocation",
-  components: {CardEdit, ShowField},
+  name: "OrderLocation",
+  components: {ShowField},
+  props: {
+    divider: {type:Boolean, default: false},
+    flat: {type:Boolean, default: false},
+    order: {type:Object, required: true},
+    title: {type: String, default: 'delivery.mode.deliveryMode'},
+
+  },
   computed: {
     getDeliveryIntervalTime() {
       return this.$store.getters.getSetting('IntervalDeliveryTime').value
     },
     getTime() {
-      if (this.$store.getters.getDeliveryMode === 'DELIVERY' && this.$store.getters.getDeliveryTime) {
-        let hour = Dayjs(this.$store.getters.getDeliveryTime, "HH:mm")
+      if (this.order.delivery.mode === 'DELIVERY' && this.order.delivery.time) {
+        let hour = Dayjs(this.order.delivery.time, "HH:mm")
         let hourTo = hour.add(this.getDeliveryIntervalTime, 'm')
         let text = hour.format("HH:mm") + " a " + hourTo.format("HH:mm")
         return text
       } else {
-        return this.$store.getters.getDeliveryTime
+        return this.order.delivery.time
       }
 
     },

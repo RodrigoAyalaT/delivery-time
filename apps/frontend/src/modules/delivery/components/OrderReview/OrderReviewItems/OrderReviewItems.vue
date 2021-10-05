@@ -4,7 +4,7 @@
       {{ $t('delivery.product.products') }}
     </v-card-title>
 
-    <v-card-text class="px-1">
+    <v-card-text class="px-1 my-0">
       <order-items :items="$store.state.delivery.order.items"></order-items>
     </v-card-text>
     <v-divider></v-divider>

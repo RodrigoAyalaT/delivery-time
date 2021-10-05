@@ -15,7 +15,7 @@ const messages = {
     es: {
         delivery: {
             payment:{
-                title: 'Método de pago',
+                title: 'Pago',
                 receiptRequired: 'Ten en cuenta que necesitaremos que adjuntes el comprobante de transferencia en formato de imagen o pdf',
                 method: {
                     CASH: "Efectivo",

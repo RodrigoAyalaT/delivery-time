@@ -13,6 +13,7 @@ export default {
         orderLoading: false,
         orderHistory: [], //List of identifiers
         currentOrderIdentifier: null, //Current identifier order (new->delivered)
+        galleryView: 4,
         lastLocation: {
             address: '',
             floor: '',
@@ -26,6 +27,7 @@ export default {
         },
         locationHistory: [],
         order: {
+            id: null,
             delivery: {
                 mode: null, //TAKE_AWAY|DELIVERY
                 timeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED
@@ -58,6 +60,9 @@ export default {
         },
     },
     getters: {
+        getGalleryView(state) {
+            return state.galleryView
+        },
         getCategories(state) {
             return state.categories
         },
@@ -67,8 +72,14 @@ export default {
         isDelivery(state) {
             return state.order.delivery.mode === DELIVERY
         },
+        getOrder(state) {
+            return state.order
+        },
         getCurrentOrderIdentifier(state) {
             return state.currentOrderIdentifier
+        },
+        getOrderId(state) {
+            return state.order.id
         },
         getOrderHistory(state) {
             return state.orderHistory
@@ -233,6 +244,7 @@ export default {
                     .then(r => {
                         console.log("orderCreated", r.data)
                         commit("setCurrentOrderIdentifier", r.data.orderCreate.identifier)
+                        commit("setOrderId", r.data.orderCreate.id)
                         commit("addOrderToHistory", r.data.orderCreate.identifier)
                         commit("clearOrderItems")
                         resolve(r.data.orderCreate.identifier)
@@ -247,6 +259,37 @@ export default {
             })
 
         },
+        findOrderByIdentifier({commit, getters}, identifier) {
+            return new Promise((resolve, reject) => {
+                OrderProvider.findOrderByIdentifier(identifier)
+                    .then(r => {
+                        commit('setOrder', r.data.orderFindByIdentifier)
+                        resolve(getters.getOrder)
+                    })
+                    .catch(e => {
+                        commit("setOrderError", e.message)
+                        reject(e)
+                    })
+            })
+        },
+        refreshOrderStateByIdentifier({commit, getters}, identifier) {
+            return new Promise((resolve, reject) => {
+                OrderProvider.findOrderStateByIdentifier(identifier)
+                    .then(r => {
+                        commit('setOrderState', r.data.orderFindByIdentifier.state)
+                        resolve(getters.getOrder)
+                    })
+                    .catch(e => {
+                        commit("setOrderError", e.message)
+                        reject(e)
+                    })
+            })
+        },
+        resetOrderIfStateIsDelivered({dispatch,getters}){
+            if (getters.getOrder.state === 'DELIVERED') {
+                dispatch('resetOrder')
+            }
+        },
         resetOrder({commit}) {
             commit('setCurrentOrderIdentifier', null)
             commit('clearOrderItems')
@@ -259,9 +302,48 @@ export default {
         },
         clearOrderItems({commit}) {
             commit('clearOrderItems')
+        },
+        updateOrderReceiptFile({commit, getters}, receiptFile) {
+            return new Promise((resolve, reject) => {
+                commit('setOrderPaymentReceiptFile', receiptFile)
+                OrderProvider.updateOrderReceiptFile({
+                    orderId: getters.getOrderId,
+                    receiptFile: receiptFile
+                })
+                    .then(r => {
+                        commit('setOrderState', r.data.orderUpdateReceiptFile.state)
+                        resolve(r.data.orderUpdateReceiptFile)
+                    })
+                    .catch(e => {
+                        commit("setOrderError", e.message)
+                        reject()
+                    })
+            })
+        },
+        updateOrderPaymentMethod({commit, getters}, paymentMethod) {
+            return new Promise((resolve, reject) => {
+
+                OrderProvider.updateOrderPaymentMethod({
+                    orderId: getters.getOrderId,
+                    paymentMethod: paymentMethod
+                })
+                    .then(r => {
+                        commit('setOrderPaymentMethod', r.data.orderUpdatePaymentMethod.payment.method)
+                        commit('setOrderState', r.data.orderUpdatePaymentMethod.state)
+                        resolve(r.data.orderUpdatePaymentMethod)
+                    })
+                    .catch(e => {
+                        commit("setOrderError", e.message)
+                        reject()
+                    })
+            })
         }
+
     },
     mutations: {
+        setGalleryView(state, val) {
+            state.galleryView = val
+        },
         setCategories(state, val) {
             state.categories = val
         },
@@ -283,6 +365,15 @@ export default {
             state.order.delivery.timeMode = null
             state.order.delivery.mode = val
         },
+        setOrderId(state, id) {
+            state.order.id = id
+        },
+        setOrder(state, val) {
+            state.order = val
+        },
+        setOrderState(state, val) {
+            state.order.state = val
+        },
         setOrderPayment(state, val) {
             state.order.payment = val
         },
@@ -292,13 +383,16 @@ export default {
         setOrderPaymentReceiptFile(state, val) {
             state.order.payment.receiptFile = val
         },
+        setOrderPaymentPayment(state, val) {
+            state.order.payment.method = val
+        },
         setOrderPaymentTransactionId(state, val) {
             state.order.payment.transactionId = val
         },
         setOrderPaymentConfirmed(state, val) {
             state.order.payment.confirmed = val
         },
-        clearOrderPayment(state){
+        clearOrderPayment(state) {
             state.order.payment.method = 'CASH'
             state.order.payment.receiptFile = null
             state.order.payment.transactionId = null
@@ -385,10 +479,10 @@ export default {
             }
 
             let item = state.order.items.find(p => p.product.id === product.id)
-            if(item){
+            if (item) {
                 item.quantity = quantity
                 item.amount = item.quantity ? product.price * item.quantity : 0
-            }else{
+            } else {
                 state.order.items.push({
                     product: product,
                     quantity: quantity,

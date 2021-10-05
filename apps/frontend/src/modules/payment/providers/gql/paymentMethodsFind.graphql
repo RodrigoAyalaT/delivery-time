@@ -24,7 +24,7 @@ query paymentMethodsFind{
             enable
             discount
             info
-            cbu
+            cvu
             alias
         }
     }

@@ -19,5 +19,7 @@ type Query {
 
 type Mutation {
     orderUpdateDeliveryUser(orderId: ID!, userId: ID!): Order
+    orderUpdateReceiptFile(orderId: ID!, receiptFile: String!): Order
+    orderUpdatePaymentMethod(orderId: ID!, paymentMethod: String!): Order
 
 }

@@ -1,0 +1,53 @@
+mutation orderUpdatePaymentMethod($orderId: ID!, $paymentMethod: String! ){
+    orderUpdatePaymentMethod(orderId: $orderId, paymentMethod: $paymentMethod){
+        id
+        state
+        identifier
+        number
+        createdAt
+        updatedAt
+        contact{
+            name
+            phone
+            email
+        }
+        delivery{
+            mode
+            timeMode
+            time
+        }
+        items{
+            product{
+                id
+                name
+                description
+                image
+                price
+            }
+            quantity
+            amount
+        }
+        location{
+            address
+            floor
+            apartment
+            latitude
+            longitude
+            country
+            province
+            locality
+            postalCode
+        }
+        payment{
+            method
+            transactionId
+            receiptFile
+            confirmed
+        }
+        deliveryUser{
+            id
+            username
+        }
+    }
+}
+

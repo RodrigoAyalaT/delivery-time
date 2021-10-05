@@ -82,6 +82,16 @@
           <v-stepper-content :step="2" class="pa-0 grey lighten-4">
 
             <product-gallery></product-gallery>
+            <div class="text-right pa-3">
+              <v-btn
+                  v-if="[2].includes(step)"
+                  @click="showOrder=!showOrder"
+                  class="primary onPrimary--text "
+              >
+                <v-icon left>shopping_cart</v-icon>
+                ${{ $store.getters.getAmountTotal }} ({{ $store.getters.getQuantityTotal }})
+              </v-btn>
+            </div>
 
           </v-stepper-content>
 
@@ -95,7 +105,7 @@
           </v-stepper-content>
 
           <v-stepper-content :step="4" class="grey lighten-4 px-0">
-            <order-payment @next="nextStep"></order-payment>
+            <order-payment-form @next="nextStep"></order-payment-form>
           </v-stepper-content>
 
           <v-stepper-content :step="5" class="grey lighten-4 px-0">
@@ -151,14 +161,19 @@ import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 import ContactForm from "@/modules/delivery/components/ContactForm/ContactForm";
 import ProductGallery from "@/modules/delivery/components/ProductGallery/ProductGallery";
 import OrderReview from "@/modules/delivery/components/OrderReview/OrderReview";
-import OrderPayment from "@/modules/delivery/components/OrderPayment/OrderPayment";
+import OrderPaymentForm from "@/modules/delivery/components/OrderPaymentForm";
 
 export default {
   name: "OrderPage",
   components: {
-    OrderPayment,
+    OrderPaymentForm,
     OrderReview,
-    ProductGallery, ContactForm, OrderMode, CartDetail, CartButton},
+    ProductGallery,
+    ContactForm,
+    OrderMode,
+    CartDetail,
+    CartButton
+  },
   data() {
     return {
       showOrder: false,
@@ -189,6 +204,9 @@ export default {
   },
   beforeDestroy() {
     this.$store.commit('setExtensionMenu', [])
+  },
+  created() {
+    this.$store.dispatch('resetOrderIfStateIsDelivered')
   },
   mounted() {
     this.$store.dispatch('fetchCategories')
@@ -229,7 +247,7 @@ export default {
   },
   methods: {
     checkOrderIdentifierAndRedirect() {
-      if (this.$store.getters.getCurrentOrderIdentifier) {
+      if (this.$store.getters.getCurrentOrderIdentifier && this.$store.getters.state != "DELIVERED") {
         this.$router.push({name: 'OrderViewPage', params: {identifier: this.$store.getters.getCurrentOrderIdentifier}})
       }
     },

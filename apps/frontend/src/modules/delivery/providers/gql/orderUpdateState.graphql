@@ -3,6 +3,7 @@ mutation orderUpdateState($id: ID!, $state: OrderStateEnum! ){
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{

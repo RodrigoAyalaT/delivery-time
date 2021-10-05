@@ -13,8 +13,8 @@ import {
 export default {
     Query: {
         paymentMethodsFind: (_, {id}, {user, rbac}) => {
-            if (!user) throw new AuthenticationError("Unauthenticated")
-            if (!rbac.isAllowed(user.id, METHOD_SHOW)) throw new ForbiddenError("Not Authorized")
+           // if (!user) throw new AuthenticationError("Unauthenticated")
+           // if (!rbac.isAllowed(user.id, METHOD_SHOW)) throw new ForbiddenError("Not Authorized")
             return findMethods()
         },
 

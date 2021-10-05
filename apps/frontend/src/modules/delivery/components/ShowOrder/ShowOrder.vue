@@ -1,9 +1,9 @@
 <template>
-  <v-row v-if="$store.getters.isSettingsReady && order" align="stretch" justify="center">
-
-    <v-col cols="12" sm="6" md="8">
-      <h3 class="text-h4 text-center">{{ $t('delivery.orderView', {identifier}) }}</h3>
-    </v-col>
+  <v-row
+      class=""
+      v-if="$store.getters.isSettingsReady && $store.getters.getOrder"
+      justify="center"
+  >
 
     <template v-if="loading">
       <v-col cols="12" sm="6" md="8">
@@ -13,75 +13,87 @@
 
     <template v-else>
 
-      <v-col cols="12" sm="10" md="8">
-        <show-order-state :state="order.state"/>
-      </v-col>
+      <v-col cols="12" md="8">
 
-      <v-col v-if="$store.getters.getOrderPayment.method != 'CASH'" cols="12" sm="10" md="8">
-        <v-card>
-          <order-payment-receipt-file></order-payment-receipt-file>
-        </v-card>
-      </v-col>
-
-
-      <v-col cols="12" sm="10" md="8">
-
-        <v-row>
-          <v-col cols="12" md="12">
-            <show-order-contact
-                :name="order.contact.name"
-                :email="order.contact.email"
-                :phone="order.contact.phone"
-                :observation="order.contact.observation"
+        <v-row dense>
+          <v-col cols="12" md="6">
+            <show-order-state
+                :identifier="identifier"
+                :state="$store.getters.getOrder.state"
+                :number="$store.getters.getOrder.number"
             />
+
           </v-col>
-          <v-col cols="12" md="12">
+
+          <v-col cols="12" md="6">
+
+            <show-order-payment
+                :order="$store.getters.getOrder"
+                @orderModified="onOrderModified"
+            ></show-order-payment>
+
+          </v-col>
+
+          <v-col cols="12">
+
+          </v-col>
+
+          <v-col cols="12">
             <show-order-location
-                :delivery-mode="order.delivery.mode"
-                :time="order.delivery.time"
-                :location="order.location"
+                :order="$store.getters.getOrder"
             />
           </v-col>
+
+          <v-col cols="12">
+            <show-order-contact
+                :order="$store.getters.getOrder"
+            />
+          </v-col>
+
 
         </v-row>
 
       </v-col>
 
-      <v-col cols="12" sm="10" md="8">
+
+      <v-col cols="12" md="4">
         <show-order-items
-            :items="order.items"
+            :items="$store.getters.getOrder.items"
+            flat
         />
+
+        <!--<show-order-total
+            :quantity="$store.getters.getOrder.totalQuantity"
+            :total="$store.getters.getOrder.totalAmount"
+        />-->
       </v-col>
 
-      <v-col cols="12" sm="10" md="8">
-        <show-order-total
-            :quantity="order.totalQuantity"
-            :total="order.totalAmount"
-        />
-      </v-col>
+
 
     </template>
   </v-row>
 </template>
 
 <script>
-import ShowOrderContact from "@/modules/delivery/components/ShowOrderContact/ShowOrderContact";
-import ShowOrderLocation from "@/modules/delivery/components/ShowOrderLocation/ShowOrderLocation";
-import ShowOrderTotal from "@/modules/delivery/components/ShowOrderTotal/ShowOrderTotal";
-import ShowOrderItems from "@/modules/delivery/components/ShowOrderItems/ShowOrderItems";
-import OrderProvider from "@/modules/delivery/providers/OrderProvider";
+import ShowOrderContact from "@/modules/delivery/components/ShowOrder/ShowOrderContact/ShowOrderContact";
+import ShowOrderLocation from "@/modules/delivery/components/ShowOrder/ShowOrderLocation/ShowOrderLocation";
+import ShowOrderItems from "@/modules/delivery/components/ShowOrder/ShowOrderItems/ShowOrderItems";
 import {Loading} from "@dracul/common-frontend"
-import ShowOrderState from "@/modules/delivery/components/ShowOrderState/ShowOrderState";
-import OrderPaymentReceiptFile from "@/modules/delivery/components/OrderPaymentReceiptFile/OrderPaymentReceiptFile";
+import ShowOrderState from "@/modules/delivery/components/ShowOrder/ShowOrderState/ShowOrderState";
+import ShowOrderPayment from "@/modules/delivery/components/ShowOrder/ShowOrderPayment/ShowOrderPayment";
+
+//import ShowOrderTotal from "@/modules/delivery/components/ShowOrder/ShowOrderTotal/ShowOrderTotal";
+//import ShowOrderIdentifier from "@/modules/delivery/components/ShowOrder/ShowOrderIdentifier/ShowOrderIdentifier";
 
 export default {
   name: "ShowOrder",
   components: {
-    OrderPaymentReceiptFile,
+    // ShowOrderIdentifier,
+    ShowOrderPayment,
     ShowOrderState,
     Loading,
     ShowOrderItems,
-    ShowOrderTotal,
+  ///  ShowOrderTotal,
     ShowOrderLocation,
     ShowOrderContact
   },
@@ -92,51 +104,62 @@ export default {
     return {
       order: null,
       loading: false,
+      loadingSate: false,
       timeout: null
     }
   },
   mounted() {
     this.fetchOrder()
-    this.refreshOrder()
+    this.refreshOrderState()
   },
   destroyed() {
     clearTimeout(this.timeout)
   },
   methods: {
-    refreshOrder() {
-
+    onOrderModified(order) {
+      console.log("onOrderModified",order)
+      this.order = order
+    },
+    refreshOrderState() {
       this.timeout = setTimeout(() => {
-        this.fetchOrder()
+        this.fetchOrderState()
             .then(() => {
-                this.refreshOrder()
+              this.refreshOrderState()
             })
       }, 30000)
 
     },
     fetchOrder() {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
 
-        if (this.identifier) {
-          this.loading = true
-          OrderProvider.findOrderByIdentifier(this.identifier)
-              .then(r => {
-                this.order = r.data.orderFindByIdentifier
-                if (this.order.state === 'DELIVERED') {
-                  this.$store.dispatch('resetOrder')
-                }
-                resolve(this.order)
-              })
-              .catch(e => {
-                console.error(e)
-                reject(e)
-              })
-              .finally(() => this.loading = false)
-        } else {
-          resolve()
+        if (!this.identifier) {
+          console.warn("Identifier missed")
+          return Promise.resolve()
         }
 
+        this.loading = true
+        this.$store.dispatch('findOrderByIdentifier', this.identifier)
+            .then(() => resolve())
+            .catch(e => console.error(e))
+            .finally(() => this.loading = false)
       })
+    },
 
+    fetchOrderState() {
+      return new Promise((resolve) => {
+
+        if (!this.identifier) {
+          console.warn("Identifier missed")
+          return Promise.resolve()
+        }
+
+        this.loadingSate = true
+        this.$store.dispatch('refreshOrderStateByIdentifier', this.identifier)
+            .then(() => resolve())
+            .catch(e => console.error(e))
+            .finally(() => this.loadingSate = false)
+
+      })
     }
   }
 

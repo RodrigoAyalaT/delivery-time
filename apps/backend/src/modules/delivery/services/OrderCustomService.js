@@ -1,8 +1,9 @@
 import Order from "../models/OrderModel";
 import dayjs from "dayjs";
 import {UserInputError} from "apollo-server-express";
+import {CASH, PAYMENT_METHODS} from "../../payment/constants";
 
-export const orderGroupByState = async function (date) {
+export const orderGroupByState =  function (date) {
     return new Promise((resolve, rejects) => {
 
         let now = date ? dayjs(date).startOf('day') : dayjs().startOf('day')
@@ -33,7 +34,7 @@ export const orderGroupByState = async function (date) {
     })
 }
 
-export const orderGroupByUser = async function (date) {
+export const orderGroupByUser =  function (date) {
     return new Promise((resolve, rejects) => {
 
         let now = date ? dayjs(date).startOf('day') : dayjs().startOf('day')
@@ -90,7 +91,7 @@ export const fetchOrdersByState = function (state, date) {
 }
 
 
-export const updateOrderState = async function (authUser, id, state) {
+export const updateOrderState =  function (authUser, id, state) {
     return new Promise((resolve, rejects) => {
         Order.findOneAndUpdate({_id: id},
             {state},
@@ -109,10 +110,62 @@ export const updateOrderState = async function (authUser, id, state) {
     })
 }
 
-export const updateOrderDeliveryUser = async function (orderId, userID) {
+export const updateOrderDeliveryUser =  function (orderId, userID) {
     return new Promise((resolve, rejects) => {
         Order.findOneAndUpdate({_id: orderId},
             {deliveryUser: userID},
+            {new: true, runValidators: true, context: 'query'},
+            (error, doc) => {
+
+                if (error) {
+                    if (error.name == "ValidationError") {
+                        return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    }
+                    return rejects(error)
+                }
+
+                return doc.populate('items.product').populate('user').populate('deliveryUser').execPopulate(() => resolve(doc))
+            })
+    })
+}
+
+
+export const updateOrderReceiptFile =  function (orderId, receiptFile) {
+    return new Promise((resolve, rejects) => {
+        Order.findOneAndUpdate({_id: orderId},
+            {$set: {'payment.receiptFile': receiptFile, state: 'NEW'}},
+            {new: true, runValidators: true, context: 'query'},
+            (error, doc) => {
+
+                if (error) {
+                    if (error.name == "ValidationError") {
+                        return rejects(new UserInputError(error.message, {inputErrors: error.errors}));
+                    }
+                    return rejects(error)
+                }
+
+                return doc.populate('items.product').populate('user').populate('deliveryUser').execPopulate(() => resolve(doc))
+            })
+    })
+}
+
+
+export const updateOrderPaymentMethod =  function (orderId, paymentMethod) {
+    return new Promise((resolve, rejects) => {
+
+
+        if(!PAYMENT_METHODS.includes(paymentMethod)){
+            return rejects(new Error("Incorrect PaymentMethod"))
+        }
+
+        let state = null
+
+        if(paymentMethod === CASH){
+            state = 'NEW'
+        }
+
+        Order.findOneAndUpdate({_id: orderId},
+            {$set: {'payment.method': paymentMethod, ...(state && {state}) }},
             {new: true, runValidators: true, context: 'query'},
             (error, doc) => {
 

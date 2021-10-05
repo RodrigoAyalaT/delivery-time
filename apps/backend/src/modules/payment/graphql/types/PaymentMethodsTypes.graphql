@@ -20,7 +20,7 @@ type MercadoPagoTransferMethod{
     identifier: String!
     label: String!
     enable: Boolean
-    cbu: String
+    cvu: String
     alias: String
     info: String
     discount: Int
@@ -56,7 +56,7 @@ input BankTransferMethodInput{
 
 input MercadoPagoTransferMethodInput{
     enable: Boolean
-    cbu: String
+    cvu: String
     alias: String
     info: String
     discount: Int

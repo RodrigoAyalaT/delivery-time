@@ -18,6 +18,14 @@ class OrderProvider {
         })
     }
 
+    findOrderStateByIdentifier(identifier) {
+        return graphqlClient.query({
+            query: require('./gql/orderStateFindByIdentifier.graphql'),
+            variables: {identifier: identifier},
+            fetchPolicy: "network-only"
+        })
+    }
+
     fetchOrders() {
         return graphqlClient.query(
             {
@@ -80,6 +88,20 @@ class OrderProvider {
         return graphqlClient.mutate({
             mutation: require('./gql/orderUpdateDeliveryUser.graphql'),
             variables: {orderId, userId}
+        })
+    }
+
+    updateOrderReceiptFile({orderId, receiptFile}) {
+        return graphqlClient.mutate({
+            mutation: require('./gql/orderUpdateReceiptFile.graphql'),
+            variables: {orderId, receiptFile}
+        })
+    }
+
+    updateOrderPaymentMethod({orderId, paymentMethod}) {
+        return graphqlClient.mutate({
+            mutation: require('./gql/orderUpdatePaymentMethod.graphql'),
+            variables: {orderId, paymentMethod}
         })
     }
 

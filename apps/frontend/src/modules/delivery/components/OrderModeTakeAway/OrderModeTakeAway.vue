@@ -1,8 +1,12 @@
 <template>
   <v-row justify="center" dense>
 
-    <v-col v-if="isActiveHours" cols="12">
-      <v-row justify="center" dense>
+    <template v-if="isActiveHours" >
+
+        <v-col cols="12" class="text-left">
+          <h3>¿Cuando quisieras recibir tu pedido?</h3>
+        </v-col>
+
         <v-col cols="6">
           <card-button
               :selected="isAsSonAsPosible"
@@ -21,11 +25,9 @@
               :dense="dense"
           ></card-button>
         </v-col>
-      </v-row>
-    </v-col>
+    </template>
 
-    <v-col v-if="!isActiveHours || isScheduled" cols="12">
-      <v-row justify="center" dense>
+    <template v-if="!isActiveHours || isScheduled" >
         <v-col cols="12">
           <v-alert v-if="!isActiveHours && !dense"
                    type="warning"
@@ -39,16 +41,13 @@
           </v-alert>
           <schedule-time v-model="time" :calendar="calendar"></schedule-time>
         </v-col>
-      </v-row>
-    </v-col>
+    </template>
 
-    <v-col v-if="isActiveHours && isAsSonAsPosible" cols="12">
-      <v-row justify="center" dense>
+    <template v-if="isActiveHours && isAsSonAsPosible">
         <v-col cols="12">
         <schedule-as-son-as-posible-time v-model="time" :calendar="calendar"></schedule-as-son-as-posible-time>
         </v-col>
-      </v-row>
-    </v-col>
+    </template>
 
     <v-col v-if="!dense && time" cols="12">
       <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>

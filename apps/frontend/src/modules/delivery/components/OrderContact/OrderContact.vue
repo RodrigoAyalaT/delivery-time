@@ -1,13 +1,13 @@
 <template>
-  <card-edit @edit="$emit('edit')">
-    <v-card-title>
-      {{$t('delivery.contact')}}
+  <v-card :flat="flat">
+    <v-card-title class="py-2">
+      {{ $t(title) }}
     </v-card-title>
-    <v-row dense>
+    <v-row no-gutters>
 
       <v-col cols="12" md="4">
         <show-field
-            :value="$store.state.delivery.order.contact.name"
+            :value="order.contact.name"
             :label="$t('delivery.order.labels.name')"
             icon="badge"
         />
@@ -15,7 +15,7 @@
 
       <v-col cols="12" md="4">
         <show-field
-            :value="$store.state.delivery.order.contact.phone"
+            :value="order.contact.phone"
             :label="$t('delivery.order.labels.phone')"
             icon="phone"
         />
@@ -23,15 +23,15 @@
 
       <v-col cols="12" md="4">
         <show-field
-            :value="$store.state.delivery.order.contact.email"
+            :value="order.contact.email"
             :label="$t('delivery.order.labels.email')"
             icon="email"
         />
       </v-col>
 
-      <v-col v-if="$store.state.delivery.order.contact.observation" cols="12" md="12">
+      <v-col v-if="order.contact.observation" cols="12" md="12">
         <show-field
-            :value="$store.state.delivery.order.contact.observation"
+            :value="order.contact.observation"
             :label="$t('delivery.order.labels.observations')"
             icon="description"
         />
@@ -39,19 +39,24 @@
 
     </v-row>
 
-<v-divider></v-divider>
+    <v-divider v-if="divider"></v-divider>
 
 
-  </card-edit>
+  </v-card>
 </template>
 
 <script>
 import {ShowField} from '@dracul/common-frontend'
-import CardEdit from "@/modules/delivery/components/CardEdit/CardEdit";
 
 export default {
-  name: "OrderReviewContact",
-  components: {CardEdit, ShowField},
+  name: "OrderContact",
+  components: { ShowField},
+  props: {
+    order: {type: Object},
+    title: {type: String, default: 'delivery.contact'},
+    divider: {type:Boolean, default: false},
+    flat: {type:Boolean, default: false},
+  }
 }
 </script>
 

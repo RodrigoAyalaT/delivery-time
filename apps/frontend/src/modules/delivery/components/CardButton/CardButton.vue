@@ -41,7 +41,7 @@ export default {
   props: {
     title: {type: String},
     icon: {type: String},
-    textColor: {type: String, default: "grey--text text-darken-2"},
+    textColor: {type: String, default: "grey--text text-darken-3"},
     backgroundColor: {type: String, default: "white"},
     textColorSelected: {type: String, default: "onPrimary--text"},
     backgroundColorSelected: {type: String, default: "primary"},
