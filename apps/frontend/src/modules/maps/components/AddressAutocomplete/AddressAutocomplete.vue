@@ -15,7 +15,7 @@
       item-color="secondary"
       return-object
       @change="change"
-      :rules="required"
+      :rules="mandatory ? required : []"
       :rounded="rounded"
       :solo="solo"
       :outlined="outlined"
@@ -47,6 +47,7 @@ export default {
     outlined: {type: Boolean, default: false},
     hideDetails: {type: Boolean, default: false},
     hint:  {type: String},
+    mandatory: {type: Boolean, default: false}
   },
   data() {
     return {

@@ -59,7 +59,7 @@
           />
         </v-col>
 
-        <v-col cols="12" md="5">
+        <v-col v-if="order.location.floor" cols="12" md="5">
           <v-row no-gutters>
             <v-col cols="5">
               <show-field
@@ -98,7 +98,7 @@ export default {
     divider: {type:Boolean, default: false},
     flat: {type:Boolean, default: false},
     order: {type:Object, required: true},
-    title: {type: String, default: 'delivery.mode.deliveryMode'},
+    title: {type: String, default: 'delivery.mode.title'},
 
   },
   computed: {

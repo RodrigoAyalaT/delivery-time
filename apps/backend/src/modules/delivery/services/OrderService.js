@@ -97,7 +97,7 @@ const randomLetters = function (length = 2) {
     return result;
 };
 
-async function calculateItems(items) {
+async function calculateItems(items, deliveryCost = 0) {
 
     let totalAmount = 0
     let totalQuantity = 0
@@ -119,7 +119,7 @@ async function calculateItems(items) {
 
     return {
         totalQuantity: totalQuantity,
-        totalAmount: totalAmount
+        totalAmount: totalAmount + deliveryCost
     }
 
 }
@@ -139,17 +139,26 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
             let userId = authUser ? authUser.id : null
             let number = await incrementSequenceNumber('orders')
             let identifier = randomLetters(3) + number
-            let {totalQuantity, totalAmount} = await calculateItems(items)
-            let zone, zoneName
 
+            //ZONE
+            let zone, zoneName
             if (location.latitude && location.longitude) {
                 zone = await pointZone(location.latitude, location.longitude)
+                delivery.cost = zone.value
                 zoneName = (zone && zone.name) ? zone.name : null
             }
 
+           //TOTAL
+            let {totalQuantity, totalAmount} = await calculateItems(items, delivery.cost)
+
+
             const doc = new Order({
-                identifier, number,
-                contact, delivery, location, items,
+                identifier,
+                number,
+                contact,
+                delivery,
+                location,
+                items,
                 state,
                 user: userId,
                 totalQuantity, totalAmount,

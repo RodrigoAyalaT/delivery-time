@@ -26,6 +26,10 @@
       </v-row>
     </v-col>
 
+    <v-col v-if="zone && zone.value" cols="12">
+      <v-alert   class="text-left" dense type="info" >Costo de envío: <b>${{zone.value}}</b> </v-alert>
+    </v-col>
+
     <!--#[EN HORA]-->
     <v-col v-if="isActiveHours" cols="12">
       <v-row justify="center" dense>
@@ -130,11 +134,7 @@
     </v-col>
 
     <!--VISUALIZAR ZONA-->
-    <!--
-    <v-col v-if="zone" cols="12"  sm="8" md="4">
-      <v-alert   class="text-left" dense type="success">Zona: <b>{{zone && zone.name}}</b> </v-alert>
-    </v-col>
-    -->
+
 
     <v-col v-if="!dense && time && location && location.address && showLocation && inZone" cols="12">
 
@@ -170,6 +170,16 @@ export default {
       showLocation: false
     }
   },
+  created() {
+    //this.recoveryLastLocation()
+  },
+  mounted() {
+    this.determineActiveHours()
+    this.determineZoneAndDeliveryCost(this.location)
+    if(this.location){
+      this.showLocation = true
+    }
+  },
   computed: {
     location: {
       get() {
@@ -179,7 +189,7 @@ export default {
         this.showLocation = true
         this.$store.commit('setOrderLocation', val)
         this.$store.commit('addLocationHistory', val)
-        this.locationIsInZone(val)
+        this.determineZoneAndDeliveryCost(val)
       }
     },
     getMessageOutOfTime() {
@@ -210,13 +220,7 @@ export default {
       }
     }
   },
-  created() {
-    //this.recoveryLastLocation()
-  },
-  mounted() {
-    this.determineActiveHours()
-    this.locationIsInZone(this.location)
-  },
+
   methods: {
     locationSelected(location){
       this.location = Object.assign({},location)
@@ -234,6 +238,15 @@ export default {
     },
     determineActiveHours() {
       this.isActiveHours = this.calendarIsActive(this.calendar)
+    },
+    determineZoneAndDeliveryCost(location){
+      this.findLocationZone(location).then(zone => {
+        if(zone){
+          this.$store.commit('setOrderDeliveryCost',zone.value)
+        }else{
+          this.$store.commit('setOrderDeliveryCost',0)
+        }
+      })
     },
     isBusinessHours() {
       return true

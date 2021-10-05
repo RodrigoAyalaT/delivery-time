@@ -1,33 +1,34 @@
 <template>
   <v-card :flat="flat">
-    <v-card-title>
-      <h6 class="text-h6 grey--text text--darken-2">
+    <v-card-title class="py-0">
+      <h6 class="text-h6 grey--text text--darken-2 py-0">
         {{ $t('delivery.myOrder') }}
       </h6>
     </v-card-title>
 
     <v-divider class="mb-3"></v-divider>
 
-    <v-card-text v-if="items.length == 0" >
+    <v-card-text v-if="items.length == 0">
       {{ $t('delivery.emptyOrder') }}
     </v-card-text>
 
-    <v-card-text class="pa-2">
+    <v-card-text class="pa-1">
       <template v-for="category in getCategories">
         <div v-if="hasCategoryItems(category)" :key="category.id">
           <h6 class="subtitle-1">{{ category.name }}</h6>
-          <v-list class="px-0">
-
-
+          <v-list class="px-0 pt-0" dense>
             <template v-for="(item,index) in getItemsByCategory(category)">
               <v-list-item ripple class="px-1" :key="item.product.id">
-             <!--   <v-list-item-avatar class="my-0">
+                <v-list-item-avatar class="my-0 ml-0 mr-1">
                   <img :src="item.product.image"/>
-                </v-list-item-avatar>-->
+                </v-list-item-avatar>
                 <v-list-item-content class="py-0">
-                  <v-list-item-title >
+                  <v-list-item-title>
                     {{ item.product.name.charAt(0).toUpperCase() + item.product.name.toLowerCase().substring(1) }}
                   </v-list-item-title>
+                  <v-list-item-subtitle>
+                    ${{ item.product.price }}
+                  </v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action class="ma-0">
                   <v-chip class="grey--text text--darken-2 grey lighten-3">{{ item.quantity }}</v-chip>
@@ -37,7 +38,7 @@
                     <v-icon>add</v-icon>
                   </v-btn>
                   <v-btn small icon @click="removeProduct(item.product)">
-                    <v-icon>remove</v-icon>
+                    <v-icon>{{ item.quantity === 1 ? 'delete' : 'remove' }}</v-icon>
                   </v-btn>
                 </v-list-item-action>
 
@@ -50,24 +51,11 @@
     </v-card-text>
 
     <v-card-text v-if="quantityTotal" class="py-1 text-right">
-      <v-row>
-    <!--    <v-col cols="8">
-          <h6 class="text-h6">
-            {{ $t('delivery.cart.quantity') }}:
-          </h6>
-        </v-col>
-        <v-col cols="4">
-          <h6 class="text-h6 text-center green&#45;&#45;text text&#45;&#45;darken-2">{{ quantityTotal }}</h6>
-        </v-col>
--->
-        <v-col cols="12" >
-          <h6 class="text-h5">
-            {{ $t('delivery.cart.total') }}: ${{ amountTotal }}
-          </h6>
-        </v-col>
-
-
-      </v-row>
+      <cart-total
+          :amount-products="amountProducts"
+          :delivery-cost="deliveryCost"
+          :amount-total="amountTotal"
+      />
 
     </v-card-text>
     <v-card-actions v-if="showActions">
@@ -106,10 +94,11 @@
 
 <script>
 import {ConfirmDialog} from '@dracul/common-frontend'
+import CartTotal from "@/modules/delivery/components/CartTotal/CartTotal";
 
 export default {
   name: "CartDetail",
-  components: {ConfirmDialog},
+  components: {CartTotal, ConfirmDialog},
   data() {
     return {
       showCancel: false
@@ -119,6 +108,8 @@ export default {
     flat: {type: Boolean, default: false},
     items: {type: Array},
     quantityTotal: {type: Number, default: 0},
+    amountProducts: {type: Number, default: 0},
+    deliveryCost: {type: Number, default: null},
     amountTotal: {type: Number, default: 0},
     showActions: {type: Boolean, default: false}
   },

@@ -22,8 +22,9 @@
               :items="getOrderItems"
               @clearOrder="$store.commit('clearOrderItems')"
               :quantity-total="$store.getters.getQuantityTotal"
+              :delivery-cost="$store.getters.getDeliveryCost"
+              :amount-products="$store.getters.getAmountProducts"
               :amount-total="$store.getters.getAmountTotal"
-
           ></cart-detail>
         </v-col>
       </v-row>

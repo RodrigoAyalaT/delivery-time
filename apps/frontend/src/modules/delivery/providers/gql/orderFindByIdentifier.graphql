@@ -15,6 +15,7 @@ query orderFindByIdentifier($identifier:String!){
             mode
             timeMode
             time
+            cost
         }
         items{
             product{

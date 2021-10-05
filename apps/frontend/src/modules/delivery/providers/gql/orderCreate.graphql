@@ -15,6 +15,7 @@ mutation orderCreate($input: OrderInput){
             mode
             timeMode
             time
+            cost
         }
         items{
             product{

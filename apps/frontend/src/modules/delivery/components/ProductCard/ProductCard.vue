@@ -27,7 +27,7 @@
              fab x-small outlined color="primary"
              @click="removeProduct(product)"
       >
-        <v-icon>remove</v-icon>
+        <v-icon>{{quantity===1?'delete':'remove'}}</v-icon>
       </v-btn>
       <!--SHOW-->
       <span v-if="quantity > 0" class="px-3">x{{ quantity }}</span>

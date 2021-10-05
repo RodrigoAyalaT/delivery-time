@@ -15,13 +15,17 @@
 
           <v-list-item v-for="item in getItemsByCategory(category)"
                        :key="item.product.id">
-            <v-list-item-avatar height="30" width="30">
+            <v-list-item-avatar >
               <img :src="item.product.image"/>
             </v-list-item-avatar>
-            <v-list-item-title>
-              {{ item.product.name }}
-            </v-list-item-title>
-
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ item.product.name }}
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                ${{ item.product.price }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
             <v-list-item-avatar>
               <v-chip class="primary onPrimary--text font-weight-bold">
                 <span>x{{ item.quantity }}</span>

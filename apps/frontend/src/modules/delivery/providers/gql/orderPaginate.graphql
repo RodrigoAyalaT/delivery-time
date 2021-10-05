@@ -18,6 +18,7 @@ query orderPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orde
                 mode
                 timeMode
                 time
+                cost
             }
             items{
                 product{

@@ -70,6 +70,7 @@
         <section id="initStep"></section>
         <v-stepper v-model="step">
 
+          <!--ORDER-MODE TAKE_AWAY/DELIVERY-->
           <v-stepper-content :step="1" class="py-0">
             <v-row align="center" justify="center">
               <v-col cols="12" md="5">
@@ -78,7 +79,7 @@
             </v-row>
           </v-stepper-content>
 
-
+          <!--PRODUCTS-->
           <v-stepper-content :step="2" class="pa-0 grey lighten-4">
 
             <product-gallery></product-gallery>
@@ -89,7 +90,7 @@
                   class="primary onPrimary--text "
               >
                 <v-icon left>shopping_cart</v-icon>
-                ${{ $store.getters.getAmountTotal }} ({{ $store.getters.getQuantityTotal }})
+                {{$t('common.next')}}
               </v-btn>
             </div>
 
@@ -146,6 +147,8 @@
           @next="nextStep"
           :quantity-total="$store.getters.getQuantityTotal"
           :amount-total="$store.getters.getAmountTotal"
+          :delivery-cost="$store.getters.getDeliveryCost"
+          :amount-products="$store.getters.getAmountProducts"
           show-actions
           @close="showOrder = false"
       ></cart-detail>

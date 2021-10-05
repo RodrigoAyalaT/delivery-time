@@ -59,6 +59,9 @@
       <v-col cols="12" md="4">
         <show-order-items
             :items="$store.getters.getOrder.items"
+            :delivery-cost="$store.getters.getDeliveryCost"
+            :amount-total="$store.getters.getAmountTotal"
+            :amount-products="$store.getters.getAmountProducts"
             flat
         />
 

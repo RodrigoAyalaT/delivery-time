@@ -43,7 +43,7 @@
       <v-col class="flex-grow-1">
         <v-btn
             color="indigo" dark
-            fab x-small
+             small
             @click="next"
         >
           <v-icon>play_arrow</v-icon>

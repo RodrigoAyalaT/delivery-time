@@ -4,35 +4,38 @@
         v-model="menu"
         :close-on-content-click="false"
         :nudge-width="250"
+
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn text small
-               class="indigo--text"
-               v-bind="attrs"
-               v-on="on"
-        >
-          #{{ order.number }}
-        </v-btn>
+        <div class="flex align-center">
+          <v-btn text small
+                 class="indigo--text"
+                 v-bind="attrs"
+                 v-on="on"
+          >
+            #{{ order.number }}
+          </v-btn>
+          <v-btn
+              v-if="order.payment.receiptFile"
+              icon x-small class="align-self-center"
+              :href="order.payment.receiptFile"
+              target="_blank"
+          >
+            <v-icon>attachment</v-icon>
+          </v-btn>
+        </div>
       </template>
 
       <v-card class="pb-1">
-        <v-list>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>#{{ order.number }}
-                <v-btn x-small icon @click="$emit('showOrder',order)">
-                  <v-icon>search</v-icon>
-                </v-btn>
-              </v-list-item-title>
-              <v-list-item-subtitle>Cantidad total: {{ order.totalQuantity }}</v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn icon @click="menu=false">
-                <v-icon>close</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
+        <div class="pa-1">
+          <v-btn text small class="primary--text onPrimary" @click="$emit('showOrder',order)">#{{
+              order.number
+            }}
+          </v-btn>
+          <v-btn class="float-right" icon x-small @click="menu=false">
+            <v-icon>close</v-icon>
+          </v-btn>
+        </div>
 
         <v-divider></v-divider>
 
