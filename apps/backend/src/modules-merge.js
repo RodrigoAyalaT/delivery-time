@@ -12,11 +12,13 @@ import {resolvers as baseResolvers } from './modules/base/graphql'
 import {resolvers as deliveryResolvers } from './modules/delivery/graphql'
 import {resolvers as mapsResolvers } from './modules/maps/graphql'
 import {resolvers as calendarResolvers } from './modules/calendar/graphql'
+import {resolvers as paymentResolvers } from './modules/payment/graphql'
 //BASE TYPEDEFS
 import {types as baseTypes} from './modules/base/graphql'
 import {types as deliveryTypes} from './modules/delivery/graphql'
 import {types as mapsTypes} from './modules/maps/graphql'
 import {types as calendarTypes} from './modules/calendar/graphql'
+import {types as paymentTypes} from './modules/payment/graphql'
 
 
 
@@ -26,6 +28,7 @@ export const resolvers = mergeResolvers([
     deliveryResolvers,
     mapsResolvers,
     calendarResolvers,
+    paymentResolvers,
     mediaResolvers,
     securityResolvers,
     notificationResolvers,
@@ -39,6 +42,7 @@ export const typeDefs = mergeTypes([
     deliveryTypes,
     mapsTypes,
     calendarTypes,
+    paymentTypes,
     securityTypes,
     mediaTypes,
     notificationTypes,

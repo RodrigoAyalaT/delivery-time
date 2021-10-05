@@ -1,0 +1,6 @@
+
+export const METHOD_SHOW = "METHOD_SHOW"
+export const METHOD_UPDATE = "METHOD_UPDATE"
+export const METHOD_CREATE = "METHOD_CREATE"
+export const METHOD_DELETE = "METHOD_DELETE"
+    

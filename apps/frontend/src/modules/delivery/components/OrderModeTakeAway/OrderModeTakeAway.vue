@@ -1,32 +1,35 @@
 <template>
   <v-row justify="center" dense>
 
-    <v-col v-if="isActiveHours" cols="12">
-      <v-row justify="center" dense>
-        <v-col cols="6" sm="4" md="2">
+    <template v-if="isActiveHours" >
+
+        <v-col cols="12" class="text-left">
+          <h3>¿Cuando quisieras recibir tu pedido?</h3>
+        </v-col>
+
+        <v-col cols="6">
           <card-button
               :selected="isAsSonAsPosible"
               :title="$t('delivery.mode.asSonAsPosible')"
               icon="bolt"
               @click="asSonAsPosible"
+              :dense="dense"
           ></card-button>
         </v-col>
-        <v-col cols="6" sm="4" md="2">
+        <v-col cols="6">
           <card-button
               :selected="isScheduled"
               :title="$t('delivery.mode.scheduledWithdrawal')"
-
               icon="schedule"
               @click="scheduled"
+              :dense="dense"
           ></card-button>
         </v-col>
-      </v-row>
-    </v-col>
+    </template>
 
-    <v-col v-if="!isActiveHours || isScheduled" cols="12">
-      <v-row justify="center" dense>
-        <v-col cols="12" sm="8" md="4">
-          <v-alert v-if="!isActiveHours"
+    <template v-if="!isActiveHours || isScheduled" >
+        <v-col cols="12">
+          <v-alert v-if="!isActiveHours && !dense"
                    type="warning"
                    class="text-left"
                    rounded
@@ -38,18 +41,15 @@
           </v-alert>
           <schedule-time v-model="time" :calendar="calendar"></schedule-time>
         </v-col>
-      </v-row>
-    </v-col>
+    </template>
 
-    <v-col v-if="isActiveHours && isAsSonAsPosible" cols="12">
-      <v-row justify="center" dense>
-        <v-col cols="12" sm="8" md="4">
+    <template v-if="isActiveHours && isAsSonAsPosible">
+        <v-col cols="12">
         <schedule-as-son-as-posible-time v-model="time" :calendar="calendar"></schedule-as-son-as-posible-time>
         </v-col>
-      </v-row>
-    </v-col>
+    </template>
 
-    <v-col v-if="time" cols="12">
+    <v-col v-if="!dense && time" cols="12">
       <submit-button :text="'common.next'" @click="$emit('confirm')"></submit-button>
     </v-col>
 
@@ -71,7 +71,8 @@ export default {
   components: {ScheduleAsSonAsPosibleTime, ScheduleTime, CardButton, SubmitButton},
   mixins: [CalendarIsActive],
   props: {
-    calendar: {type: Object, required: true}
+    calendar: {type: Object, required: true},
+    dense: {type: Boolean, default: false}
   },
   data() {
     return {
@@ -121,7 +122,7 @@ export default {
       this.$store.commit('setOrderDeliveryTime', val)
     },
     setShopLocation(){
-      this.$store.commit('clearLocation')
+      this.$store.commit('clearOrderLocation')
       this.$store.commit('setOrderLocationAddress', this.$store.getters.getSetting('ShopAddress').value)
     }
   }

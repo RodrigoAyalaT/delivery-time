@@ -4,7 +4,6 @@
       v-on="$listeners"
       :class="backgroundClass"
       :style="{width: 'auto'}"
-     flat
   >
 
     <v-row>

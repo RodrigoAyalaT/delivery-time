@@ -1,7 +1,6 @@
 <template>
   <v-container v-if="getOrderIdentifier" fluid class="grey lighten-4">
     <show-order :identifier="getOrderIdentifier"></show-order>
-
   </v-container>
 </template>
 
@@ -10,6 +9,9 @@ import ShowOrder from "@/modules/delivery/components/ShowOrder/ShowOrder";
 export default {
   name: "CurrentOrderPage",
   components: {ShowOrder},
+  mounted() {
+    this.$store.dispatch('fetchCategories')
+  },
   computed: {
     getOrderIdentifier() {
       return this.$route.params.identifier

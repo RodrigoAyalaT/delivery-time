@@ -41,6 +41,12 @@ query orderPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orde
                 locality
                 postalCode
             }
+            payment{
+                method
+                transactionId
+                receiptFile
+                confirmed
+            }
             zoneName
             totalQuantity
             totalAmount

@@ -29,7 +29,7 @@
         </v-avatar>
       </td>
       <td :class="getAlarmColor(order.delivery.time)">{{ order.delivery.time }}</td>
-      <td v-if="state != 'DELIVERED'">
+      <td>
         <order-next-state :order="order" @next="$emit('next', order)"/>
       </td>
     </tr>

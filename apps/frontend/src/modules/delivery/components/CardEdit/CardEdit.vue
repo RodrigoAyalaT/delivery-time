@@ -1,7 +1,7 @@
 <template>
   <v-card
       :class="getCardClass"
-      :elevation="hover ? 1 : 0"
+      :elevation="hover ? 0 : 0"
       v-on="$listeners"
       @mouseenter="hover=true"
       @mouseleave="hover=false"
@@ -9,6 +9,7 @@
   >
       <slot></slot>
     <v-btn
+           v-if="hover"
            color="primary"
            x-small icon
            absolute :style="{top: '5px', right: '5px'}"
@@ -23,7 +24,7 @@
 export default {
   name: "CardEdit",
   props: {
-    textColor: {type: String, default: "grey--text text--darken-2"},
+    textColor: {type: String, default: ""},
     backgroundColor: {type: String, default: "white"},
   },
   data(){

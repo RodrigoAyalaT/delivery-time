@@ -3,9 +3,9 @@
       <v-col
           v-for="category in getItemsCategories"
           :key="category.id"
-          cols="12" md="6"
+          cols="12" :md="md"
       >
-        <v-list >
+        <v-list class="py-0" >
           <v-list-item>
             <v-list-item-title class="font-weight-bold">
               {{ category.name }}
@@ -41,7 +41,9 @@ import CategoryMixin from "@/modules/delivery/mixins/CategoryMixin";
 export default {
   name: "OrderItems",
   props: {
-    items: {type: Array}
+    items: {type: Array},
+    md: {type: String, default: '6'},
+    lg: {type: String, default: '6'},
   },
   mixins: [CategoryMixin]
 }

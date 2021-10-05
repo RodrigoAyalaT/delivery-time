@@ -6,7 +6,30 @@ export default [
         link: { name: "home" },
         panel: false
     },
-
+    {
+        icon: 'table_bar',
+        text: 'menu.orderBar',
+        link: {name: "OrderBarPage"},
+        permission: 'ORDER_SHOW'
+    },
+    {
+        icon: 'tag',
+        text: 'menu.orders',
+        link: {name: "OrderManagerPage"},
+        permission: 'ORDER_SHOW'
+    },
+    {
+        icon: 'point_of_sale',
+        text: 'menu.orderCashRegister',
+        link: {name: "OrderCashRegisterPage"},
+        permission: 'ORDER_SHOW'
+    },
+    {
+        icon: 'restart_alt',
+        text: 'menu.restartOrder',
+        link: {name: "OrderResetPage"},
+        permission: 'ORDER_SHOW'
+    },
     {
         icon: 'person',
         text: 'Gestion',
@@ -33,12 +56,7 @@ export default [
                 panel: false,
                 permission: 'INGREDIENT_SHOW'
             },
-            {
-                icon: 'tag',
-                text: 'menu.orders',
-                link: {name: "OrderManagerPage"},
-                permission: 'ORDER_SHOW'
-            },
+
             {
                 icon: 'settings',
                 text: 'menu.settings',
@@ -50,6 +68,13 @@ export default [
                 text: 'calendar.calendar.menu.calendar',
                 link: {name: "CalendarSchedulePage", params: {identifier: 'horario-atencion'}},
                 permission: 'CALENDAR_UPDATE'
+            },
+
+            {
+                icon: 'paid',
+                text: 'menu.paymentMethods',
+                link: {name: "PaymentMethodsPage"},
+                permission: 'METHOD_SHOW'
             },
         ]
     },

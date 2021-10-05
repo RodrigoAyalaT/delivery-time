@@ -1,0 +1,8 @@
+query orderFindByIdentifier($identifier:String!){
+    orderFindByIdentifier(identifier:$identifier){
+        id
+        identifier
+        number
+        state
+    }
+}

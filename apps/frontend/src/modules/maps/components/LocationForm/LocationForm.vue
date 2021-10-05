@@ -7,7 +7,8 @@
         <address-autocomplete
             prepend-inner-icon="location_on"
             :value="form.address"
-            hide-details
+            :hide-details="addressHint === null"
+            :hint="addressHint"
             @input="(val) => (form.address = val)"
             @lat="(val) => (form.latitude = val)"
             @lng="(val) => (form.longitude = val)"
@@ -17,6 +18,7 @@
             @locality="(val) => (form.locality = val)"
             @clear="$emit('clear')"
             @change="forceRerenderLocationMap"
+
         ></address-autocomplete>
       </v-col>
 
@@ -207,7 +209,7 @@ export default {
     apartmentSmCol: {type: Number, default: 3},
     floorSmCol: {type: Number, default: 3},
     mapSmCol: {type: Number, default: 6},
-
+    addressHint: {type: String},
     enableCoordinates: {type: Boolean, default: false},
     enableCountry: {type: Boolean, default: false},
     enableLocality: {type: Boolean, default: false},

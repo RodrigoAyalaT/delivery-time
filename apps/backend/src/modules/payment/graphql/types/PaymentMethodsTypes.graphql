@@ -1,0 +1,80 @@
+type CashMethod{
+    identifier: String!
+    label: String!
+    enable: Boolean
+    info: String
+    discount: Int
+}
+
+type BankTransferMethod{
+    identifier: String!
+    label: String!
+    enable: Boolean
+    cbu: String
+    alias: String
+    info: String
+    discount: Int
+}
+
+type MercadoPagoTransferMethod{
+    identifier: String!
+    label: String!
+    enable: Boolean
+    cvu: String
+    alias: String
+    info: String
+    discount: Int
+}
+
+type PaymentMethods{
+    id: ID!
+    title: String
+    cash: CashMethod
+    bankTransfer: BankTransferMethod
+    mercadoPagoTransfer: MercadoPagoTransferMethod
+}
+
+
+type Query {
+    paymentMethodsFind: PaymentMethods
+}
+
+#INPUTS
+input CashMethodInput{
+    enable: Boolean
+    info: String
+    discount: Int
+}
+
+input BankTransferMethodInput{
+    enable: Boolean
+    cbu: String
+    alias: String
+    info: String
+    discount: Int
+}
+
+input MercadoPagoTransferMethodInput{
+    enable: Boolean
+    cvu: String
+    alias: String
+    info: String
+    discount: Int
+}
+
+input PaymentMethodsInput{
+    title: String
+    cash: CashMethodInput
+    bankTransfer: BankTransferMethodInput
+    mercadoPagoTransfer: MercadoPagoTransferMethodInput
+}
+
+type MethodDelete{
+    id: ID!
+    success: Boolean!
+}
+
+
+type Mutation {
+    paymentMethodsUpdate(input: PaymentMethodsInput): PaymentMethods
+}

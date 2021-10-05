@@ -9,7 +9,11 @@ const messages = {
             categories: "Categories",
             ingredients: "Ingredients",
             orders: "Orders",
-            settings: "Settings"
+            settings: "Settings",
+            orderBar: "Order bar",
+            orderCashRegister: "orderCashRegister",
+           restartOrder: "restartOrder",
+            paymentMethods: 'paymentMethods'
         }
     },
     es: {
@@ -21,7 +25,11 @@ const messages = {
             categories: "Categorias",
             ingredients: "Ingredientes",
             orders: "Pedidos",
-            settings: "Ajustes"
+            settings: "Ajustes",
+            orderBar: "Mostrador",
+            orderCashRegister: "Arqueo de caja",
+            restartOrder: "Reiniciar Orden",
+            paymentMethods: 'Métodos de pago'
         }
     },
     pt: {
@@ -33,7 +41,11 @@ const messages = {
             categories: "Categorias",
             ingredients: "Ingredientes",
             orders: "Pedidos",
-            settings: "Definições"
+            settings: "Definições",
+            orderBar: "Mostrador",
+            orderCashRegister: "orderCashRegister",
+            restartOrder: "restartOrder",
+            paymentMethods: 'paymentMethods'
         }
     }
 }

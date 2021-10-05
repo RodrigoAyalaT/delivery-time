@@ -14,6 +14,7 @@ import {initPermissionsCustomization} from '@dracul/customize-backend'
 import {initCustomization} from './custom/initCustomization'
 import {initSettings} from './custom/initSettings'
 import {initCalendar} from './custom/initCalendar'
+import {initPaymentMethods} from './custom/initPaymentMethods'
 import repartidorRole from './custom/initRepartidorRole'
 import mostradorRole from './custom/initMostradorRole'
 
@@ -30,6 +31,9 @@ const initService = async () => {
 
     //CALENDAR
     await initCalendar()
+
+    //PaymentMethods
+    await initPaymentMethods()
 
     //Default user Permissions
     await InitService.initPermissions()

@@ -3,13 +3,23 @@ type OrderGroupByState{
     count: Int
 }
 
+type OrderGroupByUser{
+    deliveryUser: String
+    count: Int
+    amount: Float
+}
+
+
 type Query {
     orderGroupByState(date: String): [OrderGroupByState]
+    orderGroupByUser(date: String): [OrderGroupByUser]
     orderFetchByState(state:String!, date: String): [Order]
 }
 
 
 type Mutation {
     orderUpdateDeliveryUser(orderId: ID!, userId: ID!): Order
+    orderUpdateReceiptFile(orderId: ID!, receiptFile: String!): Order
+    orderUpdatePaymentMethod(orderId: ID!, paymentMethod: String!): Order
 
 }

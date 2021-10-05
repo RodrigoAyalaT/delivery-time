@@ -32,6 +32,8 @@
         <v-col cols="12" sm="7">
           <v-card>
             <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.delivery') }}</v-card-title>
+
+            <template v-if="deliveryOrders.length">
             <order-manager-table
                 :orders="deliveryOrders"
                 :zones="zones"
@@ -41,6 +43,12 @@
                 :state="state"
                 mode="DELIVERY"
             ></order-manager-table>
+            </template>
+
+            <template v-else>
+              <v-alert type="info">Sin ordenes pendientes</v-alert>
+            </template>
+
           </v-card>
         </v-col>
 

@@ -3,6 +3,7 @@ mutation orderUpdateDeliveryUser($orderId: ID!, $userId: ID! ){
         id
         state
         identifier
+        number
         createdAt
         updatedAt
         contact{
@@ -36,6 +37,12 @@ mutation orderUpdateDeliveryUser($orderId: ID!, $userId: ID! ){
             province
             locality
             postalCode
+        }
+        payment{
+            method
+            transactionId
+            receiptFile
+            confirmed
         }
         deliveryUser{
             id

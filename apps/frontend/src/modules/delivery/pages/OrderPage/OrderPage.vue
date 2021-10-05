@@ -5,10 +5,10 @@
         :total="$store.getters.getQuantityTotal"
         @click="showOrder=!showOrder"
     ></cart-button>
-    <v-row>
+    <v-row no-gutters>
 
       <!--STEPPER-->
-      <v-col cols="12"  class="pa-0" >
+      <v-col cols="12">
         <section id="inicio"></section>
         <v-stepper v-model="step" non-linear>
           <v-stepper-header>
@@ -49,6 +49,15 @@
                 editable
                 complete-icon="done"
             >
+              Pago
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+            <v-stepper-step
+                :step="5"
+                editable
+                complete-icon="price_check"
+            >
               Confirmar
             </v-stepper-step>
 
@@ -62,99 +71,50 @@
         <v-stepper v-model="step">
 
           <v-stepper-content :step="1" class="py-0">
-            <order-mode @confirm="step=2"></order-mode>
+            <v-row align="center" justify="center">
+              <v-col cols="12" md="5">
+                <order-mode @confirm="step=2"></order-mode>
+              </v-col>
+            </v-row>
           </v-stepper-content>
 
 
-          <v-stepper-content :step="2" class="py-0">
+          <v-stepper-content :step="2" class="pa-0 grey lighten-4">
 
-            <v-row>
-              <v-col cols="12" sm="4" md="3" class="py-0">
-
-                <v-row class="flex-column">
-                  <!--FILTER-->
-                  <v-col cols="12">
-                    <product-filters
-                        v-model="filters"
-                        @input="fetchProducts"
-                        vertical
-                    />
-                  </v-col>
-
-                  <!--CART-->
-                  <v-col
-                      v-if="$vuetify.breakpoint.smAndUp"
-                      cols="12" class="pb-0"
-                  >
-                    <cart-detail
-
-                        :items="getOrderItems"
-                        @addProduct="addProduct"
-                        @removeProduct="removeProduct"
-                        @clearOrder="$store.commit('clearOrderItems')"
-                        :quantity-total="$store.getters.getQuantityTotal"
-                        :amount-total="$store.getters.getAmountTotal"
-
-                    ></cart-detail>
-                  </v-col>
-                </v-row>
-
-
-              </v-col>
-
-              <!--PRODUCTS-->
-              <v-col cols="12" sm="8" md="9" class="pt-0">
-
-                <loading v-if="loading"></loading>
-
-                <template v-else-if="products.length === 0" >
-                  <v-alert type="info">
-                    No se encontraron productos con los criterios seleccionados
-                  </v-alert>
-                </template>
-
-                <template v-else>
-                  <v-row v-for="category in getCategories" :key="category.id">
-
-                    <v-col cols="12" class="my-2">
-                      <section :id="category.name">
-                        <h5 class="text-h5 grey--text text--darken-3">{{ category.name }}</h5>
-                      </section>
-                      <v-divider></v-divider>
-                    </v-col>
-                    <v-col v-for="product in getProductsByCategory(category)"
-                           :key="product.id"
-                           cols="12" sm="6" md="4"
-                           class=""
-                    >
-                      <product-card
-                          :product="product"
-                          :quantity="$store.getters.getQuantity(product)"
-                          @addProduct="addProduct"
-                          @removeProduct="removeProduct"
-                          edit-quantity
-                      ></product-card>
-                    </v-col>
-                  </v-row>
-                </template>
-
-              </v-col>
-
-
-            </v-row>
+            <product-gallery></product-gallery>
+            <div class="text-right pa-3">
+              <v-btn
+                  v-if="[2].includes(step)"
+                  @click="showOrder=!showOrder"
+                  class="primary onPrimary--text "
+              >
+                <v-icon left>shopping_cart</v-icon>
+                ${{ $store.getters.getAmountTotal }} ({{ $store.getters.getQuantityTotal }})
+              </v-btn>
+            </div>
 
           </v-stepper-content>
 
           <v-stepper-content :step="3" class="white">
-            <contact-form @next="nextStep"></contact-form>
+            <v-row align="center" justify="center">
+
+              <v-col cols="12" md="5">
+                <contact-form @next="nextStep" next-button></contact-form>
+              </v-col>
+            </v-row>
           </v-stepper-content>
 
           <v-stepper-content :step="4" class="grey lighten-4 px-0">
+            <order-payment-form @next="nextStep"></order-payment-form>
+          </v-stepper-content>
 
-            <order-confirmation
-                @editContact="step=3"
+          <v-stepper-content :step="5" class="grey lighten-4 px-0">
+            <order-review
                 @editLocation="step=1"
                 @editProducts="step=2"
+                @editContact="step=3"
+                @editPayment="step=4"
+                @confirm="step=5"
             />
           </v-stepper-content>
 
@@ -181,9 +141,8 @@
         <v-icon>close</v-icon>
       </v-btn>
       <cart-detail
+          flat
           :items="getOrderItems"
-          @addProduct="addProduct"
-          @removeProduct="removeProduct"
           @next="nextStep"
           :quantity-total="$store.getters.getQuantityTotal"
           :amount-total="$store.getters.getAmountTotal"
@@ -196,30 +155,31 @@
 </template>
 
 <script>
-import {Loading} from "@dracul/common-frontend"
-import ProductProvider from "@/modules/delivery/providers/ProductProvider";
-import ProductFilters from "@/modules/delivery/components/ProductFilters/ProductFilters";
 import CartButton from "@/modules/delivery/components/CartButton/CartButton";
 import CartDetail from "@/modules/delivery/components/CartDetail/CartDetail";
-import ProductCard from "@/modules/delivery/components/ProductCard/ProductCard";
 import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 import ContactForm from "@/modules/delivery/components/ContactForm/ContactForm";
-import OrderConfirmation from "@/modules/delivery/components/OrderConfirmation/OrderConfirmation";
+import ProductGallery from "@/modules/delivery/components/ProductGallery/ProductGallery";
+import OrderReview from "@/modules/delivery/components/OrderReview/OrderReview";
+import OrderPaymentForm from "@/modules/delivery/components/OrderPaymentForm";
 
 export default {
   name: "OrderPage",
-  components: {Loading, OrderConfirmation, ContactForm, OrderMode, ProductCard, CartDetail, CartButton, ProductFilters},
+  components: {
+    OrderPaymentForm,
+    OrderReview,
+    ProductGallery,
+    ContactForm,
+    OrderMode,
+    CartDetail,
+    CartButton
+  },
   data() {
     return {
       showOrder: false,
       step: 1,
       products: [],
       categories: [],
-      filters: {
-        name: null,
-        ingredients: [],
-        category: null
-      },
       loading: false
     }
   },
@@ -245,10 +205,12 @@ export default {
   beforeDestroy() {
     this.$store.commit('setExtensionMenu', [])
   },
+  created() {
+    this.$store.dispatch('resetOrderIfStateIsDelivered')
+  },
   mounted() {
-    this.checkOrderIdentifierAndRedirect()
     this.$store.dispatch('fetchCategories')
-    this.fetchProducts()
+    this.checkOrderIdentifierAndRedirect()
   },
   computed: {
     location: {
@@ -281,22 +243,11 @@ export default {
     },
     getTotalItems() {
       return this.order.items.reduce((a, v) => a + v.quantity, 0)
-    },
-    getCategories() {
-      if (this.filters.category) {
-        return this.$store.getters.getCategories.filter(c => c.id === this.filters.category)
-      }
-      return this.$store.getters.getCategories
-    },
-    getProductsByCategory() {
-      return category => {
-        return this.products.filter(p => p.category.id === category.id)
-      }
     }
   },
   methods: {
     checkOrderIdentifierAndRedirect() {
-      if (this.$store.getters.getCurrentOrderIdentifier) {
+      if (this.$store.getters.getCurrentOrderIdentifier && this.$store.getters.state != "DELIVERED") {
         this.$router.push({name: 'OrderViewPage', params: {identifier: this.$store.getters.getCurrentOrderIdentifier}})
       }
     },
@@ -304,23 +255,7 @@ export default {
       this.step++
       this.showOrder = false
     },
-    addProduct(product) {
-      this.$store.commit('addOrderItem', product)
-    },
-    removeProduct(product) {
-      this.$store.commit('removeOrderItem', product)
-    },
-    fetchProducts() {
-      this.loading = true
-      ProductProvider.fetchProductsFiltered(this.filters)
-          .then(r => {
-            this.products = r.data.productFetchFiltered
-          })
-          .catch(e => {
-            console.error(e)
-          })
-          .finally(() => this.loading = false)
-    }
+
   }
 }
 </script>

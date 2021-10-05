@@ -6,7 +6,7 @@
          justify="center" align="center"
   >
 
-    <v-col cols="6" sm="4" md="4">
+    <v-col cols="12">
       <loading ></loading>
     </v-col>
   </v-row>
@@ -18,21 +18,27 @@
          align="center"
   >
 
-    <v-col cols="6" sm="4" md="2">
+    <v-col cols="12"  class="text-left">
+      <h3>¿Como quisieras recibir tu pedido?</h3>
+    </v-col>
+
+    <v-col cols="6">
       <card-button
           :selected="isTakeAway"
           :title="$t('delivery.mode.takeAway')"
           icon="store"
           @click="takeAway"
+          :dense="dense"
       ></card-button>
     </v-col>
 
-    <v-col cols="6" sm="4" md="2">
+    <v-col cols="6">
       <card-button
           :selected="isDelivery"
           :title="$t('delivery.mode.delivery')"
           icon="delivery_dining"
           @click="delivery"
+          :dense="dense"
       ></card-button>
     </v-col>
 
@@ -46,6 +52,7 @@
           v-if="calendar"
           :calendar="calendar"
           @confirm="$emit('confirm')"
+          :dense="dense"
       ></order-mode-take-away>
     </v-col>
 
@@ -59,6 +66,7 @@
           v-if="calendar"
           :calendar="calendar"
           @confirm="$emit('confirm')"
+          :dense="dense"
       ></order-mode-delivery>
     </v-col>
 
@@ -78,6 +86,9 @@ const DELIVERY = 'DELIVERY'
 export default {
   name: "OrderMode",
   components: {OrderModeDelivery, CardButton, OrderModeTakeAway, Loading},
+  props: {
+    dense: {type: Boolean, default: false}
+  },
   data() {
     return {
       calendar: null,
@@ -100,6 +111,7 @@ export default {
       this.$store.commit('setOrderDeliveryMode', TAKE_AWAY)
     },
     delivery() {
+      this.$store.commit('clearOrderLocation')
       this.$store.commit('setOrderDeliveryMode', DELIVERY)
     },
     fetchCalendar() {

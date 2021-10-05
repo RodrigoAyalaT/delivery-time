@@ -53,11 +53,18 @@ import {
 
 
 import {
-   CALENDAR_CREATE,
+    CALENDAR_CREATE,
     CALENDAR_DELETE,
     CALENDAR_SHOW,
     CALENDAR_UPDATE
 } from '../../modules/calendar/permissions/Calendar'
+
+import {
+    METHOD_CREATE,
+    METHOD_DELETE,
+    METHOD_SHOW,
+    METHOD_UPDATE
+} from '../../modules/payment/permissions/Method'
 
 export default [
     BASE_SHOW,
@@ -101,5 +108,10 @@ export default [
     CALENDAR_CREATE,
     CALENDAR_DELETE,
     CALENDAR_SHOW,
-    CALENDAR_UPDATE
+    CALENDAR_UPDATE,
+
+    METHOD_CREATE,
+    METHOD_DELETE,
+    METHOD_SHOW,
+    METHOD_UPDATE
 ]
