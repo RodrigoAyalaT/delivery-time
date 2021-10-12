@@ -209,11 +209,11 @@ export default {
     this.$store.commit('setExtensionMenu', [])
   },
   created() {
+    this.$store.dispatch('initOrderIfIsNull')
     this.$store.dispatch('resetOrderIfStateIsDelivered')
   },
   mounted() {
     this.$store.dispatch('fetchCategories')
-    this.$store.dispatch('resetOrderIfIsNull')
     this.checkOrderIdentifierAndRedirect()
   },
   computed: {
