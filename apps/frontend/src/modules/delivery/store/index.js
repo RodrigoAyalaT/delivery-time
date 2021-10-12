@@ -26,40 +26,7 @@ export default {
             postalCode: ''
         },
         locationHistory: [],
-        order: {
-            id: null,
-            delivery: {
-                mode: null, //TAKE_AWAY|DELIVERY
-                timeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED
-                time: null,
-                cost: 0
-            },
-            contact: {
-                name: '',
-                phone: '',
-                email: '',
-                observations: ''
-            },
-            location: {
-                address: '',
-                floor: '',
-                apartment: '',
-                latitude: null,
-                longitude: null,
-                country: '',
-                province: '',
-                locality: '',
-                postalCode: ''
-            },
-            payment: {
-                method: 'CASH',
-                receiptFile: null,
-                transactionId: null,
-                confirmed: false
-            },
-            state: '',
-            items: []
-        },
+        order: null,
     },
     getters: {
         getGalleryView(state) {
@@ -301,9 +268,9 @@ export default {
                 dispatch('resetOrder')
             }
         },
-        resetOrderIfIsNull({dispatch,getters}){
+        initOrderIfIsNull({commit,getters}){
             if (getters.getOrder === null) {
-                dispatch('resetOrder')
+                commit('initOrder')
             }
         },
         resetOrder({commit}) {
@@ -409,6 +376,42 @@ export default {
         },
         setOrderPaymentConfirmed(state, val) {
             state.order.payment.confirmed = val
+        },
+        initOrder(state){
+            state.order = {
+                id: null,
+                delivery: {
+                    mode: null, //TAKE_AWAY|DELIVERY
+                    timeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED
+                    time: null,
+                    cost: 0
+                },
+                contact: {
+                    name: '',
+                    phone: '',
+                    email: '',
+                    observations: ''
+                },
+                location: {
+                    address: '',
+                    floor: '',
+                    apartment: '',
+                    latitude: null,
+                    longitude: null,
+                    country: '',
+                    province: '',
+                    locality: '',
+                    postalCode: ''
+                },
+                payment: {
+                    method: 'CASH',
+                    receiptFile: null,
+                    transactionId: null,
+                    confirmed: false
+                },
+                state: '',
+                items: []
+            }
         },
         clearOrderPayment(state) {
             state.order.payment.method = 'CASH'
