@@ -5,6 +5,7 @@
   "scripts": {
     "front": "vue-cli-service serve",
     "build": "vue-cli-service build --dest dist --mode production",
+    "buildpm2": "vue-cli-service build --dest ../../dist/web --mode production",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "test": "jest",
