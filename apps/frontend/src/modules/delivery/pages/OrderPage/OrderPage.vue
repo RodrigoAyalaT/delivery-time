@@ -100,7 +100,7 @@
             <v-row align="center" justify="center">
 
               <v-col cols="12" md="5">
-                <contact-form @next="nextStep" next-button></contact-form>
+                <contact-form @next="nextStep" email-required next-button></contact-form>
               </v-col>
             </v-row>
           </v-stepper-content>
@@ -213,6 +213,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('fetchCategories')
+    this.$store.dispatch('resetOrderIfIsNull')
     this.checkOrderIdentifierAndRedirect()
   },
   computed: {

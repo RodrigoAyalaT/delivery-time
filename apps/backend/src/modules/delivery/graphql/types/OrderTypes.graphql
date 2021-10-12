@@ -101,7 +101,7 @@ input OrderInput{
 input OrderContactInput{
     name: String!
     phone: String!
-    email: String!
+    email: String
     observations: String
 }
 

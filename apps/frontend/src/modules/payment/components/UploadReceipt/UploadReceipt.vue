@@ -113,10 +113,10 @@ export default {
     upload() {
       if (this.file && this.state != UPLOADED) {
         this.loading = true
-        UploadProvider.uploadFile(this.file).then(result => {
+        UploadProvider.uploadFileAnonymous(this.file).then(result => {
           this.state = UPLOADED
-          this.uploadedFile = result.data.fileUpload
-          this.$emit('fileUploaded', result.data.fileUpload)
+          this.uploadedFile = result.data.fileUploadAnonymous
+          this.$emit('fileUploaded', result.data.fileUploadAnonymous)
         }).catch(err => {
           this.state = ERROR
           let clientError = new ClientError(err)

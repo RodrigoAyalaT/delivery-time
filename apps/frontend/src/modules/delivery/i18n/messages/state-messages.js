@@ -32,9 +32,9 @@ const messages = {
             statesDescription: {
                 NEW: 'Su orden ha sido registrada y pronto se estará preparando',
                 PREPARING: 'Su orden se esta preparando',
-                READY: 'Su orden esta lista',
+                READY: 'Tu pedido esta listo y a pocos minutos de ser entregado por uno de nuestros repartidores',
                 ON_THE_WAY: 'Su orden esta en camino',
-                DELIVERED: 'Su orden ha sido entregada',
+                DELIVERED: 'SYa recibiste tu pedido, a disfrutar!!',
                 PENDING_RECEIPT: 'Su orden requiere adjuntar comprobante'
             },
         }

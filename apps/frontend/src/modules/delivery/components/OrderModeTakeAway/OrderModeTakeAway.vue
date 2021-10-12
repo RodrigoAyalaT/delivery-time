@@ -3,7 +3,7 @@
 
     <template v-if="isActiveHours" >
 
-        <v-col cols="12" class="text-left">
+        <v-col v-if="!dense"  cols="12" class="text-left">
           <h3>¿Cuando quisieras recibir tu pedido?</h3>
         </v-col>
 
@@ -72,7 +72,8 @@ export default {
   mixins: [CalendarIsActive],
   props: {
     calendar: {type: Object, required: true},
-    dense: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false},
+
   },
   data() {
     return {

@@ -51,8 +51,7 @@
           </v-col>
 
           <v-col cols="12" class="text-center mt-3">
-
-            <order-confirmation></order-confirmation>
+            <order-confirmation @orderCreated="onOrderCreated"></order-confirmation>
           </v-col>
 
         </v-row>
@@ -84,6 +83,11 @@ export default {
   data() {
     return {
       loading: false
+    }
+  },
+  methods:{
+    onOrderCreated(identifier){
+      this.$emit('orderCreated',identifier)
     }
   }
 }
