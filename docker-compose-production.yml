@@ -18,8 +18,8 @@ services:
     image: httpd:2.4
     volumes:
       - ./docker-conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - /certs/udeblox/server.key:/usr/local/apache2/conf/server.key
-      - /certs/udeblox/server.crt:/usr/local/apache2/conf/server.crt
+    #  - /certs/delivery/server.key:/usr/local/apache2/conf/server.key
+    #  - /certs/delivery/server.crt:/usr/local/apache2/conf/server.crt
     ports:
       - "80:80"
       - "443:443"
