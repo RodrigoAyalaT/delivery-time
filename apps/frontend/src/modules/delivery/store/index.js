@@ -57,6 +57,7 @@ export default {
                 transactionId: null,
                 confirmed: false
             },
+            state: '',
             items: []
         },
     },
@@ -195,8 +196,8 @@ export default {
             //NO CONTACT DATA
             if (
                 !getters.getOrderContact.name ||
-                !getters.getOrderContact.phone ||
-                !getters.getOrderContact.email
+                !getters.getOrderContact.phone
+               // || !getters.getOrderContact.email
             ) {
                 return false
             }
@@ -300,12 +301,18 @@ export default {
                 dispatch('resetOrder')
             }
         },
+        resetOrderIfIsNull({dispatch,getters}){
+            if (getters.getOrder === null) {
+                dispatch('resetOrder')
+            }
+        },
         resetOrder({commit}) {
             commit('setCurrentOrderIdentifier', null)
             commit('clearOrderItems')
             commit('clearOrderDelivery')
             commit('clearOrderLocation')
             commit('clearOrderPayment')
+            commit('clearOrderState')
         },
         resetOrderContact({commit}) {
             commit('clearOrderContact')
@@ -415,7 +422,33 @@ export default {
             state.order.delivery.mode = null
             state.order.delivery.cost = 0
         },
-
+        clearOrderLocation(state) {
+            state.order.location = {
+                address: '',
+                floor: '',
+                apartment: '',
+                latitude: null,
+                longitude: null,
+                country: '',
+                province: '',
+                locality: '',
+                postalCode: ''
+            }
+        },
+        clearOrderItems(state) {
+            state.order.items = []
+        },
+        clearOrderState(state) {
+            state.order.state = ''
+        },
+        clearOrderContact(state) {
+            state.order.contact = {
+                name: '',
+                phone: '',
+                email: '',
+                observations: ''
+            }
+        },
         setOrderDeliveryTimeMode(state, val) {
             state.order.delivery.timeMode = val
         },
@@ -432,20 +465,6 @@ export default {
             state.order.location = location
             state.lastLocation = location
         },
-        clearOrderLocation(state) {
-            state.order.location = {
-                address: '',
-                floor: '',
-                apartment: '',
-                latitude: null,
-                longitude: null,
-                country: '',
-                province: '',
-                locality: '',
-                postalCode: ''
-            }
-        },
-
         setOrderLocationAddress(state, val) {
             state.order.location.address = val
         },
@@ -471,17 +490,7 @@ export default {
                 state.locationHistory.splice(index, 1)
             }
         },
-        clearOrderItems(state) {
-            state.order.items = []
-        },
-        clearOrderContact(state) {
-            state.order.contact = {
-                name: '',
-                phone: '',
-                email: '',
-                observations: ''
-            }
-        },
+
         setOrderItems(state, val) {
             state.order.items = val
         },

@@ -1,9 +1,16 @@
 <template>
   <v-container fluid class="pt-0">
 
-    <show-order v-if="orderIdentifier" :identifier="orderIdentifier"></show-order>
+    <template v-if="this.$store.getters.getCurrentOrderIdentifier">
+      <v-btn @click="clearOrder" class="my-3">Nueva Orden</v-btn>
+      <v-divider></v-divider>
+      <show-order
+          :identifier="this.$store.getters.getCurrentOrderIdentifier">
+      </show-order>
+    </template>
 
-    <order-confirmation v-else-if="toConfirm" @orderCreated="onOrderCreated"></order-confirmation>
+
+    <order-review v-else-if="toConfirm" @orderCreated="onOrderCreated"></order-review>
 
     <v-row v-else>
       <v-col cols="12" md="4" style="border-right: gainsboro 1px solid;">
@@ -33,15 +40,14 @@
 import OrderMode from "@/modules/delivery/components/OrderMode/OrderMode";
 import ContactForm from "@/modules/delivery/components/ContactForm/ContactForm";
 import ProductGalleryTabs from "@/modules/delivery/components/ProductGalleryTabs/ProductGalleryTabs";
-import OrderConfirmation from "@/modules/delivery/components/OrderReview/OrderReview";
+import OrderReview from "@/modules/delivery/components/OrderReview/OrderReview";
 import ShowOrder from "@/modules/delivery/components/ShowOrder/ShowOrder";
 export default {
   name: "OrderBarPage",
-  components: {ShowOrder, OrderConfirmation, ProductGalleryTabs, ContactForm, OrderMode},
+  components: {ShowOrder, OrderReview, ProductGalleryTabs, ContactForm, OrderMode},
   data(){
     return {
       toConfirm: false,
-      orderIdentifier: null
     }
   },
   created() {
@@ -50,8 +56,10 @@ export default {
   methods: {
     onOrderCreated(orderIdentifier){
       this.orderIdentifier = orderIdentifier
+      this.$router.push({name: 'OrderViewPage',params: {identifier: this.orderIdentifier}})
     },
     clearOrder(){
+      this.toConfirm = false
       this.$store.dispatch("resetOrder")
       this.$store.dispatch('resetOrderContact')
     }

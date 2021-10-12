@@ -52,7 +52,7 @@
             :error-messages="getInputErrors('email')"
             color="secondary"
             :rules="emailRules"
-            required class="required"
+            required :class="{'required':emailRequired}"
         ></v-text-field>
       </v-col>
 
@@ -97,7 +97,8 @@ export default {
   components: {SubmitButton},
   props: {
     nextButton: {type: Boolean, default: false},
-    dense: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false},
+    emailRequired: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -116,7 +117,7 @@ export default {
     },
     emailRules() {
       return [
-        v => !!v || this.$t('user.validation.required'),
+        v => (this.emailRequired && !!v) || this.$t('user.validation.required'),
         v => /.+@.+/.test(v) || this.$t('user.validation.emailFormat')
       ]
     },
@@ -128,7 +129,7 @@ export default {
       ]
     },
     isValid() {
-      return (this.valid && this.form.name != '' && this.form.email != '' && this.form.phone != '')
+      return (this.valid && this.form.name != '' && (!this.emailRequired || this.form.email != '') && this.form.phone != '')
     }
   },
   methods: {

@@ -12,7 +12,7 @@ const OrderSchema = new Schema({
     contact: {
         name: {type: String, required: true, unique: false},
         phone: {type: String, required: true, unique: false},
-        email: {type: String, required: true, unique: false},
+        email: {type: String, required: false, unique: false},
         observations: {type: String, required: false, unique: false},
     },
     delivery: {

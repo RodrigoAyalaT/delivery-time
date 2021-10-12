@@ -18,7 +18,7 @@
          align="center"
   >
 
-    <v-col cols="12"  class="text-left">
+    <v-col v-if="!dense" cols="12"  class="text-left">
       <h3>¿Como quisieras recibir tu pedido?</h3>
     </v-col>
 
@@ -53,6 +53,7 @@
           :calendar="calendar"
           @confirm="$emit('confirm')"
           :dense="dense"
+
       ></order-mode-take-away>
     </v-col>
 
@@ -87,7 +88,7 @@ export default {
   name: "OrderMode",
   components: {OrderModeDelivery, CardButton, OrderModeTakeAway, Loading},
   props: {
-    dense: {type: Boolean, default: false}
+    dense: {type: Boolean, default: false},
   },
   data() {
     return {
