@@ -8,7 +8,7 @@ const DELIVERY = 'DELIVERY'
 export default {
     state: {
         categories: [],
-        orderStates: ['PENDING_RECEIPT', 'NEW', 'PREPARING', 'READY', 'ON_THE_WAY', 'DELIVERED'],
+        orderStates: ['PENDING_RECEIPT','REVIEW', 'NEW', 'PREPARING', 'READY', 'ON_THE_WAY', 'DELIVERED'],
         orderError: null,
         orderLoading: false,
         orderHistory: [], //List of identifiers

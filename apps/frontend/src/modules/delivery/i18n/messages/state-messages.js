@@ -2,6 +2,7 @@ const messages = {
     en: {
         delivery: {
             states: {
+                REVIEW: 'Review',
                 NEW: 'New',
                 PREPARING: 'Preparing',
                 READY: 'ready',
@@ -10,27 +11,30 @@ const messages = {
                 PENDING_RECEIPT: 'Pending receipt'
             },
             statesDescription: {
-                NEW: '',
-                PREPARING: '',
-                READY: '',
-                ON_THE_WAY: '',
-                DELIVERED: '',
-                PENDING_RECEIPT: ''
+                REVIEW: 'Su orden esta siendo revisada y pronto sera confirmada',
+                NEW: 'Su orden ha sido confirmada y pronto se estará preparando',
+                PREPARING: 'Su orden se esta preparando',
+                READY: 'Tu pedido esta listo y a pocos minutos de ser entregado por uno de nuestros repartidores',
+                ON_THE_WAY: 'Su orden esta en camino',
+                DELIVERED: 'Ya recibiste tu pedido, a disfrutar!!',
+                PENDING_RECEIPT: 'Su orden requiere adjuntar comprobante'
             },
         }
     },
     es: {
         delivery: {
             states: {
+                REVIEW: 'Revision',
                 NEW: 'Ingresada',
                 PREPARING: 'Preparando',
                 READY: 'Listo',
                 ON_THE_WAY: 'En camino',
                 DELIVERED: 'Entregado',
-                PENDING_RECEIPT: 'Pendiente comprobante'
+                PENDING_RECEIPT: 'Comprobante'
             },
             statesDescription: {
-                NEW: 'Su orden ha sido registrada y pronto se estará preparando',
+                REVIEW: 'Su orden esta siendo revisada y pronto sera confirmada',
+                NEW: 'Su orden ha sido confirmada y pronto se estará preparando',
                 PREPARING: 'Su orden se esta preparando',
                 READY: 'Tu pedido esta listo y a pocos minutos de ser entregado por uno de nuestros repartidores',
                 ON_THE_WAY: 'Su orden esta en camino',
@@ -42,6 +46,7 @@ const messages = {
     pt: {
         delivery: {
             states: {
+                REVIEW: 'Revision',
                 NEW: 'Nuevo',
                 PREPARING: 'Preparando',
                 READY: 'Listo',
@@ -50,12 +55,13 @@ const messages = {
                 PENDING_RECEIPT: 'Pending receipt'
             },
             statesDescription: {
-                NEW: '',
-                PREPARING: '',
-                READY: '',
-                ON_THE_WAY: '',
-                DELIVERED: '',
-                PENDING_RECEIPT: ''
+                REVIEW: 'Su orden esta siendo revisada y pronto sera confirmada',
+                NEW: 'Su orden ha sido confirmada y pronto se estará preparando',
+                PREPARING: 'Su orden se esta preparando',
+                READY: 'Tu pedido esta listo y a pocos minutos de ser entregado por uno de nuestros repartidores',
+                ON_THE_WAY: 'Su orden esta en camino',
+                DELIVERED: 'Ya recibiste tu pedido, a disfrutar!!',
+                PENDING_RECEIPT: 'Su orden requiere adjuntar comprobante'
             },
         }
     }

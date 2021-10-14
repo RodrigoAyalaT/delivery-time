@@ -1,5 +1,6 @@
 enum OrderStateEnum{
     PENDING_RECEIPT,
+    REVIEW,
     NEW,
     PREPARING,
     READY,

@@ -47,6 +47,7 @@ const OrderSchema = new Schema({
     state: {
         type: String, enum: [
             'PENDING_RECEIPT',
+            'REVIEW',
             'NEW',
             'PREPARING',
             'READY',

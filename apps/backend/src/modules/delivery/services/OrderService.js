@@ -130,7 +130,7 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
 
         try {
 
-            let state = 'NEW'
+            let state = 'REVIEW'
 
             if(payment && /TRANSFER/.test(payment.method)){
                 state = 'PENDING_RECEIPT'

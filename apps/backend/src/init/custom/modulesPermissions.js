@@ -34,7 +34,9 @@ import {
     ORDER_DELETE,
     ORDER_SHOW,
     ORDER_UPDATE,
-    MY_DELIVERY_ORDERS
+    MY_DELIVERY_ORDERS,
+    ORDER_SHOW_BAR,
+    ORDER_SHOW_KITCHEN
 } from '../../modules/delivery/permissions/Order'
 
 import {
@@ -94,6 +96,9 @@ export default [
     ORDER_SHOW,
     ORDER_UPDATE,
     MY_DELIVERY_ORDERS,
+
+    ORDER_SHOW_BAR,
+    ORDER_SHOW_KITCHEN,
 
     ZONE_CREATE,
     ZONE_DELETE,

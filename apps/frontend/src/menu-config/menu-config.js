@@ -10,7 +10,19 @@ export default [
         icon: 'table_bar',
         text: 'menu.orderBar',
         link: {name: "OrderBarPage"},
-        permission: 'ORDER_SHOW'
+        permission: 'ORDER_SHOW_BAR'
+    },
+    {
+        icon: 'pivot_table_chart',
+        text: 'menu.barOrders',
+        link: {name: "OrderManagerBarPage"},
+        permission: 'ORDER_SHOW_BAR'
+    },
+    {
+        icon: 'microwave',
+        text: 'menu.kitchenOrders',
+        link: {name: "OrderManagerKitchenPage"},
+        permission: 'ORDER_SHOW_KITCHEN'
     },
     {
         icon: 'tag',
@@ -18,6 +30,7 @@ export default [
         link: {name: "OrderManagerPage"},
         permission: 'ORDER_SHOW'
     },
+
     {
         icon: 'point_of_sale',
         text: 'menu.orderCashRegister',
@@ -54,7 +67,7 @@ export default [
                 text: 'menu.ingredients',
                 link: {name: "IngredientManagementPage"},
                 panel: false,
-                permission: 'INGREDIENT_SHOW'
+                permission: 'INGREDIENT_CREATE'
             },
 
             {
@@ -93,7 +106,7 @@ export default [
                 icon: 'location_on',
                 text: 'maps.menu.locations',
                 link: {name: "LocationManagementPage"},
-                permission: 'LOCATION_SHOW'
+                permission: 'LOCATION_CREATE'
             },
         ]
     },
@@ -141,12 +154,12 @@ export default [
 
         ]
     },
-    {
+/*    {
         icon: 'perm_phone_msg',
         text: 'base.about',
         link: { name: "about" },
         panel: false,
-    },
+    },*/
 
 
 ]
