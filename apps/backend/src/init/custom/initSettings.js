@@ -47,6 +47,11 @@ const settings = [
         key: 'MinimumQuantity',
         value: '6',
         label: {en: 'Minimum quantity', es: 'Cantidad minima', pt: 'Cantidad minima'}
+    },
+    {
+        key: 'businessHours',
+        value: 'Horario de 19 a 22:30',
+        label: {en: 'businessHours', es: 'Horario de atención', pt: 'Horario de atención'}
     }
 ]
 
