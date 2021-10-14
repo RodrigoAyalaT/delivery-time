@@ -12,7 +12,7 @@
         >
           REALIZAR PEDIDO
         </v-btn>
-        <h6 class="text-h6 grey--text text--darken-2 mt-2">Horario de 19 a 22 hs</h6>
+        <h6 v-if="getBussinesHours" class="text-h6 grey--text text--darken-2 mt-2">{{getBussinesHours}}</h6>
       </v-col>
       <v-col cols="12" class="text-center">
         <v-row justify="center">
@@ -61,6 +61,17 @@
 <script>
 export default {
   name: 'HomePage',
+  created() {
+    this.$store.dispatch('loadSettings')
+  },
+  computed:{
+    getBussinesHours(){
+      if(this.$store.getters.isSettingsReady){
+        return this.$store.getters.getSetting('businessHours').value
+      }
+      return null
+    }
+  }
 }
 </script>
 
