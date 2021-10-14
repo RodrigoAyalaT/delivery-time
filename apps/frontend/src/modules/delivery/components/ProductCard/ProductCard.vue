@@ -4,13 +4,13 @@
       v-on:mouseover="elevation = 10"
       v-on:mouseleave="elevation = 2"
       :elevation="elevation"
-      height="255"
+      height="280"
   >
 
     <v-img
         :style="{backgroundColor: getBackgroundColor, border: getBorder}"
-        contain eager
-        height="120" :src="product.image"
+         eager
+        height="145" :src="product.image"
     ></v-img>
 
     <v-card-title class="pt-1" >
