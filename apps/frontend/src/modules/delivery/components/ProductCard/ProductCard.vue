@@ -94,7 +94,7 @@ export default {
     getHeight() {
       switch (this.getSize) {
         case 'LARGE':
-          return 145
+          return this.$vuetify.breakpoint.smAndDown ? 280 : 145
         default:
           return 280
       }
