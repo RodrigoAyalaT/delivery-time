@@ -1,7 +1,0 @@
-query orderGroupByUser($date:String){
-    orderGroupByUser(date:$date){
-        deliveryUser
-        count
-        amount
-    }
-}

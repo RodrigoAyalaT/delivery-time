@@ -52,10 +52,10 @@ class OrderProvider {
             })
     }
 
-    fetchOrderGroupByUser(date) {
+    orderCashReport(date) {
         return graphqlClient.query(
             {
-                query: require('./gql/orderGroupByUser.graphql'),
+                query: require('./gql/orderCashReport.graphql'),
                 variables: {date: date},
                 fetchPolicy: "network-only"
             })

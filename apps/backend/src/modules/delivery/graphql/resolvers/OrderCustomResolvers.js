@@ -3,7 +3,7 @@ import {
     fetchOrdersByState,
     updateOrderDeliveryUser,
     updateOrderState,
-    orderGroupByUser,
+    orderCashReport,
     updateOrderReceiptFile,
     updateOrderPaymentMethod
 } from '../../services/OrderCustomService'
@@ -23,10 +23,10 @@ export default {
             if (!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
             return orderGroupByState(date)
         },
-        orderGroupByUser: (_, {date}, {user, rbac}) => {
+        orderCashReport: (_, {date}, {user, rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")
             if (!rbac.isAllowed(user.id, ORDER_SHOW)) throw new ForbiddenError("Not Authorized")
-            return orderGroupByUser(date)
+            return orderCashReport(date)
         },
         orderFetchByState: (_, {state, date}, {user, rbac}) => {
             if (!user) throw new AuthenticationError("Unauthenticated")

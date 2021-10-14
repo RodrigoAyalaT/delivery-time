@@ -34,29 +34,47 @@ export const orderGroupByState =  function (date) {
     })
 }
 
-export const orderGroupByUser =  function (date) {
+export const orderCashReport =  function (date) {
     return new Promise((resolve, rejects) => {
 
-        let now = date ? dayjs(date).startOf('day') : dayjs().startOf('day')
-        console.log(now)
+        let from = date ? dayjs(date).startOf('day') : dayjs().startOf('day')
+        let to = from.add(1,'day')
+        console.log(from, to)
         Order.aggregate([
                 {
                     $match: {
-                        $or: [
+                        $and: [
                             {state: {$eq: 'DELIVERED'}},
-                            {updatedAt: {$gte: now.toDate()} }
+                            {updatedAt: {$gte: from.toDate(), $lt: to.toDate()} }
                         ]
 
                     }
                 },
                 {
+                    $lookup: {
+                        from: "users",
+                        localField: "deliveryUser",
+                        foreignField: "_id",
+                        as: "du"
+                    }
+                },
+                { $unwind: {path :'$du', preserveNullAndEmptyArrays: true} },
+                {
                     $group: {
-                        _id: "$deliveryUser",
+                        _id: {
+                            deliveryUser: "$deliveryUser",
+                            deliveryMode: "$delivery.mode",
+                            paymentMethod: "$payment.method"
+                        },
                         deliveryUser: {$last: "$deliveryUser"},
+                        deliveryUsername: {$last: "$du.username"},
+                        deliveryMode: {$last: "$delivery.mode"},
+                        paymentMethod: {$last: "$payment.method"},
                         count: {$sum: 1},
                         amount: {$sum:"$totalAmount"}
                     }
-                }
+                },
+
             ],
             (error, rows) => {
                 console.log("rows", rows)

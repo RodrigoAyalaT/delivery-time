@@ -11,7 +11,7 @@ export const findProduct = async function (id) {
 
 export const fetchProducts = async function () {
     return new Promise((resolve, reject) => {
-        Product.find({}).populate('ingredients').populate('category').exec((err, res) => (
+        Product.find({}).isDeleted(false).populate('ingredients').populate('category').exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -19,7 +19,7 @@ export const fetchProducts = async function () {
 
 export const fetchProductsInId = async function (ids) {
     return new Promise((resolve, reject) => {
-        Product.find({_id: {$in: ids}}).exec((err, res) => (
+        Product.find({_id: {$in: ids}}).isDeleted(false).exec((err, res) => (
             err ? reject(err) : resolve(res)
         ));
     })
@@ -47,7 +47,7 @@ export const paginateProducts = function ( pageNumber = 1, itemsPerPage = 5, sea
         }
     }
 
-    let query = qs(search)
+    let query = {deleted: {$ne: true}, ...qs(search)}
     let populate = ['ingredients','category']
     let sort = getSort(orderBy, orderDesc)
     let params = {page: pageNumber, limit: itemsPerPage, populate, sort}
@@ -107,7 +107,7 @@ export const updateProduct = async function (authUser, id, {name, description, i
 export const deleteProduct = function (id) {
     return new Promise((resolve, rejects) => {
         findProduct(id).then((doc) => {
-            doc.delete(function (err) {
+            doc.softdelete(function (err) {
                 err ? rejects(err) : resolve({id: id, success: true})
             });
         })

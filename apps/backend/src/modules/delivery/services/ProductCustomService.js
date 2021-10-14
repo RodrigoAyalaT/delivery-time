@@ -44,6 +44,8 @@ export const fetchProductFiltered = async function (filters) {
             find.category = filters.category
         }
 
+        //Replace by isDeleted(false)
+        find.deleted = {$ne: true}
 
         Product.find(find).populate('ingredients').populate('category').exec((err, res) => (
             err ? reject(err) : resolve(res)

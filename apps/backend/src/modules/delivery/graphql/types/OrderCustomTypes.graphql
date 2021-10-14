@@ -3,8 +3,11 @@ type OrderGroupByState{
     count: Int
 }
 
-type OrderGroupByUser{
+type OrderCashReport{
+    deliveryMode: String
     deliveryUser: String
+    deliveryUsername: String
+    paymentMethod: String
     count: Int
     amount: Float
 }
@@ -12,7 +15,7 @@ type OrderGroupByUser{
 
 type Query {
     orderGroupByState(date: String): [OrderGroupByState]
-    orderGroupByUser(date: String): [OrderGroupByUser]
+    orderCashReport(date: String): [OrderCashReport]
     orderFetchByState(state:String!, date: String): [Order]
 }
 

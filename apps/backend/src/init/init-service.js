@@ -24,10 +24,15 @@ import {
 
 import modulesPermissions from './custom/modulesPermissions'
 
+import fixProductSoftDelete from "./custom/fixProductSoftDelete";
+
 const initService = async () => {
 
     //SETTINGS
     await initSettings()
+
+    //FIX fixProductSoftDelete
+    await fixProductSoftDelete()
 
     //CALENDAR
     await initCalendar()

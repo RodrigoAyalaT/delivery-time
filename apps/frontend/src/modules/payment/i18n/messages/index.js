@@ -1,6 +1,7 @@
 const messages = {
     en: {
         payment: {
+            paymentMethods: "Payment methods",
             method: {
                 formTitle: 'Payment methods setting',
                 identifiers: {
@@ -19,6 +20,7 @@ const messages = {
     },
     es: {
         payment: {
+            paymentMethods: "Métodos de pago",
             method: {
                 formTitle: 'Configuración de métodos de pago',
                 identifiers: {
@@ -37,6 +39,7 @@ const messages = {
     },
     pt: {
         payment: {
+            paymentMethods: "Payment methods",
             method: {
                 formTitle: 'Payment methods setting',
                 identifiers: {

@@ -1,0 +1,10 @@
+query orderCashReport($date:String){
+    orderCashReport(date:$date){
+        deliveryUser
+        deliveryUsername
+        deliveryMode
+        paymentMethod
+        count
+        amount
+    }
+}

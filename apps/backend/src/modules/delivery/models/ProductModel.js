@@ -1,13 +1,14 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 
 
 
 const mongoosePaginate = require('mongoose-paginate-v2');
 const uniqueValidator = require('mongoose-unique-validator');
+const softDelete = require('mongoose-softdelete')
 
 const Schema = mongoose.Schema;
 
-const ProductSchema = new Schema({ 
+const ProductSchema = new Schema({
 
  name: {type: String, required: true, unique: false},
  description: {type: String, required: false, unique: false},
@@ -26,6 +27,7 @@ const ProductSchema = new Schema({
 
 ProductSchema.plugin(mongoosePaginate);
 ProductSchema.plugin(uniqueValidator, {message: 'validation.unique'});
+ProductSchema.plugin(softDelete)
 
 const Product = mongoose.model('Product', ProductSchema);
 
