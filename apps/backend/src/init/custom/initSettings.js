@@ -47,7 +47,7 @@ const settings = [
         key: 'MinimumQuantity',
         value: '6',
         label: {en: 'Minimum quantity', es: 'Cantidad minima', pt: 'Cantidad minima'}
-    },
+    }
 ]
 
 export const initSettings = async function () {

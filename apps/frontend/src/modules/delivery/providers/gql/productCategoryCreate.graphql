@@ -1,7 +1,10 @@
-mutation productCategoryCreate($name:String!){
-    productCategoryCreate(input: {name: $name }){
+mutation productCategoryCreate($name:String!, $backgroundColor:String, $borderColor:String, $fontColor:String){
+    productCategoryCreate(input: {name: $name, backgroundColor: $backgroundColor, borderColor: $borderColor, fontColor: $fontColor }){
         id
         name
+        backgroundColor
+        borderColor
+        fontColor
     }
 }
 

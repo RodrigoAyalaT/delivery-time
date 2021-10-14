@@ -34,7 +34,7 @@ const messages = {
                 PREPARING: 'Su orden se esta preparando',
                 READY: 'Tu pedido esta listo y a pocos minutos de ser entregado por uno de nuestros repartidores',
                 ON_THE_WAY: 'Su orden esta en camino',
-                DELIVERED: 'SYa recibiste tu pedido, a disfrutar!!',
+                DELIVERED: 'Ya recibiste tu pedido, a disfrutar!!',
                 PENDING_RECEIPT: 'Su orden requiere adjuntar comprobante'
             },
         }

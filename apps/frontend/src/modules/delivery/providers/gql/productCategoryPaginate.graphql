@@ -3,8 +3,11 @@ query productCategoryPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: Str
         totalItems
         page
         items{
-          id
-          name
+            id
+            name
+            backgroundColor
+            borderColor
+            fontColor
         }
     }
 }

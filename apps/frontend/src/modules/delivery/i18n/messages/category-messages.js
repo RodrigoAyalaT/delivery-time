@@ -9,7 +9,10 @@ const messages = {
                 deleting: 'Deleting ProductCategory',
                 showing: 'Showing ProductCategory',
                 labels: {
-                    name: 'Name'
+                    name: 'Name',
+                    backgroundColor: 'Background color',
+                    borderColor: 'Border color',
+                    fontColor: 'Font color',
                 },
 
             }
@@ -25,7 +28,10 @@ const messages = {
                 deleting: 'Eliminando ProductCategory',
                 showing: 'Detalles de ProductCategory',
                 labels: {
-                    name: 'Nombre'
+                    name: 'Nombre',
+                    backgroundColor: 'Color de fondo',
+                    borderColor: 'Color de borde',
+                    fontColor: 'Color de letra',
                 },
 
             }
@@ -41,7 +47,10 @@ const messages = {
                 deleting: 'Apagando ProductCategory',
                 showing: 'Detalhes do ProductCategory',
                 labels: {
-                    name: 'Nome'
+                    name: 'Nome',
+                    backgroundColor: 'Background color',
+                    borderColor: 'Border color',
+                    fontColor: 'Font color',
                 },
 
             }

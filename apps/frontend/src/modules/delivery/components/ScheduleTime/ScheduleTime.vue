@@ -54,10 +54,15 @@ export default {
     },
 
     getOptions() {
+
+      //Obtengo la hora de comienzo del dia
       let hour = Dayjs().startOf('day')
-      let now = Dayjs()
+
+      //Obtengo la fecha de mañana para que sea tope
       let tomorrow = hour.add(1, 'day')
 
+      // Obtengo la hora actual y le sumo el tiempo de preparacion
+      let now = Dayjs()
       now = now.add(this.getPreparationTime, 'm')
 
       let working = 0

@@ -20,7 +20,7 @@
             <template v-for="(item,index) in getItemsByCategory(category)">
               <v-list-item ripple class="px-1" :key="item.product.id">
                 <v-list-item-avatar class="my-0 ml-0 mr-1">
-                  <img :src="item.product.image"/>
+                  <img :style="{backgroundColor: getBackgroundColor(item.product)}" :src="item.product.image"/>
                 </v-list-item-avatar>
                 <v-list-item-content class="py-0">
                   <v-list-item-title>
@@ -114,6 +114,12 @@ export default {
     showActions: {type: Boolean, default: false}
   },
   computed: {
+    getBackgroundColor() {
+      return product => {
+        return product.category.backgroundColor ? product.category.backgroundColor : null
+
+      }
+    },
     getCategories() {
       return this.$store.getters.getCategories
     },

@@ -2,6 +2,9 @@ query productCategoryFetch{
     productCategoryFetch{
         id
         name
+        backgroundColor
+        borderColor
+        fontColor
     }
 }
 

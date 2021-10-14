@@ -1,7 +1,10 @@
-mutation productCategoryUpdate($id: ID!, $name:String!){
-    productCategoryUpdate(id: $id, input: {name: $name }){
+mutation productCategoryUpdate($id: ID!, $name:String!, $backgroundColor:String, $borderColor:String, $fontColor:String){
+    productCategoryUpdate(id: $id, input: {name: $name,  backgroundColor: $backgroundColor, borderColor: $borderColor, fontColor: $fontColor }){
         id
         name
+        backgroundColor
+        borderColor
+        fontColor
     }
 }
 

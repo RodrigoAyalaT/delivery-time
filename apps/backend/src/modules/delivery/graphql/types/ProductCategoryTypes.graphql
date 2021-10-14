@@ -1,6 +1,9 @@
 type ProductCategory{
     id: ID!
     name: String!
+    backgroundColor: String
+    borderColor: String
+    fontColor: String
 }
 
 type ProductCategoryPaginated{
@@ -19,6 +22,9 @@ type Query {
 
 input ProductCategoryInput{
     name: String!
+    backgroundColor: String
+    borderColor: String
+    fontColor: String
 }
 
 type ProductCategoryDelete{

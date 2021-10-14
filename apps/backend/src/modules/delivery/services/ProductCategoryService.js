@@ -30,7 +30,7 @@ export const paginateProductCategories = function ( pageNumber = 1, itemsPerPage
         }
         return qs
     }
-    
+
      function getSort(orderBy, orderDesc) {
         if (orderBy) {
             return (orderDesc ? '-' : '') + orderBy
@@ -56,41 +56,41 @@ export const paginateProductCategories = function ( pageNumber = 1, itemsPerPage
 
 
 
-export const createProductCategory = async function (authUser, {name}) {
-    
+export const createProductCategory = async function (authUser, {name, backgroundColor, borderColor, fontColor}) {
+
     const doc = new ProductCategory({
-        name
+        name, backgroundColor, borderColor, fontColor
     })
     doc.id = doc._id;
     return new Promise((resolve, rejects) => {
         doc.save((error => {
-        
+
             if (error) {
                 if (error.name == "ValidationError") {
                     rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
                 rejects(error)
-            }    
-        
+            }
+
             resolve(doc)
         }))
     })
 }
 
-export const updateProductCategory = async function (authUser, id, {name}) {
+export const updateProductCategory = async function (authUser, id, {name,backgroundColor, borderColor, fontColor}) {
     return new Promise((resolve, rejects) => {
         ProductCategory.findOneAndUpdate({_id: id},
-        {name}, 
+        {name,backgroundColor, borderColor, fontColor},
         {new: true, runValidators: true, context: 'query'},
         (error,doc) => {
-            
+
             if (error) {
                 if (error.name == "ValidationError") {
                     rejects(new UserInputError(error.message, {inputErrors: error.errors}));
                 }
                 rejects(error)
-            } 
-        
+            }
+
             resolve(doc)
         })
     })

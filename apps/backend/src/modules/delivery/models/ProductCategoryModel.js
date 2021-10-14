@@ -1,4 +1,4 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 
 
 
@@ -7,11 +7,11 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const Schema = mongoose.Schema;
 
-const ProductCategorySchema = new Schema({ 
-
- name: {type: String, required: true, unique: true}
-
-
+const ProductCategorySchema = new Schema({
+ name: {type: String, required: true, unique: true},
+ backgroundColor: {type: String, required: false},
+ borderColor:  {type: String, required: false},
+ fontColor: {type: String, required: false},
 });
 
 

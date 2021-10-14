@@ -3,20 +3,23 @@ query productPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $or
         totalItems
         page
         items{
-          id
-          name
-        description
-        image
-        price
-        stock
-        active
-        ingredients{
+            id
+            name
+            description
+            image
+            price
+            stock
+            active
+            ingredients{
                 id
                 name
             }
-        category{
+            category{
                 id
                 name
+                backgroundColor
+                borderColor
+                fontColor
             }
         }
     }
