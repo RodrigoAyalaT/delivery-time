@@ -30,6 +30,9 @@ export default {
         order: null,
     },
     getters: {
+        getOrderOrigin(state) {
+            return state.order.origin
+        },
         getMinimunQuantity(state) {
             return state.minimunQuantity
         },
@@ -138,6 +141,7 @@ export default {
         },
         getOrderForm(state) {
             let order = {
+                origin: state.order.origin,
                 delivery: state.order.delivery,
                 contact: state.order.contact,
                 location: state.order.location,
@@ -168,38 +172,14 @@ export default {
             if (
                 !getters.getOrderContact.name ||
                 !getters.getOrderContact.phone ||
-                !getters.getOrderContact.email
+                (getters.getOrderOrigin != "BAR" && !getters.getOrderContact.email)
             ) {
                 return false
             }
 
 
             //MINIMUN PRODUCTS
-            if (getters.getQuantityTotal < state.minimunQuantity) {
-                return false
-            }
-
-            return true
-        },
-        orderBarIsReady(state, getters) {
-            //NO ITEMS
-            if (getters.getQuantityTotal == 0) {
-                return false
-            }
-            //NO DELIVERY COMPLETE
-            if (
-                !getters.getOrderDelivery.mode ||
-                !getters.getOrderDelivery.timeMode ||
-                !getters.getOrderDelivery.time
-            ) {
-                return false
-            }
-
-            //NO CONTACT DATA
-            if (
-                !getters.getOrderContact.name ||
-                !getters.getOrderContact.phone
-            ) {
+            if (getters.getOrderOrigin != "BAR" && getters.getQuantityTotal < state.minimunQuantity) {
                 return false
             }
 
@@ -213,7 +193,7 @@ export default {
             }
 
             //MINIMUN PRODUCTS
-            if (getters.getQuantityTotal < state.minimunQuantity) {
+            if (getters.getOrderOrigin != "BAR" && getters.getQuantityTotal < state.minimunQuantity) {
                 messages.push({msg: 'delivery.empty.minimunQuantity', params: {quantity: state.minimunQuantity}})
             }
 
@@ -233,7 +213,7 @@ export default {
             if (
                 !getters.getOrderContact.name ||
                 !getters.getOrderContact.phone ||
-                !getters.getOrderContact.email
+                (getters.getOrderOrigin != "BAR" && !getters.getOrderContact.email)
             ) {
                 messages.push({msg:'delivery.empty.contact'})
             }
@@ -362,6 +342,9 @@ export default {
 
     },
     mutations: {
+        setOrderOrigin(state,val){
+            state.order.origin = val
+        },
         setMinimunQuantity(state,val){
             state.minimunQuantity = val
         },
@@ -420,6 +403,7 @@ export default {
         initOrder(state){
             state.order = {
                 id: null,
+                origin: null,
                 delivery: {
                     mode: null, //TAKE_AWAY|DELIVERY
                     timeMode: null, //AS_SON_AS_POSIBLE|SCHEDULED

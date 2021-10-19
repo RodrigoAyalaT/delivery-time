@@ -2,6 +2,7 @@ query orderFind($id:ID!){
     orderFind(id:$id){
         id
         state
+        origin
         identifier
         number
         createdAt

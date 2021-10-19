@@ -2,6 +2,7 @@ query orderFindByIdentifier($identifier:String!){
     orderFindByIdentifier(identifier:$identifier){
         id
         state
+        origin
         identifier
         number
         createdAt

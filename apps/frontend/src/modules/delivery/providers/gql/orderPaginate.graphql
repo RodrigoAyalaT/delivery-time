@@ -5,6 +5,7 @@ query orderPaginate( $pageNumber: Int, $itemsPerPage:Int, $search: String, $orde
         items{
             id
             state
+            origin
             identifier
             number
             createdAt

@@ -2,6 +2,7 @@ mutation orderUpdateReceiptFile($orderId: ID!, $receiptFile: String! ){
     orderUpdateReceiptFile(orderId: $orderId, receiptFile: $receiptFile){
         id
         state
+        origin
         identifier
         number
         createdAt

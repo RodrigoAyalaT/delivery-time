@@ -212,6 +212,7 @@ export default {
   created() {
     this.$store.dispatch('initOrderIfIsNull')
     this.$store.dispatch('resetOrderIfStateIsDelivered')
+    this.$store.commit('setOrderOrigin','CUSTOMER')
   },
   mounted() {
     this.$store.dispatch('fetchCategories')

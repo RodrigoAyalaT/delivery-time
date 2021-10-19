@@ -2,6 +2,7 @@ query orderFetch{
     orderFetch{
         id
         state
+        origin
         identifier
         number
         createdAt

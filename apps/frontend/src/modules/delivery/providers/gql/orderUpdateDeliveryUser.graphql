@@ -2,6 +2,7 @@ mutation orderUpdateDeliveryUser($orderId: ID!, $userId: ID! ){
     orderUpdateDeliveryUser(orderId: $orderId, userId: $userId){
         id
         state
+        origin
         identifier
         number
         createdAt

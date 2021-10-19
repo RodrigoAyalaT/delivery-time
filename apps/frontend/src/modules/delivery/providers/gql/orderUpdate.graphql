@@ -2,6 +2,7 @@ mutation orderUpdate($id: ID!, $input: OrderInput ){
     orderUpdate(id: $id, input: $input){
         id
         state
+        origin
         identifier
         number
         createdAt

@@ -2,6 +2,7 @@ mutation orderUpdatePaymentMethod($orderId: ID!, $paymentMethod: String! ){
     orderUpdatePaymentMethod(orderId: $orderId, paymentMethod: $paymentMethod){
         id
         state
+        origin
         identifier
         number
         createdAt

@@ -63,6 +63,7 @@ type Order{
     payment: OrderPayment
     state: OrderStateEnum
     identifier: String
+    origin: String
     number: Int
     createdAt: String
     updatedAt: String
@@ -91,6 +92,7 @@ type Query {
 }
 
 input OrderInput{
+    origin: String
     contact: OrderContactInput!
     location: OrderLocationInput
     delivery: OrderDeliveryInput!

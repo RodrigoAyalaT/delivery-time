@@ -2,6 +2,7 @@ mutation orderCreate($input: OrderInput){
     orderCreate(input: $input){
         id
         state
+        origin
         identifier
         number
         createdAt

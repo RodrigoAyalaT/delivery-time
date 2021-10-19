@@ -25,7 +25,7 @@
       <v-btn class="primary"
              absolute bottom right
              @click="toConfirm=true"
-             :disabled="!$store.getters.orderBarIsReady"
+             :disabled="!$store.getters.orderIsReady"
       >
         {{$t('common.confirm')}}
       </v-btn>
@@ -53,6 +53,7 @@ export default {
   created() {
     this.$store.dispatch('initOrderIfIsNull')
     this.clearOrder()
+    this.$store.commit('setOrderOrigin','BAR')
   },
   methods: {
     onOrderCreated(orderIdentifier){

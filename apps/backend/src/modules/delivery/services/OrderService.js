@@ -124,7 +124,7 @@ async function calculateItems(items, deliveryCost = 0) {
 
 }
 
-export const createOrder = function (authUser, {contact, delivery, location, items, payment}) {
+export const createOrder = function (authUser, {contact, delivery, location, items, payment, origin}) {
 
     return new Promise(async (resolve, rejects) => {
 
@@ -134,6 +134,12 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
 
             if(payment && /TRANSFER/.test(payment.method)){
                 state = 'PENDING_RECEIPT'
+            }
+
+            console.log("ORIGIN",origin)
+
+            if(origin && /BAR/.test(origin)){
+                state = 'NEW'
             }
 
             let userId = authUser ? authUser.id : null
@@ -162,7 +168,7 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
                 state,
                 user: userId,
                 totalQuantity, totalAmount,
-                zone, zoneName, payment
+                zone, zoneName, payment, origin
             })
 
             doc.id = doc._id;
@@ -186,10 +192,10 @@ export const createOrder = function (authUser, {contact, delivery, location, ite
     })
 }
 
-export const updateOrder = async function (authUser, id, {contact, delivery, location, items, state, payment}) {
+export const updateOrder = async function (authUser, id, {contact, delivery, location, items, state, payment, origin}) {
     return new Promise((resolve, rejects) => {
         Order.findOneAndUpdate({_id: id},
-            {contact, delivery, location, items, state, payment},
+            {contact, delivery, location, items, state, payment, origin},
             {new: true, runValidators: true, context: 'query'},
             (error, doc) => {
 

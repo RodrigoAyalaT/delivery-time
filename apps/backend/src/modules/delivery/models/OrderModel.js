@@ -68,6 +68,7 @@ const OrderSchema = new Schema({
         transactionId: {type: String, required: false, unique: false},
         confirmed: {type: Boolean, required: false, unique: false, default: false},
     },
+    origin: {type: String, required: false},
     identifier: {type: String, required: false, unique: false},
     number: {type: Number, required: false, unique: false},
     user: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, unique: false},
