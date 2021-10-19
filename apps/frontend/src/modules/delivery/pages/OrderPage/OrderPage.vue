@@ -151,6 +151,7 @@
           :amount-products="$store.getters.getAmountProducts"
           show-actions
           @close="showOrder = false"
+          show-minimun
       ></cart-detail>
     </v-navigation-drawer>
 

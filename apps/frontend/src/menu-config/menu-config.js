@@ -13,12 +13,6 @@ export default [
         permission: 'ORDER_SHOW_BAR'
     },
     {
-        icon: 'pivot_table_chart',
-        text: 'menu.barOrders',
-        link: {name: "OrderManagerBarPage"},
-        permission: 'ORDER_SHOW_BAR'
-    },
-    {
         icon: 'microwave',
         text: 'menu.kitchenOrders',
         link: {name: "OrderManagerKitchenPage"},

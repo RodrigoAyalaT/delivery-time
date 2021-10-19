@@ -14,6 +14,7 @@ export default {
         orderHistory: [], //List of identifiers
         currentOrderIdentifier: null, //Current identifier order (new->delivered)
         galleryView: 4,
+        minimunQuantity: 0,
         lastLocation: {
             address: '',
             floor: '',
@@ -29,6 +30,9 @@ export default {
         order: null,
     },
     getters: {
+        getMinimunQuantity(state) {
+            return state.minimunQuantity
+        },
         getGalleryView(state) {
             return state.galleryView
         },
@@ -163,8 +167,38 @@ export default {
             //NO CONTACT DATA
             if (
                 !getters.getOrderContact.name ||
+                !getters.getOrderContact.phone ||
+                !getters.getOrderContact.email
+            ) {
+                return false
+            }
+
+
+            //MINIMUN PRODUCTS
+            if (getters.getQuantityTotal < state.minimunQuantity) {
+                return false
+            }
+
+            return true
+        },
+        orderBarIsReady(state, getters) {
+            //NO ITEMS
+            if (getters.getQuantityTotal == 0) {
+                return false
+            }
+            //NO DELIVERY COMPLETE
+            if (
+                !getters.getOrderDelivery.mode ||
+                !getters.getOrderDelivery.timeMode ||
+                !getters.getOrderDelivery.time
+            ) {
+                return false
+            }
+
+            //NO CONTACT DATA
+            if (
+                !getters.getOrderContact.name ||
                 !getters.getOrderContact.phone
-               // || !getters.getOrderContact.email
             ) {
                 return false
             }
@@ -175,20 +209,25 @@ export default {
             let messages = []
 
             if (getters.getQuantityTotal == 0) {
-                messages.push('delivery.empty.items')
+                messages.push({msg: 'delivery.empty.items'})
+            }
+
+            //MINIMUN PRODUCTS
+            if (getters.getQuantityTotal < state.minimunQuantity) {
+                messages.push({msg: 'delivery.empty.minimunQuantity', params: {quantity: state.minimunQuantity}})
             }
 
             if (!getters.getOrderDelivery.mode) {
-                messages.push('delivery.empty.deliveryMode')
+                messages.push({msg:'delivery.empty.deliveryMode'})
             }
 
             if (!getters.getOrderDelivery.timeMode || !getters.getOrderDelivery.time) {
-                messages.push('delivery.empty.time')
+                messages.push({msg:'delivery.empty.time'})
             }
 
 
             if (getters.isDelivery && !getters.getOrderLocation.address) {
-                messages.push('delivery.empty.location')
+                messages.push({msg:'delivery.empty.location'})
             }
 
             if (
@@ -196,13 +235,11 @@ export default {
                 !getters.getOrderContact.phone ||
                 !getters.getOrderContact.email
             ) {
-                messages.push('delivery.empty.contact')
+                messages.push({msg:'delivery.empty.contact'})
             }
 
-            if (
-                !getters.getOrderPayment.method
-            ) {
-                messages.push('delivery.empty.paymentMethod')
+            if (!getters.getOrderPayment.method) {
+                messages.push({msg:'delivery.empty.paymentMethod'})
             }
 
             return messages
@@ -325,6 +362,9 @@ export default {
 
     },
     mutations: {
+        setMinimunQuantity(state,val){
+            state.minimunQuantity = val
+        },
         setGalleryView(state, val) {
             state.galleryView = val
         },

@@ -28,9 +28,8 @@
 
       <v-card class="pb-1">
         <div class="pa-1">
-          <v-btn text small class="primary--text onPrimary" @click="$emit('showOrder',order)">#{{
-              order.number
-            }}
+          <v-btn text small class="primary--text onPrimary" @click="$emit('showOrder',order)">
+            #{{order.number }} - {{order.contact.name}}
           </v-btn>
           <v-btn class="float-right" icon x-small @click="menu=false">
             <v-icon>close</v-icon>

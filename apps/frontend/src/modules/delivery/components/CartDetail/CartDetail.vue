@@ -75,12 +75,17 @@
       </v-btn>
       <v-btn
           class="primary"
-          :disabled="quantityTotal?false:true"
+          :disabled="quantityTotal < getMinimunQuantity"
           @click="next"
       >
         {{ $t('common.next') }}
       </v-btn>
     </v-card-actions>
+
+    <v-card-text v-if="showMinimun && quantityTotal < getMinimunQuantity">
+      <v-alert type="warning"> {{ $t('delivery.empty.minimunQuantity', {quantity: getMinimunQuantity }) }}</v-alert>
+    </v-card-text>
+
     <confirm-dialog
         v-model="showCancel"
         @confirmed="confirmed"
@@ -111,9 +116,13 @@ export default {
     amountProducts: {type: Number, default: 0},
     deliveryCost: {type: Number, default: null},
     amountTotal: {type: Number, default: 0},
-    showActions: {type: Boolean, default: false}
+    showActions: {type: Boolean, default: false},
+    showMinimun: {type: Boolean, default: false},
   },
   computed: {
+    getMinimunQuantity(){
+      return this.$store.getters.getMinimunQuantity
+    },
     getBackgroundColor() {
       return product => {
         return product.category.backgroundColor ? product.category.backgroundColor : null

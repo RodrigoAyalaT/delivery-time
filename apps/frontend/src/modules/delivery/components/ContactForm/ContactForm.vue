@@ -117,8 +117,8 @@ export default {
     },
     emailRules() {
       return [
-        v => (this.emailRequired && !!v) || this.$t('user.validation.required'),
-        v => /.+@.+/.test(v) || this.$t('user.validation.emailFormat')
+        v => (!this.emailRequired || !!v) || this.$t('user.validation.required'),
+        v => (v.length === 0 || /.+@.+/.test(v)) || this.$t('user.validation.emailFormat')
       ]
     },
     phoneRules() {

@@ -3,6 +3,7 @@ const messages = {
         delivery: {
             empty: {
                 items: 'Your order is empty',
+                minimunQuantity: 'The minimum quantity of products is {quantity}',
                 deliveryMode: 'You must choose the delivery mode "take away" or "delivery".',
                 time: 'You must choose the delivery time',
                 location: 'You must indicate your address',
@@ -15,6 +16,7 @@ const messages = {
         delivery: {
             empty: {
                 items: 'Su pedido esta vacío',
+                minimunQuantity: 'La cantidad minima de productos es {quantity}',
                 deliveryMode: 'Debe elegir el modo de envío "take away" o "delivery".',
                 time: 'Debes elegir la hora de entrega',
                 location: 'Debes indicar tu dirección',
@@ -28,6 +30,7 @@ const messages = {
         delivery: {
             empty: {
                 items: 'Su pedido esta vacío',
+                minimunQuantity: 'La cantidad minima de productos es {quantity}',
                 deliveryMode: 'Debe elegir el modo de envío "take away" o "delivery".',
                 time: 'Debes elegir la hora de entrega',
                 location: 'Debes indicar tu dirección',

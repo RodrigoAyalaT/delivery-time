@@ -13,12 +13,14 @@
       </v-col>
       <v-col class="flex-grow-0 flex-shrink-1">
         <v-btn
+            v-if="user"
             color="indigo" dark
             fab x-small
             @click="assignAndNext"
             :loading="loading"
+
         >
-          <v-icon>check</v-icon>
+          <v-icon>play_arrow</v-icon>
         </v-btn>
       </v-col>
     </template>
@@ -34,7 +36,7 @@
             @click="next"
             :loading="loading"
         >
-          <v-icon>check</v-icon>
+          <v-icon>play_arrow</v-icon>
         </v-btn>
       </v-col>
     </template>
@@ -43,7 +45,7 @@
       <v-col class="flex-grow-1">
         <v-btn
             color="indigo" dark
-             small
+             x-small fab
             @click="next"
         >
           <v-icon>play_arrow</v-icon>

@@ -18,7 +18,7 @@
     "@dracul/dayjs-frontend": "^1.2.16",
     "@dracul/media-frontend": "^1.2.17",
     "@dracul/notification-frontend": "^1.1.31",
-    "@dracul/settings-frontend": "^1.2.23",
+    "@dracul/settings-frontend": "^1.2.24",
     "@dracul/user-frontend": "^1.2.12",
     "animate.css": "^4.1.1",
     "apollo-cache-inmemory": "^1.6.6",

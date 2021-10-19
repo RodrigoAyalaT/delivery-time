@@ -6,15 +6,18 @@
     <template v-if="orders">
       <v-row>
 
-        <v-col cols="12" sm="5">
+        <v-col cols="12" sm="4">
           <v-card>
-            <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.takeAway') }}</v-card-title>
+            <v-card-title class="text--h4 grey--text text--darken-2">
+              {{ $t('delivery.mode.takeAway') }}
+            </v-card-title>
 
             <template v-if="takeAwayOrders.length">
               <order-manager-table
                   :orders="takeAwayOrders"
                   :zones="zones"
                   @next="next"
+                  @prev="prev"
                   @showOrder="showOrder"
                   :state="state"
                   mode="TAKE_AWAY"
@@ -29,9 +32,11 @@
           </v-card>
         </v-col>
 
-        <v-col cols="12" sm="7">
+        <v-col cols="12" sm="8">
           <v-card>
-            <v-card-title class="text--h4 grey--text text--darken-2">{{ $t('delivery.mode.delivery') }}</v-card-title>
+            <v-card-title class="text--h4 grey--text text--darken-2">
+              {{ $t('delivery.mode.delivery') }}
+            </v-card-title>
 
             <template v-if="deliveryOrders.length">
             <order-manager-table
@@ -39,6 +44,7 @@
                 :zones="zones"
                 enable-zone
                 @next="next"
+                @prev="prev"
                 @showOrder="showOrder"
                 :state="state"
                 mode="DELIVERY"
@@ -127,6 +133,32 @@ export default {
       OrderProvider.updateOrderState({
         id: order.id,
         state: this.getNextStep(order)
+      })
+          .then(() => {
+            this.fetchOrders()
+            this.$emit('changed')
+          })
+          .catch(e => {
+            console.error(e)
+          })
+          .finally(() => {
+            this.loadingOrder = false
+          })
+    },
+    getPrevStep(order) {
+      let index = this.$store.getters.getOrderStates.findIndex(state => state === order.state)
+      if(order.delivery.mode === 'TAKE_AWAY' && order.state === 'DELIVERED'){
+        return this.$store.getters.getOrderStates[index - 2]
+      }else if(index > 0){
+        return this.$store.getters.getOrderStates[index - 1]
+      }
+      return order.state
+    },
+    prev(order) {
+      this.loadingOrder = true
+      OrderProvider.updateOrderState({
+        id: order.id,
+        state: this.getPrevStep(order)
       })
           .then(() => {
             this.fetchOrders()

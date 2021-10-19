@@ -22,7 +22,7 @@
             :key="i"
             type="warning"
         >
-          {{ $t(message) }}
+          {{ $t(message.msg,(message.params ? message.params : null)) }}
         </v-alert>
       </v-col>
     </template>

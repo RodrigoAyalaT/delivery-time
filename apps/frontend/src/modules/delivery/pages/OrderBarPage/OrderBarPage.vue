@@ -15,7 +15,7 @@
     <v-row v-else>
       <v-col cols="12" md="4" style="border-right: gainsboro 1px solid;">
         <order-mode dense @confirm="toConfirm=true"></order-mode>
-        <contact-form dense></contact-form>
+        <contact-form dense :email-required="false"></contact-form>
 
       </v-col>
 
@@ -25,7 +25,7 @@
       <v-btn class="primary"
              absolute bottom right
              @click="toConfirm=true"
-             :disabled="!$store.getters.orderIsReady"
+             :disabled="!$store.getters.orderBarIsReady"
       >
         {{$t('common.confirm')}}
       </v-btn>

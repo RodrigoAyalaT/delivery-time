@@ -39,7 +39,12 @@ store.dispatch('loadCustomizations')
 
 //LoadSettings
 SettingsProvider.setGqlc(apolloClient)
-store.dispatch('loadSettings')
+store.dispatch('loadSettings').then(settings => {
+    let mq = settings.find(s => s.key === 'MinimumQuantity')
+    if(mq && mq.value){
+        store.commit('setMinimunQuantity', parseInt(mq.value))
+    }
+})
 
 new Vue({
     vuetify,
